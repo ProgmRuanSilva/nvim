@@ -3,39 +3,46 @@ local M = {}
 
 M.general = {
   i = {
-    ["<C-b>"] = { "<ESC>^i", "Beginning of line" },
-
+    ["<A-k>"] = { "<Up>", "Move up" },
     ["<A-h>"] = { "<Left>", "Move left" },
+    ["<A-j>"] = { "<Down>", "Move down" },
     ["<A-l>"] = { "<Right>", "Move right" },
 
-    ["<A-j>"] = { "<Down>", "Move down" },
-    ["<A-k>"] = { "<Up>", "Move up" },
+    ["<A-c>"] = { "<C-o><End>", "End of line" },
+    ["<A-g>"] = { "<ESC>^i", "Begin of line" },
 
-    ["<A-g>"] = { "<C-o><End>", "End of line" },
-
-    ["<A-n>"] = { "<C-o>b", "Back word phrase" },
-    ["<A-m>"] = { "<C-o>w", "Next word phrase" },
+    ["<A-n>"] = { "<C-o>b", "Move to back word" },
+    ["<A-m>"] = { "<C-o>w", "Move to Next word" },
 
     ["<A-w>"] = { "<C-o>dw", "Delete next word" },
-    ["<A-q>"] = { "<C-o>db<Backspace>", "Delete previews word" },
     ["<A-p>"] = { "<Backspace>", "Backward Delete char" },
+    ["<A-q>"] = { "<C-o>db<Backspace>", "Delete previews word" },
+
+    ["<A-u>"] = { "<C-o>p", "Paste from clipboard" },
+    ["<A-o>"] = { "<C-o>o", "Create empty line at bottom" },
+    ["<A-b>"] = { "<C-o><S-v>y<C-o>p", "Copy line to below" },
+
+    ["<A-s>"] = { "<cmd>w!<CR>", "save" },
+    ["<A-i>"] = { "<C-o>u", "restore" },
+    ["<A-r>"] = { "<C-o><C-r>", "undo restore" },
+    ["<A-v>"] = { "<ESC>", "Escape insert mode" },
+
+    ["<A-0>"] = { ")", "Add  on insertion mode" },
+    ["<A-]>"] = { "}", "Add  on insertion mode" },
+    ["<A-[>"] = { "{}<Left>", "Add  on insertion mode" },
+    ["<A-9>"] = { "()<Left>", "Add comma on insertion mode" },
 
     ["<A-f>"] = { "<cmd>HopWord<CR>", "HopWord command to go to selected word" },
     ["<A-a>"] = { "<cmd>HopAnywhere<CR>", "HopWord command to go to selected word" },
 
-    ["<A-o>"] = { "<C-o>o", "Create empty line on bottom" },
-    ["<A-b>"] = { "<C-o><S-v>y<C-o>p", "Copy line to below" },
-
-    ["<A-s>"] = { "<cmd>w!<CR>", "save" },
-    ["<A-r>"] = { "<C-o><C-r>", "undo restore" },
-
-    ["<A-u>"] = { "<C-o>p", "Paste clipboard" },
-
-    ["<A-v>"] = { "<ESC>", "Escape insert mode" },
-
-    ["<A-9>"] = { "()<Left>", "Add comma on insertion mode" },
-    ["<A-0>"] = { ")", "Add comma on insertion mode" },
-    ["<A-'>"] = { "'", "Add comma on insertion mode" },
+    ["<A-'>"] = { "'", "Add  on insertion mode" },
+    ["<A-1>"] = { "!", "Add  on insertion mode" },
+    ["<A-2>"] = { "@", "Add  on insertion mode" },
+    ["<A-3>"] = { "#", "Add  on insertion mode" },
+    ["<A-->"] = { "_", "Add  on insertion mode" },
+    ["<A-=>"] = { "=", "Add  on insertion mode" },
+    ["<A-,>"] = { "<", "Add  on insertion mode" },
+    ["<A-.>"] = { ">", "Add  on insertion mode" },
 
   },
 

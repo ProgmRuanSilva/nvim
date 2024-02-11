@@ -1,5 +1,5 @@
 local options = {
-    defaults = {
+  defaults = {
     vimgrep_arguments = {
       "rg",
       "-L",
@@ -45,51 +45,34 @@ local options = {
     buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
     mappings = {
       i = {
-
-        --Moviment
-        ["<A-m>"] = require("telescope.actions").move_selection_next,
-        ["<A-n>"] = require("telescope.actions").move_selection_previous,
+        ["<A-k>"] = require("telescope.actions").move_selection_next,
+        ["<A-l>"] = require("telescope.actions").move_selection_previous,
         ["<A-j>"] = require("telescope.actions").select_default,
 
-        --Splits
         ["<A-w>"] = require("telescope.actions").file_vsplit,
         ["<A-e>"] = require("telescope.actions").file_split,
 
-        --Preview View
-        -- ["<A-w>"] = require("telescope.actions").results_scrolling_up,
-        -- ["<A-e>"] = require("telescope.actions").results_scrolling_down,
+        ["<A-m>"] = require("telescope.actions").preview_scrolling_down,
+        ["<A-n>"] = require("telescope.actions").preview_scrolling_down,
 
-        -- ["<A-m>"] = require("telescope.actions").preview_scrolling_down,
-        -- ["<A-n>"] = require("telescope.actions").preview_scrolling_down,
-
-        --Edit
         ["<A-q>"] = require("telescope.actions").close,
 
         ["<A-a>"] = require("telescope.actions").toggle_all,
-
       },
 
       n = {
-        --Edition
         ["j"] = require("telescope.actions").select_default,
         ["<A-j>"] = require("telescope.actions").select_default,
 
-        --Moviment
-        ["m"] = require("telescope.actions").move_selection_next,
-        ["n"] = require("telescope.actions").move_selection_previous,
+        ["k"] = require("telescope.actions").move_selection_next,
+        ["l"] = require("telescope.actions").move_selection_previous,
 
-        --Splits
         ["<A-w>"] = require("telescope.actions").file_vsplit,
         ["<A-e>"] = require("telescope.actions").file_split,
 
-        --Preview View
-        -- ["<A-n>"] = require("telescope.actions").preview_scrolling_up,
-        -- ["<A-m>"] = require("telescope.actions").preview_scrolling_down,
+        ["<A-n>"] = require("telescope.actions").preview_scrolling_up,
+        ["<A-m>"] = require("telescope.actions").preview_scrolling_down,
 
-        --Git
-        ["<A-c>"] = require("telescope.actions").git_create_branch,
-
-        --Exit
         ["q"] = require("telescope.actions").close,
         ["<A-q>"] = require("telescope.actions").close,
       },
