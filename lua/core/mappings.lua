@@ -1,5 +1,4 @@
 -- n, v, i, t = mode names
-
 local M = {}
 
 M.general = {
@@ -12,104 +11,101 @@ M.general = {
     ["<A-j>"] = { "<Down>", "Move down" },
     ["<A-k>"] = { "<Up>", "Move up" },
 
-    ["<A-g>"] = { "<C-o><End>", "End of line"},
+    ["<A-g>"] = { "<C-o><End>", "End of line" },
 
-    ["<A-n>"] = { "<C-o>b", "Back word phrase"},
-    ["<A-m>"] = { "<C-o>w", "Next word phrase"},
+    ["<A-n>"] = { "<C-o>b", "Back word phrase" },
+    ["<A-m>"] = { "<C-o>w", "Next word phrase" },
 
-    ["<A-w>"] = { "<C-o>dw", "Delete next word"},
-    ["<A-q>"] = { "<C-o>db<Backspace>", "Delete previews word"},
-    ["<A-p>"] = { "<Backspace>", "Backward Delete char"},
+    ["<A-w>"] = { "<C-o>dw", "Delete next word" },
+    ["<A-q>"] = { "<C-o>db<Backspace>", "Delete previews word" },
+    ["<A-p>"] = { "<Backspace>", "Backward Delete char" },
 
-    ["<A-f>"] = { "<cmd>HopWord<CR>", "HopWord command to go to selected word"},
-    ["<A-a>"] = { "<cmd>HopAnywhere<CR>", "HopWord command to go to selected word"},
+    ["<A-f>"] = { "<cmd>HopWord<CR>", "HopWord command to go to selected word" },
+    ["<A-a>"] = { "<cmd>HopAnywhere<CR>", "HopWord command to go to selected word" },
 
-    ["<A-o>"] = {"<C-o>o", "Create empty line on bottom"},
-    ["<A-b>"] = {"<C-o><S-v>y<C-o>p", "Copy line to below"},
+    ["<A-o>"] = { "<C-o>o", "Create empty line on bottom" },
+    ["<A-b>"] = { "<C-o><S-v>y<C-o>p", "Copy line to below" },
 
-    ["<A-s>"] = { "<cmd>w!<CR>", "save"},
-    ["<A-r>"] = {"<C-o><C-r>", "undo restore"},
+    ["<A-s>"] = { "<cmd>w!<CR>", "save" },
+    ["<A-r>"] = { "<C-o><C-r>", "undo restore" },
 
-    ["<A-u>"] = {"<C-o>p", "Paste clipboard"},
+    ["<A-u>"] = { "<C-o>p", "Paste clipboard" },
 
     ["<A-v>"] = { "<ESC>", "Escape insert mode" },
 
-    ["<A-9>"] = {"()<Left>", "Add comma on insertion mode"},
-    ["<A-0>"] = {")", "Add comma on insertion mode"},
+    ["<A-9>"] = { "()<Left>", "Add comma on insertion mode" },
+    ["<A-0>"] = { ")", "Add comma on insertion mode" },
+    ["<A-'>"] = { "'", "Add comma on insertion mode" },
 
   },
 
   n = {
     ["<Esc>"] = { "<cmd> noh <CR>", "Clear highlights" },
-    -- switch between windows
-    -- ["<C-h>"] = { "<C-w>h", "Window left" },
-    ["<A-h>"] = { "<C-w>l", "Window right" },
-    ["<A-j>"] = { "<C-w>k", "Window up" },
 
-    ["<A-l>"] = {"<cmd>TmuxNavigateLeft<CR>"},
-    ["<A-k>"] = {"<cmd>TmuxNavigateDown<CR>"},
+    ["n"] = { "b", "back one word for lazy people" },
+    ["m"] = { "w", "next one word for lazy people" },
 
-    ["n"] = {"b", "back one word for lazy people"},
-    ["m"] = {"w", "next one word for lazy people"},
+    ["dm"] = { "dw" },
+    ["dn"] = { "db" },
+    ["df"] = { "d$" },
 
-    ["dm"] = {"dw"},
-    ["dn"] = {"db"},
-    ["df"] = {"d$"},
+    ["<A-s>"] = { "<cmd>w!<CR>" },
+    ["<A-r>"] = { "<C-r>", "undo restore" },
 
-    ["<A-s>"] = {"<cmd>w!<CR>"},
-    ["<A-r>"] = {"<C-r>", "undo restore"},
+    [";"] = { ":", "enter command mode" },
+    ["<A-q>"] = { "<Esc>", "esc key" },
+    ["<leader>u"] = { "<cmd>q<CR>", "Quit window" },
 
-    [";"] = { ":", "enter command mode"},
-    ["<A-q>"] = {"<Esc>", "esc key"},
-    ["<leader>u"] = {"<cmd>q<CR>", "Quit window"},
+    ["f"] = { "<END>", "navigate to end of line" },
+    ["ff"] = { "<HOME>", "navigate to beggining of line" },
 
-    ["f"] = {"<END>", "navigate to end of line"},
-    ["ff"] = {"<HOME>", "navigate to beggining of line"},
+    ["<A-m>"] = { "n", "next one word for lazy people" },
+    ["<A-n>"] = { "<S-n>", "next one word for lazy people" },
 
-    ["<A-m>"] = {"n", "next one word for lazy people"},
-    ["<A-n>"] = {"<S-n>", "next one word for lazy people"},
+    ["<S-n>"] = { "<S-v>xp", "move line to down" },
+    ["<S-m>"] = { "<S-v>xk<S-p>", "move line to up" },
 
-    ["<S-n>"]= {"<S-v>xp", "move line to down"},
-    ["<S-m>"]= {"<S-v>xk<S-p>", "move line to up"},
+    [","] = { "o<C-c>", "add a new line in normal mode" },
+    ["."] = { "<S-o><C-c>", "add a new line below in normal mode" },
 
-    [","] = {"o<C-c>", "add a new line in normal mode"},
-    ["."] = {"<S-o><C-c>", "add a new line below in normal mode"},
-
-    ["<A-o>"] = {"<S-o>", "insert on line below"},
-    ["<A-b>"] = {"<S-v>yp", "copy line below"},
+    ["<A-o>"] = { "<S-o>", "insert on line below" },
+    ["<A-b>"] = { "<S-v>yp", "copy line below" },
 
     ["<leader>i"] = { "<cmd>vsplit<CR>", "new vertical split" },
-    ["<leader>o"] = { "<cmd>split<CR>", "new horizontal split"},
+    ["<leader>o"] = { "<cmd>split<CR>", "new horizontal split" },
 
-    ["<A-f>"] = {"<cmd>HopWord<CR>", "HopWord"},
-    ["<A-c>"] = {"<cmd>HopWord<CR>"},
-    ["<A-a>"] = {"<cmd>HopAnywhere<CR>"},
+    ["<A-f>"] = { "<cmd>HopWord<CR>", "HopWord" },
+    ["<A-c>"] = { "<cmd>HopWord<CR>" },
+    ["<A-a>"] = { "<cmd>HopAnywhere<CR>" },
 
-    ["<leader>gf"] = {"<cmd>GitBlameToggle<CR>"},
+    ["<leader>gf"] = { "<cmd>GitBlameToggle<CR>" },
 
-    ["<leader>gd"] = {"<cmd>LazyGit<CR>"},
-    ["<leader>ld"] = {"<cmd>LazyDocker<CR>"},
+    ["<leader>gd"] = { "<cmd>LazyGit<CR>" },
+    ["<leader>ld"] = { "<cmd>LazyDocker<CR>" },
 
-    ["<leader>q"] = {"<cmd>DBUIToggle<CR>"},
+    ["<leader>q"] = { "<cmd>DBUIToggle<CR>" },
 
     ["<leader>s"] = { "<cmd>Navbuddy<CR>", "Navbuddy Toggle" },
 
     ["<leader>fz"] = { "<cmd>ZenMode<CR>" },
 
 
-    ["gpd"] = {"<cmd>lua require('goto-preview').goto_preview_definition()<CR>", "goto definition"},
-    ["<S-d>"] = {"<cmd>lua require('goto-preview').goto_preview_references()<CR>", "goto reference"},
-    ["gpi"] = {"<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", "goto implementation"},
-    ["gpf"] = {"<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>", "goto type"},
-    ["gpm"] = {"<cmd>lua require('goto-preview').goto_preview_declaration()<CR> ", "goto declaration"},
-    ["<A-w>"] = {"<cmd>lua require('goto-preview').close_all_win()<CR>", "close goto tabs"},
+    ["gpd"] = { "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", "goto definition" },
+    ["<S-d>"] = { "<cmd>lua require('goto-preview').goto_preview_references()<CR>", "goto reference" },
+    ["gpi"] = { "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", "goto implementation" },
+    ["gpf"] = { "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>", "goto type" },
+    ["gpm"] = { "<cmd>lua require('goto-preview').goto_preview_declaration()<CR> ", "goto declaration" },
+    ["<A-w>"] = { "<cmd>lua require('goto-preview').close_all_win()<CR>", "close goto tabs" },
 
-    -- Copy all
     ["<C-c>"] = { "<cmd> %y+ <CR>", "Copy whole file" },
 
-    -- line numbers
     ["<leader>n"] = { "<cmd> set nu! <CR>", "Toggle line number" },
     ["<leader>rn"] = { "<cmd> set rnu! <CR>", "Toggle relative number" },
+
+    ["<leader>b"] = { "<cmd> enew <CR>", "New buffer" },
+    ["<leader>ch"] = { "<cmd> NvCheatsheet <CR>", "Mapping cheatsheet" },
+
+
 
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
@@ -119,24 +115,10 @@ M.general = {
     ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
     ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
     ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
-
-    -- new buffer
-    ["<leader>b"] = { "<cmd> enew <CR>", "New buffer" },
-    ["<leader>ch"] = { "<cmd> NvCheatsheet <CR>", "Mapping cheatsheet" },
-
-    ["<leader>fm"] = {
-      function()
-        vim.lsp.buf.format { async = true }
-      end,
-      "LSP formatting",
-    },
-  },
-
-  t = {
-    ["<C-x>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "Escape terminal mode" },
   },
 
   v = {
+
     ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
     ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
     ["<"] = { "<gv", "Indent line" },
@@ -149,14 +131,17 @@ M.general = {
     ["f"] = { "$" },
 
     ["<A-q>"] = { "<Esc>" },
+
   },
 
   c = {
+
     ["<A-p>"] = { "<Backspace>" },
     ["<A-j>"] = { "<Enter>" },
     ["<A-m>"] = { "<Down>" },
     ["<A-n>"] = { "<Up>" },
     ["<A-h>"] = { "<Left>" },
+
   },
 
   x = {
@@ -172,7 +157,6 @@ M.tabufline = {
   plugin = true,
 
   n = {
-    -- cycle through buffers
     ["<tab>"] = {
       function()
         require("nvchad.tabufline").tabuflineNext()
@@ -180,14 +164,6 @@ M.tabufline = {
       "Goto next buffer",
     },
 
-    ["<S-tab>"] = {
-      function()
-        require("nvchad.tabufline").tabuflinePrev()
-      end,
-      "Goto prev buffer",
-    },
-
-    -- close buffer + hide terminal buffer
     ["<leader>x"] = {
       function()
         require("nvchad.tabufline").close_buffer()
@@ -215,50 +191,42 @@ M.telescope = {
   plugin = true,
 
   n = {
-    -- find
-    ["<leader>w"] = {"<cmd>Telescope find_files<CR>"},
+    ["<leader>w"] = { "<cmd>Telescope find_files<CR>" },
 
-    ["<leader>d"] = {"<cmd>Telescope oldfiles<CR>"},
-    ["<leader>j"] = {"<cmd>Telescope file_browser<CR>"},
+    ["<leader>d"] = { "<cmd>Telescope oldfiles<CR>" },
+    ["<leader>j"] = { "<cmd>Telescope file_browser<CR>" },
 
     ["<leader><leader>"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
-    ["<leader>f"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
-    ["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
+
+    ["<leader>ff"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
+
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" },
+
     ["<leader>fa"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "Find in current buffer" },
 
-    -- git
     ["<leader>cm"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "Git status" },
 
-    -- pick a hidden term
     ["<leader>pt"] = { "<cmd> Telescope terms <CR>", "Pick hidden term" },
 
-    -- theme switcher
     ["<leader>th"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
 
-    ["<leader>ma"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
+    ["<leader>l"] = { "<cmd>Telescope zoxide list<CR>" },
+    ["<leader>["] = { "<cmd>Telescope notify<CR>" },
+    ["<leader>pp"] = { "<cmd>Telescope package_info<CR>" },
 
-    ["<leader>l"] = {"<cmd>Telescope zoxide list<CR>"},
-    ["<leader>["] = {"<cmd>Telescope notify<CR>"},
-    ["<leader>pp"] = {"<cmd>Telescope package_info<CR>"},
+    ["<leader>gc"] = { "<cmd>Telescope gitmoji<CR>" },
 
-    ["<leader>gc"] = {"<cmd>Telescope gitmoji<CR>"},
-    ["<leader>gv"] = {"<cmd>Telescope git_bcommits<CR>"},
-    ["<leader>gb"] = {"<cmd>Telescope git_branches<CR>"},
-    ["<leader>gs"] = {"<cmd>Telescope git_status<CR>"},
+    ["<leader>gm"] = { "<cmd>:lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", "Change to worktree" },
+    ["<leader>gn"] = { "<cmd>:lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>", "Create a new worktree " },
 
-    ["<leader>gm"] = { "<cmd>:lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", "Change to worktree"},
-    ["<leader>gn"] = { "<cmd>:lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>", "Create a new worktree "},
-
-    ["<leader>ge"] = {"<cmd>Telescope emoji<CR>"},
+    ["<leader>ge"] = { "<cmd>Telescope emoji<CR>" },
   },
 }
 
 M.comment = {
   plugin = true,
 
-  -- toggle comment in both modes
   n = {
     ["<leader>/"] = {
       function()
@@ -280,9 +248,7 @@ M.nvimtree = {
   plugin = true,
 
   n = {
-    -- toggle
     ["<leader>e"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
-    ["<leader>]"] = { "<cmd>NvimTreeToggle<CR>", "Toggle nvimtree" }
   },
 }
 
@@ -310,7 +276,7 @@ M.blankline = {
   plugin = true,
 
   n = {
-    ["<leader>cc"] = {
+    ["<leader>cc"] = { -- Change it to be more usable
       function()
         local ok, start = require("indent_blankline.utils").get_current_context(
           vim.g.indent_blankline_context_patterns,
@@ -376,12 +342,12 @@ M.gitsigns = {
       "Preview hunk",
     },
 
-    ["<leader>gb"] = {
-      function()
-        package.loaded.gitsigns.blame_line()
-      end,
-      "Blame line",
-    },
+    -- ["<leader>gb"] = {
+    --   function()
+    --     package.loaded.gitsigns.blame_line()
+    --   end,
+    --   "Blame line",
+    -- },
 
     ["<leader>td"] = {
       function()
@@ -412,6 +378,13 @@ M.lspconfig = {
   -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
 
   n = {
+    ["<leader>fm"] = {
+      function()
+        vim.lsp.buf.format { async = true }
+      end,
+      "LSP formatting",
+
+    },
     ["gD"] = {
       function()
         vim.lsp.buf.declaration()
@@ -535,72 +508,14 @@ M.lspconfig = {
   },
 }
 
-
--- M.nvterm = {
---   plugin = false,
---
---   t = {
---     -- toggle in terminal mode
---     ["<A-i>"] = {
---       function()
---         require("nvterm.terminal").toggle "float"
---       end,
---       "Toggle floating term",
---     },
---
---     ["<A-h>"] = {
---       function()
---         require("nvterm.terminal").toggle "horizontal"
---       end,
---       "Toggle horizontal term",
---     },
---
---     ["<A-v>"] = {
---       function()
---         require("nvterm.terminal").toggle "vertical"
---       end,
---       "Toggle vertical term",
---     },
---   },
---
---   n = {
---     -- toggle in normal mode
---     ["<A-i>"] = {
---       function()
---         require("nvterm.terminal").toggle "float"
---       end,
---       "Toggle floating term",
---     },
---
---     ["<A-h>"] = {
---       function()
---         require("nvterm.terminal").toggle "horizontal"
---       end,
---       "Toggle horizontal term",
---     },
---
---     ["<A-v>"] = {
---       function()
---         require("nvterm.terminal").toggle "vertical"
---       end,
---       "Toggle vertical term",
---     },
---
---     -- new
---     ["<leader>h"] = {
---       function()
---         require("nvterm.terminal").new "horizontal"
---       end,
---       "New horizontal term",
---     },
---
---     ["<leader>v"] = {
---       function()
---         require("nvterm.terminal").new "vertical"
---       end,
---       "New vertical term",
---     },
---   },
--- }
+-- Tmux Navigation
+vim.api.nvim_set_keymap('n', '<A-k>', [[winnr('#') < 0 ? 'k' : ':TmuxNavigateUp<CR>']],
+  { expr = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-j>', [[winnr('#') < 0 ? 'j' : ':TmuxNavigateDown<CR>']],
+  { expr = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-l>', [[winnr('#') < 0 ? 'l' : ':TmuxNavigateRight<CR>']],
+  { expr = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-h>', [[winnr('#') < 0 ? 'h' : ':TmuxNavigateLeft<CR>']],
+  { expr = true, noremap = true, silent = true })
 
 return M

@@ -1,11 +1,11 @@
 require('hop').setup {
 
-keys = 'eovqpdgflhckisuran',
+  keys = 'eovqpdgflhckisuran',
 
-directions = require('hop.hint').HintDirection,
+  directions = require('hop.hint').HintDirection,
 
-quit_key = '<SPC>',
+  quit_key = '<SPC>',
 
-multi_windows = true,
+  multi_windows = true,
 
 }
