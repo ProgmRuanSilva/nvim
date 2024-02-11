@@ -9,21 +9,22 @@ M.general = {
     ["<A-l>"] = { "<Right>", "Move right" },
 
     ["<A-c>"] = { "<C-o><End>", "End of line" },
-    ["<A-g>"] = { "<ESC>^i", "Begin of line" },
+    ["<A-u>"] = { "<ESC>^i", "Begin of line" },
 
     ["<A-n>"] = { "<C-o>b", "Move to back word" },
     ["<A-m>"] = { "<C-o>w", "Move to Next word" },
+
+    ["<A-g>"] = { "<C-o>d", "Enter in delete mode" },
 
     ["<A-w>"] = { "<C-o>dw", "Delete next word" },
     ["<A-p>"] = { "<Backspace>", "Backward Delete char" },
     ["<A-q>"] = { "<C-o>db<Backspace>", "Delete previews word" },
 
-    ["<A-u>"] = { "<C-o>p", "Paste from clipboard" },
-    ["<A-o>"] = { "<C-o>o", "Create empty line at bottom" },
-    ["<A-b>"] = { "<C-o><S-v>y<C-o>p", "Copy line to below" },
+    ["<A-y>"] = { "<C-o>p", "Paste from clipboard" },
+    ["<A-b>"] = { "<C-o>o", "Create empty line at bottom" },
 
     ["<A-s>"] = { "<cmd>w!<CR>", "save" },
-    ["<A-i>"] = { "<C-o>u", "restore" },
+    ["<A-o>"] = { "<C-o>u", "restore" },
     ["<A-r>"] = { "<C-o><C-r>", "undo restore" },
     ["<A-v>"] = { "<ESC>", "Escape insert mode" },
 
@@ -35,14 +36,15 @@ M.general = {
     ["<A-f>"] = { "<cmd>HopWord<CR>", "HopWord command to go to selected word" },
     ["<A-a>"] = { "<cmd>HopAnywhere<CR>", "HopWord command to go to selected word" },
 
-    ["<A-'>"] = { "'", "Add  on insertion mode" },
-    ["<A-1>"] = { "!", "Add  on insertion mode" },
-    ["<A-2>"] = { "@", "Add  on insertion mode" },
+    ["<A-'>"] = { "'", "Add ' on insertion mode" },
+    ["<A-1>"] = { "!", "Add ! on insertion mode" },
+    ["<A-2>"] = { "@", "Add @ on insertion mode" },
     ["<A-3>"] = { "#", "Add  on insertion mode" },
     ["<A-->"] = { "_", "Add  on insertion mode" },
     ["<A-=>"] = { "=", "Add  on insertion mode" },
-    ["<A-,>"] = { "<", "Add  on insertion mode" },
-    ["<A-.>"] = { ">", "Add  on insertion mode" },
+
+    ["<A-,>"] = { "<C-o>o<C-c>", "Add a line into insertion mode" },
+    ["<A-.>"] = { "<C-o><S-o><C-c>", "Add a line into on insertion mode" },
 
   },
 
