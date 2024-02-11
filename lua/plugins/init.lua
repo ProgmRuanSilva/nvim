@@ -84,6 +84,11 @@ local default_plugins = {
     end,
   },
 
+  {
+    "f-person/git-blame.nvim",
+    cmd = "GitBlameToggle",
+  },
+
   -- lsp stuff
   {
     "williamboman/mason.nvim",
@@ -196,6 +201,21 @@ local default_plugins = {
     end,
   },
 
+  -- Only load whichkey after all the gui
+  {
+    "folke/which-key.nvim",
+    keys = { "<leader>", "<c-r>", "<c-w>", '"', "'", "`", "c", "v", "g" },
+    init = function()
+      require("core.utils").load_mappings "whichkey"
+    end,
+    cmd = "WhichKey",
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "whichkey")
+      require("which-key").setup(opts)
+    end,
+  },
+
+  --- Telescope
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -218,18 +238,40 @@ local default_plugins = {
     end,
   },
 
-  -- Only load whichkey after all the gui
   {
-    "folke/which-key.nvim",
-    keys = { "<leader>", "<c-r>", "<c-w>", '"', "'", "`", "c", "v", "g" },
-    init = function()
-      require("core.utils").load_mappings "whichkey"
-    end,
-    cmd = "WhichKey",
-    config = function(_, opts)
-      dofile(vim.g.base46_cache .. "whichkey")
-      require("which-key").setup(opts)
-    end,
+    "nooproblem/git-worktree.nvim",
+    event = "VeryLazy",
+  },
+
+  {
+    "xiyaowong/telescope-emoji.nvim",
+    event = "VeryLazy",
+  },
+
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim" },
+    config = function ()
+      require"plugins.configs.file-browser"
+    end
+  },
+
+  {
+    "jvgrootveld/telescope-zoxide",
+    dependencies = {"nvim-telescope/telescope.nvim", "nvim-lua/popup.nvim" },
+    config = function ()
+      require"plugins.configs.zoxide"
+    end
+  },
+
+  {
+    "olacin/telescope-gitmoji.nvim",
+    event = {"VeryLazy"},
+    config = function ()
+      require"plugins.configs.gitmoji"
+    end
   },
 
   -- Navigation
@@ -237,7 +279,7 @@ local default_plugins = {
     "karb94/neoscroll.nvim",
     event = {"VeryLazy"},
     config = function()
-      require "custom.configs.neoscroll"
+      require "plugins.configs.neoscroll"
     end,
   },
 
@@ -250,7 +292,7 @@ local default_plugins = {
     "phaazon/hop.nvim",
      event = {"VimEnter"},
     config = function()
-      require"custom.configs.hop"
+      require"plugins.configs.hop"
     end,
   },
 
@@ -291,6 +333,202 @@ local default_plugins = {
       }
     end
   },
+
+  {
+    "itchyny/vim-cursorword",
+    event = "VeryLazy",
+  },
+
+  {
+    "crnvl96/lazydocker.nvim",
+    event = "VeryLazy",
+    opts = {},
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    }
+  },
+
+  {
+    "kdheepak/lazygit.nvim",
+    event = "VeryLazy",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+  },
+
+  {
+    "David-Kunz/gen.nvim",
+    event = "VeryLazy",
+  },
+
+  {
+    "Exafunction/codeium.vim",
+    event = "BufEnter",
+    config = function ()
+      vim.keymap.set('i', '<A-i>', function () return vim.fn['codeium#Accept']() end, { expr = true })
+      -- vim.keymap.set('i', '<A-[>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+      vim.keymap.set('i', '<A-]>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+      vim.keymap.set('i', '<A-[>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+    end
+  },
+
+  {
+    "vuki656/package-info.nvim",
+    event = "VeryLazy",
+    config = function ()
+      require('package-info').setup()
+    end
+  },
+
+  {
+    "tpope/vim-dadbod",
+    opt = true,
+    requires = {
+      "kristijanhusak/vim-dadbod-ui",
+      "kristijanhusak/vim-dadbod-completion",
+    },
+    config = function()
+      require("plugins.configs.dadbod").setup()
+    end,
+  },
+
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    event = "VeryLazy",
+    dependencies = {
+      { 'tpope/vim-dadbod', lazy = true },
+      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+    },
+    cmd = {
+      'DBUI',
+      'DBUIToggle',
+      'DBUIAddConnection',
+      'DBUIFindBuffer',
+    },
+    init = function()
+      vim.g.db_ui_use_nerd_fonts = 1
+    end,
+  },
+
+
+  -- Visual
+  {
+    "folke/zen-mode.nvim",
+    cmd = "ZenMode",
+    config = function()
+      require "plugins.configs.zenmode"
+    end,
+  },
+
+  --Text Edition
+  {
+    "max397574/better-escape.nvim",
+    event = {"VimEnter"},
+    config = function()
+      require"plugins.configs.better_escape"
+    end,
+  },
+
+  {
+    "windwp/nvim-ts-autotag",
+    event = {"VimEnter"},
+    config = function()
+      require"plugins.configs.autotag"
+    end,
+  },
+
+  {
+    "MunifTanjim/prettier.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "jose-elias-alvarez/null-ls.nvim",
+    },
+    config = function()
+      require("plugins.configs.prettier")
+    end
+  },
+
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        --We need configurate on surround file
+      })
+    end
+  },
+
+  {
+    "hrsh7th/cmp-buffer",
+    event = "VeryLazy",
+  },
+
+  {
+    "hrsh7th/cmp-cmdline",
+    event = "VeryLazy",
+    config = function ()
+      require"plugins.configs.cmp"
+    end
+  },
+
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      require("notify").setup({
+        background_colour = "#000000",
+      })
+    end
+  },
+
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+    config = function ()
+      require"plugins.configs.noice"
+    end
+  },
+
+  -- {
+  --   "",
+  --   event = "VeryLazy",
+  -- },
+
+  -- {
+  --   "",
+  --   event = "VeryLazy",
+  -- },
+
+  -- {
+  --   "",
+  --   event = "VeryLazy",
+  -- },
+
+  -- {
+  --   "",
+  --   event = "VeryLazy",
+  -- },
+
+  -- {
+  --   "",
+  --   event = "VeryLazy",
+  -- },
+
+  -- {
+  --   "",
+  --   event = "VeryLazy",
+  -- },
+
+  -- {
+  --   "",
+  --   event = "VeryLazy",
+  -- },
+
 }
 
 local config = require("core.utils").load_config()

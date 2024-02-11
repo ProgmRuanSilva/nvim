@@ -53,7 +53,6 @@
   "telescope-gitmoji.nvim": { "branch": "master", "commit": "7e89f41aa25fb06ad5fe27b5524494266e08e3f9" },
   "telescope-zoxide": { "branch": "main", "commit": "68966349aa1b8e9ade403e18479ecf79447389a7" },
   "telescope.nvim": { "branch": "master", "commit": "0f865f17af4f9bc1587a0132414cdfd32d91852e" },
-  "treesj": { "branch": "main", "commit": "60e27280030f9cd8dfb6ceb335922c6ff76682cc" },
   "ui": { "branch": "v2.0", "commit": "d6e992e21e655dfa73266863c2292c0394f173b4" },
   "vim-cursorword": { "branch": "master", "commit": "371fdd7fa8817c28aa09d181cfcfa3c7ca29bf56" },
   "vim-dadbod": { "branch": "master", "commit": "9d3e3ce74a264642a41e8ae126be5afd095ef107" },

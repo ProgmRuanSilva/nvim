@@ -1,127 +1,57 @@
-local cmp = require "cmp"
+local cmp = require("cmp")
+  cmp.setup({
+    sources = {
+      {
+        name = 'buffer',
+        option = {
+          -- Options go into this table
+        },
+      },
+    },
+  })
 
-dofile(vim.g.base46_cache .. "cmp")
+  local mappings = {
 
-local cmp_ui = require("core.utils").load_config().ui.cmp
-local cmp_style = cmp_ui.style
+    ["<A-j>"] = cmp.mapping.confirm({ select = true }),
+    ["<A-q>"] = cmp.mapping.close({ select = true}),
 
-local field_arrangement = {
-  atom = { "kind", "abbr", "menu" },
-  atom_colored = { "kind", "abbr", "menu" },
-}
+    ["<A-n>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+    ["<A-m>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
 
-local formatting_style = {
-  -- default fields order i.e completion word + item.kind + item.kind icons
-  fields = field_arrangement[cmp_style] or { "abbr", "kind", "menu" },
-
-  format = function(_, item)
-    local icons = require "nvchad.icons.lspkind"
-    local icon = (cmp_ui.icons and icons[item.kind]) or ""
-
-    if cmp_style == "atom" or cmp_style == "atom_colored" then
-      icon = " " .. icon .. " "
-      item.menu = cmp_ui.lspkind_text and "   (" .. item.kind .. ")" or ""
-      item.kind = icon
-    else
-      icon = cmp_ui.lspkind_text and (" " .. icon .. " ") or icon
-      item.kind = string.format("%s %s", icon, cmp_ui.lspkind_text and item.kind or "")
-    end
-
-    return item
-  end,
-}
-
-local function border(hl_name)
-  return {
-    { "╭", hl_name },
-    { "─", hl_name },
-    { "╮", hl_name },
-    { "│", hl_name },
-    { "╯", hl_name },
-    { "─", hl_name },
-    { "╰", hl_name },
-    { "│", hl_name },
+    ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+    ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
   }
-end
 
-local options = {
-  completion = {
-    completeopt = "menu,menuone",
-  },
-
-  window = {
+  -- Use buffer source for `/`.
+  cmp.setup.cmdline("/", {
+    preselect = "none",
     completion = {
-      side_padding = (cmp_style ~= "atom" and cmp_style ~= "atom_colored") and 1 or 0,
-      winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:None",
-      scrollbar = true,
+      completeopt = "menu,preview,menuone,noselect",
     },
-    documentation = {
-      border = border "CmpDocBorder",
-      winhighlight = "Normal:CmpDoc",
+    mapping = mappings,
+    sources = {
+      { name = "buffer" },
     },
-  },
-  snippet = {
-    expand = function(args)
-      require("luasnip").lsp_expand(args.body)
-    end,
-  },
+    experimental = {
+      ghost_text = true,
+      native_menu = false,
+    },
+  })
 
-  formatting = formatting_style,
-
-  mapping = {
-    ["<A-Space>"] = cmp.mapping.complete(),
-    ["<A-k>"] = cmp.mapping.select_prev_item(),
-    ["<A-j>"] = cmp.mapping.select_next_item(),
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<A-l>"] = cmp.mapping.close(),
-    ["<A-h>"] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = true,
+  -- Use cmdline & path source for ':'.
+  cmp.setup.cmdline(":", {
+    preselect = "none",
+    completion = {
+      completeopt = "menu,preview,menuone,noselect",
     },
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif require("luasnip").expand_or_jumpable() then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-      else
-        fallback()
-      end
-    end, {
-      "i",
-      "s",
+    mapping = mappings,
+    sources = cmp.config.sources({
+      { name = "path" },
+    }, {
+      { name = "cmdline" },
     }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif require("luasnip").jumpable(-1) then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-      else
-        fallback()
-      end
-    end, {
-      "i",
-      "s",
-    }),
-  },
-  sources = {
-    { name = "nvim_lsp", trigger_characters = { "-" } },
-    { name = "luasnip" },
-    { name = "buffer" },
-    { name = "nvim_lua" },
-    { name = "path" },
-    { name = "hrsh7th/cmp-nvim-lsp" },
-    { name = "L3MON4D3/LuaSnip" },
-    { name = "saadparwaiz1/cpm_luasnip" },
-    { name = "Exafunction/codeium.vim" },
-  },
-  experimental = {
-    ghost_text = true,
-  },
-}
-
-if cmp_style ~= "atom" and cmp_style ~= "atom_colored" then
-  options.window.completion.border = border "CmpBorder"
-end
-
-return options
+    experimental = {
+      ghost_text = true,
+      native_menu = false,
+    },
+  })
