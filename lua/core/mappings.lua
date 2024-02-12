@@ -9,22 +9,22 @@ M.general = {
     ["<A-l>"] = { "<Right>", "Move right" },
 
     ["<A-c>"] = { "<C-o><End>", "End of line" },
-    ["<A-u>"] = { "<ESC>^i", "Begin of line" },
+    ["<A-g>"] = { "<ESC>^i", "Begin of line" },
 
     ["<A-n>"] = { "<C-o>b", "Move to back word" },
     ["<A-m>"] = { "<C-o>w", "Move to Next word" },
 
-    ["<A-g>"] = { "<C-o>d", "Enter in delete mode" },
+    ["<A-o>"] = { "<C-o>d", "Enter in delete mode" },
 
     ["<A-w>"] = { "<C-o>dw", "Delete next word" },
     ["<A-p>"] = { "<Backspace>", "Backward Delete char" },
     ["<A-q>"] = { "<C-o>db<Backspace>", "Delete previews word" },
 
-    ["<A-y>"] = { "<C-o>p", "Paste from clipboard" },
-    ["<A-b>"] = { "<C-o>o", "Create empty line at bottom" },
+    ["<A-b>"] = { "<C-o>p", "Paste from clipboard" },
+    ["<A-y>"] = { "<C-o>o", "Create empty line at bottom" },
 
     ["<A-s>"] = { "<cmd>w!<CR>", "save" },
-    ["<A-o>"] = { "<C-o>u", "restore" },
+    ["<A-u>"] = { "<C-o>u", "restore" },
     ["<A-r>"] = { "<C-o><C-r>", "undo restore" },
     ["<A-v>"] = { "<ESC>", "Escape insert mode" },
 
@@ -40,6 +40,11 @@ M.general = {
     ["<A-1>"] = { "!", "Add ! on insertion mode" },
     ["<A-2>"] = { "@", "Add @ on insertion mode" },
     ["<A-3>"] = { "#", "Add  on insertion mode" },
+    ["<A-4>"] = { "$", "Add  on insertion mode" },
+    ["<A-5>"] = { "%", "Add  on insertion mode" },
+    ["<A-6>"] = { "¨", "Add  on insertion mode" },
+    ["<A-7>"] = { "&", "Add  on insertion mode" },
+    ["<A-8>"] = { "*", "Add  on insertion mode" },
     ["<A-->"] = { "_", "Add  on insertion mode" },
     ["<A-=>"] = { "=", "Add  on insertion mode" },
 
@@ -49,7 +54,7 @@ M.general = {
   },
 
   n = {
-    ["<Esc>"] = { "<cmd> noh <CR>", "Clear highlights" },
+    ["<A-q>"] = { "<cmd> noh <CR>", "Clear highlights" },
 
     ["n"] = { "b", "back one word for lazy people" },
     ["m"] = { "w", "next one word for lazy people" },
@@ -62,7 +67,7 @@ M.general = {
     ["<A-r>"] = { "<C-r>", "undo restore" },
 
     [";"] = { ":", "enter command mode" },
-    ["<A-q>"] = { "<Esc>", "esc key" },
+    -- ["<A-q>"] = { "<Esc>", "esc key" },
     ["<leader>u"] = { "<cmd>q<CR>", "Quit window" },
 
     ["f"] = { "<END>", "navigate to end of line" },
@@ -84,20 +89,19 @@ M.general = {
     ["<leader>o"] = { "<cmd>split<CR>", "new horizontal split" },
 
     ["<A-f>"] = { "<cmd>HopWord<CR>", "HopWord" },
-    ["<A-c>"] = { "<cmd>HopWord<CR>" },
+    -- ["<A-c>"] = { "<cmd>HopWord<CR>" },
     ["<A-a>"] = { "<cmd>HopAnywhere<CR>" },
 
     ["<leader>gf"] = { "<cmd>GitBlameToggle<CR>" },
-
     ["<leader>gd"] = { "<cmd>LazyGit<CR>" },
+
     ["<leader>ld"] = { "<cmd>LazyDocker<CR>" },
 
     ["<leader>q"] = { "<cmd>DBUIToggle<CR>" },
 
     ["<leader>s"] = { "<cmd>Navbuddy<CR>", "Navbuddy Toggle" },
 
-    ["<leader>fz"] = { "<cmd>ZenMode<CR>" },
-
+    ["<leader>zz"] = { "<cmd>ZenMode<CR>" },
 
     ["gpd"] = { "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", "goto definition" },
     ["<S-d>"] = { "<cmd>lua require('goto-preview').goto_preview_references()<CR>", "goto reference" },
@@ -180,6 +184,20 @@ M.tabufline = {
       "Close buffer",
     },
 
+    ["<A-m>"] = {
+      function()
+        require("nvchad.tabufline").tabuflineNext()
+      end,
+      "Goto next buffer",
+    },
+
+    ["<A-n>"] = {
+      function()
+        require("nvchad.tabufline").tabuflinePrev()
+      end,
+      "Goto prev buffer",
+    },
+
     ["<S-l>"] = {
       function()
         require("nvchad.tabufline").tabuflineNext()
@@ -200,25 +218,18 @@ M.telescope = {
   plugin = true,
 
   n = {
-    ["<leader>w"] = { "<cmd>Telescope find_files<CR>" },
-
     ["<leader>d"] = { "<cmd>Telescope oldfiles<CR>" },
     ["<leader>j"] = { "<cmd>Telescope file_browser<CR>" },
 
-    ["<leader><leader>"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
+    ["<leader><leader>"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all files" },
 
-    ["<leader>ff"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
+    ["<leader>f"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
 
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" },
 
     ["<leader>fa"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "Find in current buffer" },
 
-    ["<leader>cm"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
-    ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "Git status" },
-
-    ["<leader>pt"] = { "<cmd> Telescope terms <CR>", "Pick hidden term" },
-
-    ["<leader>th"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
+    ["<leader>ft"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
 
     ["<leader>l"] = { "<cmd>Telescope zoxide list<CR>" },
     ["<leader>["] = { "<cmd>Telescope notify<CR>" },
@@ -226,10 +237,10 @@ M.telescope = {
 
     ["<leader>gc"] = { "<cmd>Telescope gitmoji<CR>" },
 
-    ["<leader>gm"] = { "<cmd>:lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", "Change to worktree" },
+    ["<leader>gm"] = { "<cmd>:lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", "Gitworktree" },
     ["<leader>gn"] = { "<cmd>:lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>", "Create a new worktree " },
 
-    ["<leader>ge"] = { "<cmd>Telescope emoji<CR>" },
+    ["<leader>fe"] = { "<cmd>Telescope emoji<CR>" },
   },
 }
 
@@ -285,7 +296,7 @@ M.blankline = {
   plugin = true,
 
   n = {
-    ["<leader>cc"] = { -- Change it to be more usable
+    ["<A-c>"] = {
       function()
         local ok, start = require("indent_blankline.utils").get_current_context(
           vim.g.indent_blankline_context_patterns,
@@ -308,7 +319,7 @@ M.gitsigns = {
 
   n = {
     -- Navigation through hunks
-    ["]c"] = {
+    ["<leader>gl"] = {
       function()
         if vim.wo.diff then
           return "]c"
@@ -318,11 +329,11 @@ M.gitsigns = {
         end)
         return "<Ignore>"
       end,
-      "Jump to next hunk",
+      "Gitsigns Jump to next hunk",
       opts = { expr = true },
     },
 
-    ["[c"] = {
+    ["<leader>gh"] = {
       function()
         if vim.wo.diff then
           return "[c"
@@ -332,23 +343,15 @@ M.gitsigns = {
         end)
         return "<Ignore>"
       end,
-      "Jump to prev hunk",
+      "Gitsigns Jump to prev hunk",
       opts = { expr = true },
     },
 
-    -- Actions
-    ["<leader>rh"] = {
+    ["<leader>gr"] = {
       function()
         require("gitsigns").reset_hunk()
       end,
-      "Reset hunk",
-    },
-
-    ["<leader>ph"] = {
-      function()
-        require("gitsigns").preview_hunk()
-      end,
-      "Preview hunk",
+      "Gitsigns Reset hunk",
     },
 
     -- ["<leader>gb"] = {
@@ -358,11 +361,11 @@ M.gitsigns = {
     --   "Blame line",
     -- },
 
-    ["<leader>td"] = {
+    ["<leader>gt"] = {
       function()
         require("gitsigns").toggle_deleted()
       end,
-      "Toggle deleted",
+      "Gitsigins Toggle deleted",
     },
   },
 }
