@@ -11,17 +11,15 @@ M.general = {
     ["<A-c>"] = { "<C-o><End>", "End of line" },
     ["<A-g>"] = { "<ESC>^i", "Begin of line" },
 
-    ["<A-n>"] = { "<C-o>b", "Move to back word" },
-    ["<A-m>"] = { "<C-o>w", "Move to Next word" },
-
-    ["<A-o>"] = { "<C-o>d", "Enter in delete mode" },
+    ["<A-n>"] = { "<C-o>b", "Back word phrase" },
+    ["<A-m>"] = { "<C-o>w", "Next word phrase" },
 
     ["<A-w>"] = { "<C-o>dw", "Delete next word" },
-    ["<A-p>"] = { "<Backspace>", "Backward Delete char" },
     ["<A-q>"] = { "<C-o>db<Backspace>", "Delete previews word" },
+    ["<A-p>"] = { "<Backspace>", "Backward Delete char" },
 
-    ["<A-b>"] = { "<C-o>p", "Paste from clipboard" },
-    ["<A-y>"] = { "<C-o>o", "Create empty line at bottom" },
+    ["<A-o>"] = { "<C-o>o", "Create empty line on bottom" },
+    ["<A-b>"] = { "<C-o><S-v>y<C-o>p", "Copy line to below" },
 
     ["<A-s>"] = { "<cmd>w!<CR>", "save" },
     ["<A-u>"] = { "<C-o>u", "restore" },
@@ -39,22 +37,25 @@ M.general = {
     ["<A-'>"] = { "'", "Add ' on insertion mode" },
     ["<A-1>"] = { "!", "Add ! on insertion mode" },
     ["<A-2>"] = { "@", "Add @ on insertion mode" },
-    ["<A-3>"] = { "#", "Add  on insertion mode" },
-    ["<A-4>"] = { "$", "Add  on insertion mode" },
-    ["<A-5>"] = { "%", "Add  on insertion mode" },
-    ["<A-6>"] = { "¨", "Add  on insertion mode" },
-    ["<A-7>"] = { "&", "Add  on insertion mode" },
-    ["<A-8>"] = { "*", "Add  on insertion mode" },
-    ["<A-->"] = { "_", "Add  on insertion mode" },
-    ["<A-=>"] = { "=", "Add  on insertion mode" },
+    ["<A-3>"] = { "#", "Add # on insertion mode" },
+    ["<A-4>"] = { "$", "Add $ on insertion mode" },
+    ["<A-5>"] = { "%", "Add % on insertion mode" },
+    ["<A-6>"] = { "¨", "Add ¨ on insertion mode" },
+    ["<A-7>"] = { "&", "Add & on insertion mode" },
+    ["<A-8>"] = { "*", "Add * on insertion mode" },
+    ["<A-->"] = { "_", "Add _ on insertion mode" },
+    ["<A-=>"] = { "+", "Add + on insertion mode" },
 
-    ["<A-,>"] = { "<C-o>o<C-c>", "Add a line into insertion mode" },
-    ["<A-.>"] = { "<C-o><S-o><C-c>", "Add a line into on insertion mode" },
+    ["<A-,>"] = { "<", "Add < on insertion mode" },
+    ["<A-.>"] = { ">", "Add > on insertion mode" },
 
+    ["<A-;>"] = { "<C-o><S-o><C-c>i", "Add a line into on insertion mode" },
+    ["<A-/>"] = { "<C-o><S-o><C-c>i", "Add a line into on insertion mode" },
   },
 
   n = {
     ["<A-q>"] = { "<cmd> noh <CR>", "Clear highlights" },
+    ["<Esc>"] = { "<cmd> noh <CR>", "Clear highlights" },
 
     ["n"] = { "b", "back one word for lazy people" },
     ["m"] = { "w", "next one word for lazy people" },
@@ -89,12 +90,12 @@ M.general = {
     ["<leader>o"] = { "<cmd>split<CR>", "new horizontal split" },
 
     ["<A-f>"] = { "<cmd>HopWord<CR>", "HopWord" },
-    -- ["<A-c>"] = { "<cmd>HopWord<CR>" },
+    ["<A-c>"] = { "<cmd>HopWord<CR>" },
     ["<A-a>"] = { "<cmd>HopAnywhere<CR>" },
 
     ["<leader>gf"] = { "<cmd>GitBlameToggle<CR>" },
-    ["<leader>gd"] = { "<cmd>LazyGit<CR>" },
 
+    ["<leader>gd"] = { "<cmd>LazyGit<CR>" },
     ["<leader>ld"] = { "<cmd>LazyDocker<CR>" },
 
     ["<leader>q"] = { "<cmd>DBUIToggle<CR>" },
@@ -110,6 +111,7 @@ M.general = {
     ["gpm"] = { "<cmd>lua require('goto-preview').goto_preview_declaration()<CR> ", "goto declaration" },
     ["<A-w>"] = { "<cmd>lua require('goto-preview').close_all_win()<CR>", "close goto tabs" },
 
+    -- Copy all
     ["<C-c>"] = { "<cmd> %y+ <CR>", "Copy whole file" },
 
     ["<leader>n"] = { "<cmd> set nu! <CR>", "Toggle line number" },
@@ -151,8 +153,8 @@ M.general = {
 
     ["<A-p>"] = { "<Backspace>" },
     ["<A-j>"] = { "<Enter>" },
-    ["<A-m>"] = { "<Down>" },
-    ["<A-n>"] = { "<Up>" },
+    ["<A-k>"] = { "<Down>" },
+    ["<A-l>"] = { "<Up>" },
     ["<A-h>"] = { "<Left>" },
 
   },
@@ -218,10 +220,11 @@ M.telescope = {
   plugin = true,
 
   n = {
+    -- find
+    ["<leader><leader>"] = { "<cmd>Telescope find_files<CR>" },
+
     ["<leader>d"] = { "<cmd>Telescope oldfiles<CR>" },
     ["<leader>j"] = { "<cmd>Telescope file_browser<CR>" },
-
-    ["<leader><leader>"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all files" },
 
     ["<leader>f"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
 
@@ -237,8 +240,20 @@ M.telescope = {
 
     ["<leader>gc"] = { "<cmd>Telescope gitmoji<CR>" },
 
-    ["<leader>gm"] = { "<cmd>:lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", "Gitworktree" },
+    ["<leader>gm"] = { "<cmd>:lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", "Change to worktree" },
     ["<leader>gn"] = { "<cmd>:lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>", "Create a new worktree " },
+
+    ["<leader>gpl"] = {"<cmd>Octo pr list<CR>", 'Octo list pull requests'},
+    ["<leader>gpa"] = {"<cmd>Octo pr create<CR>", 'Octo create pull request'},
+    ["<leader>gpe"] = {"<cmd>Octo pr edit<CR>", 'Octo create pull request'},
+    ["<leader>gpc"] = {"<cmd>Octo pr changes<CR>", 'Octo list pull request changes'},
+    ["<leader>gpd"] = {"<cmd>Octo pr close<CR>", 'Octo close pull request'},
+
+    ["<leader>gil"] = {"<cmd>Octo issue list<CR>", 'Octo list issues'},
+    ["<leader>gia"] = {"<cmd>Octo issue create<CR>", 'Octo create issue'},
+    ["<leader>gie"] = {"<cmd>Octo issue edit<CR>", 'Octo edit issue'},
+
+    ["<leader>grl"] = {"<cmd>Octo repo list<CR>", 'Octo list repos'},
 
     ["<leader>fe"] = { "<cmd>Telescope emoji<CR>" },
   },
@@ -296,7 +311,7 @@ M.blankline = {
   plugin = true,
 
   n = {
-    ["<A-c>"] = {
+    ["<A-c>"] = { --Add it into insertion mode
       function()
         local ok, start = require("indent_blankline.utils").get_current_context(
           vim.g.indent_blankline_context_patterns,
@@ -481,7 +496,7 @@ M.lspconfig = {
       "Goto next",
     },
 
-    ["<leader>q"] = {
+    ["<leader>Q"] = {
       function()
         vim.diagnostic.setloclist()
       end,
