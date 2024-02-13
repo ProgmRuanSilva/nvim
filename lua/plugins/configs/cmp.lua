@@ -105,20 +105,19 @@ local options = {
     }),
   },
   sources = {
+    { name = "cmdline" },
+    { name = "L3MON4D3/LuaSnip" },
+    { name = "Exafunction/codeium.vim" },
     { name = "nvim_lsp",                trigger_characters = { "-" } },
     { name = "luasnip" },
     { name = "buffer" },
     { name = "nvim_lua" },
     { name = "path" },
-    { name = "cmdline" },
     { name = "hrsh7th/cmp-nvim-lsp" },
-    { name = "L3MON4D3/LuaSnip" },
     { name = "saadparwaiz1/cpm_luasnip" },
-    { name = "Exafunction/codeium.vim" },
   },
   experimental = {
     ghost_text = true,
-    native_menu = false,
   },
 }
 
@@ -133,29 +132,29 @@ local options = {
 --   },
 -- })
 --
--- cmp.setup.cmdline(":", {
---   preselect = "none",
---   mapping = cmp.mapping.preset.insert(),
---   completion = {
---     completeopt = "menu,preview,menuone,noselect",
---   },
--- })
+cmp.setup.cmdline(":", {
+  preselect = "none",
+  mapping = cmp.mapping.preset.insert(),
+  completion = {
+    completeopt = "menu,preview,menuone,noselect",
+  },
+})
 
-  cmp.setup.cmdline({ '/', '?' }, {
-    -- mapping = cmp.mapping.preset.insert(),
-    sources = {
-      { name = 'buffer' }
-    }
-  })
-
- cmp.setup.cmdline(':', {
-    -- mapping = cmp.mapping.preset.insert(),
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
-  })
+ --  cmp.setup.cmdline({ '/', '?' }, {
+ --    mapping = cmp.mapping.preset.insert(),
+ --    sources = {
+ --      { name = 'buffer' }
+ --    }
+ --  })
+ --
+ -- cmp.setup.cmdline(':', {
+ --    mapping = cmp.mapping.preset.insert(),
+ --    sources = cmp.config.sources({
+ --      { name = 'path' }
+ --    }, {
+ --      { name = 'cmdline' }
+ --    })
+ --  })
 
 if cmp_style ~= "atom" and cmp_style ~= "atom_colored" then
   options.window.completion.border = border "CmpBorder"

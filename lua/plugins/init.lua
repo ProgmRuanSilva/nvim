@@ -154,6 +154,7 @@ local default_plugins = {
       {
         "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-nvim-lua",
+        "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -460,18 +461,6 @@ local default_plugins = {
     end
   },
 
-  {
-    "hrsh7th/cmp-buffer",
-    event = "VeryLazy",
-  },
-
-  {
-    "hrsh7th/cmp-cmdline",
-    event = "VeryLazy",
-    config = function()
-      require "plugins.configs.cmp"
-    end
-  },
 
   {
     "rcarriga/nvim-notify",
@@ -514,7 +503,9 @@ local default_plugins = {
       require"plugins.configs.dashboard"
     end,
     dependencies = { { 'nvim-tree/nvim-web-devicons' } }
-  }
+  },
+
+
   -- {
   --   "",
   --   event = "VeryLazy",
