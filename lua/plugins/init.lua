@@ -170,12 +170,12 @@ local default_plugins = {
   {
     "numToStr/Comment.nvim",
     keys = {
-      { "gcc", mode = "n", desc = "Comment toggle current line" },
-      { "gc", mode = { "n", "o" }, desc = "Comment toggle linewise" },
-      { "gc", mode = "x", desc = "Comment toggle linewise (visual)" },
-      { "gbc", mode = "n", desc = "Comment toggle current block" },
-      { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
-      { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
+      { "gcc", mode = "n",          desc = "Comment toggle current line" },
+      { "gc",  mode = { "n", "o" }, desc = "Comment toggle linewise" },
+      { "gc",  mode = "x",          desc = "Comment toggle linewise (visual)" },
+      { "gbc", mode = "n",          desc = "Comment toggle current block" },
+      { "gb",  mode = { "n", "o" }, desc = "Comment toggle blockwise" },
+      { "gb",  mode = "x",          desc = "Comment toggle blockwise (visual)" },
     },
     init = function()
       require("core.utils").load_mappings "comment"
@@ -253,31 +253,31 @@ local default_plugins = {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim" },
-    config = function ()
-      require"plugins.configs.file-browser"
+    config = function()
+      require "plugins.configs.file-browser"
     end
   },
 
   {
     "jvgrootveld/telescope-zoxide",
-    dependencies = {"nvim-telescope/telescope.nvim", "nvim-lua/popup.nvim" },
-    config = function ()
-      require"plugins.configs.zoxide"
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/popup.nvim" },
+    config = function()
+      require "plugins.configs.zoxide"
     end
   },
 
   {
     "olacin/telescope-gitmoji.nvim",
-    event = {"VeryLazy"},
-    config = function ()
-      require"plugins.configs.gitmoji"
+    event = { "VeryLazy" },
+    config = function()
+      require "plugins.configs.gitmoji"
     end
   },
 
   -- Navigation
   {
     "karb94/neoscroll.nvim",
-    event = {"VeryLazy"},
+    event = { "VeryLazy" },
     config = function()
       require "plugins.configs.neoscroll"
     end,
@@ -290,45 +290,45 @@ local default_plugins = {
 
   {
     "phaazon/hop.nvim",
-     event = {"VimEnter"},
+    event = { "VimEnter" },
     config = function()
-      require"plugins.configs.hop"
+      require "plugins.configs.hop"
     end,
   },
 
   {
     "mg979/vim-visual-multi",
-    event = {"VimEnter"},
+    event = { "VimEnter" },
     enabled = true,
   },
 
   {
     "mattn/emmet-vim",
-    event = {"VimEnter"},
+    event = { "VimEnter" },
     enabled = true,
   },
 
- {
-  'rmagatti/goto-preview',
+  {
+    'rmagatti/goto-preview',
     event = "VeryLazy",
     config = function()
       require('goto-preview').setup {
-        width = 120;                                        -- Width of the floating window
-        height = 15;                                        -- Height of the floating window
-        border = {"↖", "─" ,"╮", "│", "╯", "─", "╰", "│"};  -- Border characters of the floating window
-        default_mappings = false;
-        debug = false;                                      -- Print debug information
-        opacity = nil;                                      -- 0-100 opacity level of the floating window where 100 is fully transparent.
-        resizing_mappings = false;                          -- Binds arrow keys to resizing the floating window.
-        post_open_hook = nil;                               -- A function taking two arguments, a buffer and a window to be ran as a hook.
-        references = {                                      -- Configure the telescope UI for slowing the references cycling window.
+        width = 120, -- Width of the floating window
+        height = 15, -- Height of the floating window
+        border = { "↖", "─", "╮", "│", "╯", "─", "╰", "│" }, -- Border characters of the floating window
+        default_mappings = false,
+        debug = false, -- Print debug information
+        opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
+        resizing_mappings = false, -- Binds arrow keys to resizing the floating window.
+        post_open_hook = nil, -- A function taking two arguments, a buffer and a window to be ran as a hook.
+        references = { -- Configure the telescope UI for slowing the references cycling window.
           telescope = require("telescope")
-        };
-        focus_on_open = true;                               -- Focus the floating window when opening it.
-        dismiss_on_move = true;                             -- Dismiss the floating window when moving the cursor.
-        force_close = true,                                 -- passed into vim.api.nvim_win_close's second argument. See :h nvim_win_close
-        bufhidden = "wipe",                                 -- the bufhidden option to set on the floating window. See :h bufhidden
-        stack_floating_preview_windows = true,              -- Whether to nest floating windows
+        },
+        focus_on_open = true,                                        -- Focus the floating window when opening it.
+        dismiss_on_move = true,                                      -- Dismiss the floating window when moving the cursor.
+        force_close = true,                                          -- passed into vim.api.nvim_win_close's second argument. See :h nvim_win_close
+        bufhidden = "wipe",                                          -- the bufhidden option to set on the floating window. See :h bufhidden
+        stack_floating_preview_windows = true,                       -- Whether to nest floating windows
         preview_window_title = { enable = true, position = "left" }, -- Whether
       }
     end
@@ -352,7 +352,7 @@ local default_plugins = {
     "kdheepak/lazygit.nvim",
     event = "VeryLazy",
     dependencies = {
-        "nvim-lua/plenary.nvim",
+      "nvim-lua/plenary.nvim",
     },
   },
 
@@ -364,8 +364,8 @@ local default_plugins = {
   {
     "Exafunction/codeium.vim",
     event = "BufEnter",
-    config = function ()
-      vim.keymap.set('i', '<A-i>', function () return vim.fn['codeium#Accept']() end, { expr = true })
+    config = function()
+      vim.keymap.set('i', '<A-i>', function() return vim.fn['codeium#Accept']() end, { expr = true })
       vim.keymap.set('i', '<A-[>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
       vim.keymap.set('i', '<A-]>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
       vim.keymap.set('i', '<A-[>', function() return vim.fn['codeium#Clear']() end, { expr = true })
@@ -375,7 +375,7 @@ local default_plugins = {
   {
     "vuki656/package-info.nvim",
     event = "VeryLazy",
-    config = function ()
+    config = function()
       require('package-info').setup()
     end
   },
@@ -396,7 +396,7 @@ local default_plugins = {
     "kristijanhusak/vim-dadbod-ui",
     event = "VeryLazy",
     dependencies = {
-      { 'tpope/vim-dadbod', lazy = true },
+      { 'tpope/vim-dadbod',                     lazy = true },
       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
     },
     cmd = {
@@ -423,17 +423,17 @@ local default_plugins = {
   --Text Edition
   {
     "max397574/better-escape.nvim",
-    event = {"VimEnter"},
+    event = { "VimEnter" },
     config = function()
-      require"plugins.configs.better_escape"
+      require "plugins.configs.better_escape"
     end,
   },
 
   {
     "windwp/nvim-ts-autotag",
-    event = {"VimEnter"},
+    event = { "VimEnter" },
     config = function()
-      require"plugins.configs.autotag"
+      require "plugins.configs.autotag"
     end,
   },
 
@@ -468,8 +468,8 @@ local default_plugins = {
   {
     "hrsh7th/cmp-cmdline",
     event = "VeryLazy",
-    config = function ()
-      require"plugins.configs.cmp"
+    config = function()
+      require "plugins.configs.cmp"
     end
   },
 
@@ -489,16 +489,32 @@ local default_plugins = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
     },
-    config = function ()
-      require"plugins.configs.noice"
+    config = function()
+      require "plugins.configs.noice"
     end
   },
 
-  -- {
-  --   "",
-  --   event = "VeryLazy",
-  -- },
+  {
+    "pwntester/octo.nvim",
+    event = "VeryLazy",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "kyazdani42/nvim-web-devicons",
+    },
+    config = function()
+      require "plugins.configs.octo"
+    end,
+  },
 
+  {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require"plugins.configs.dashboard"
+    end,
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+  }
   -- {
   --   "",
   --   event = "VeryLazy",
