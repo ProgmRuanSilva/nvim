@@ -74,9 +74,6 @@ M.general = {
     ["f"] = { "<END>", "navigate to end of line" },
     ["ff"] = { "<HOME>", "navigate to beggining of line" },
 
-    ["<A-m>"] = { "n", "next one word for lazy people" },
-    ["<A-n>"] = { "<S-n>", "next one word for lazy people" },
-
     ["<S-n>"] = { "<S-v>xp", "move line to down" },
     ["<S-m>"] = { "<S-v>xk<S-p>", "move line to up" },
 
@@ -90,8 +87,7 @@ M.general = {
     ["<leader>o"] = { "<cmd>split<CR>", "new horizontal split" },
 
     ["<A-f>"] = { "<cmd>HopWord<CR>", "HopWord" },
-    ["<A-c>"] = { "<cmd>HopWord<CR>" },
-    ["<A-a>"] = { "<cmd>HopAnywhere<CR>" },
+    ["<A-a>"] = { "<cmd>HopAnywhere<CR>", "HopAnywhere" },
 
     ["<leader>gf"] = { "<cmd>GitBlameToggle<CR>" },
 
@@ -104,12 +100,15 @@ M.general = {
 
     ["<leader>zz"] = { "<cmd>ZenMode<CR>" },
 
-    ["gpd"] = { "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", "goto definition" },
-    ["<S-d>"] = { "<cmd>lua require('goto-preview').goto_preview_references()<CR>", "goto reference" },
-    ["gpi"] = { "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", "goto implementation" },
-    ["gpf"] = { "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>", "goto type" },
-    ["gpm"] = { "<cmd>lua require('goto-preview').goto_preview_declaration()<CR> ", "goto declaration" },
-    ["<A-w>"] = { "<cmd>lua require('goto-preview').close_all_win()<CR>", "close goto tabs" },
+    ["<leader>cm"] = { "<cmd>Mason<CR>", "git status" },
+    ["<leader>cl"] = { "<cmd>Lazy<CR>", "git branches" },
+
+    -- ["gd"] = { "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", "goto definition" },
+    -- ["gr"] = { "<cmd>lua require('goto-preview').goto_preview_references()<CR>", "goto reference" },
+    -- ["gi"] = { "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", "goto implementation" },
+    -- ["gt"] = { "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>", "goto type" },
+    -- ["gD"] = { "<cmd>lua require('goto-preview').goto_preview_declaration()<CR> ", "goto declaration" },
+    -- ["<S-q>"] = { "<cmd>lua require('goto-preview').close_all_win()<CR>", "close goto tabs" },
 
     -- Copy all
     ["<C-c>"] = { "<cmd> %y+ <CR>", "Copy whole file" },
@@ -119,8 +118,6 @@ M.general = {
 
     ["<leader>b"] = { "<cmd> enew <CR>", "New buffer" },
     ["<leader>ch"] = { "<cmd> NvCheatsheet <CR>", "Mapping cheatsheet" },
-
-
 
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
@@ -146,7 +143,6 @@ M.general = {
     ["f"] = { "$" },
 
     ["<A-q>"] = { "<Esc>" },
-
   },
 
   c = {
@@ -156,7 +152,6 @@ M.general = {
     ["<A-k>"] = { "<Down>" },
     ["<A-l>"] = { "<Up>" },
     ["<A-h>"] = { "<Left>" },
-
   },
 
   x = {
@@ -207,12 +202,12 @@ M.tabufline = {
       "Goto next buffer",
     },
 
-    ["<S-j>"] = {
-      function()
-        require("nvchad.tabufline").tabuflinePrev()
-      end,
-      "Goto prev buffer",
-    },
+    -- ["<S-j>"] = {
+    --   function()
+    --     require("nvchad.tabufline").tabuflinePrev()
+    --   end,
+    --   "Goto prev buffer",
+    -- },
   },
 }
 
@@ -240,20 +235,26 @@ M.telescope = {
 
     ["<leader>gc"] = { "<cmd>Telescope gitmoji<CR>" },
 
-    ["<leader>gm"] = { "<cmd>:lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", "Change to worktree" },
-    ["<leader>gn"] = { "<cmd>:lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>", "Create a new worktree " },
+    ["<leader>gm"] = {
+      "<cmd>:lua require('telescope').extensions.git_worktree.git_worktrees()<CR>",
+      "Change to worktree",
+    },
+    ["<leader>gn"] = {
+      "<cmd>:lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>",
+      "Create a new worktree ",
+    },
 
-    ["<leader>gpl"] = {"<cmd>Octo pr list<CR>", 'Octo list pull requests'},
-    ["<leader>gpa"] = {"<cmd>Octo pr create<CR>", 'Octo create pull request'},
-    ["<leader>gpe"] = {"<cmd>Octo pr edit<CR>", 'Octo create pull request'},
-    ["<leader>gpc"] = {"<cmd>Octo pr changes<CR>", 'Octo list pull request changes'},
-    ["<leader>gpd"] = {"<cmd>Octo pr close<CR>", 'Octo close pull request'},
+    ["<leader>gpl"] = { "<cmd>Octo pr list<CR>", "Octo list pull requests" },
+    ["<leader>gpa"] = { "<cmd>Octo pr create<CR>", "Octo create pull request" },
+    ["<leader>gpe"] = { "<cmd>Octo pr edit<CR>", "Octo create pull request" },
+    ["<leader>gpc"] = { "<cmd>Octo pr changes<CR>", "Octo list pull request changes" },
+    ["<leader>gpd"] = { "<cmd>Octo pr close<CR>", "Octo close pull request" },
 
-    ["<leader>gil"] = {"<cmd>Octo issue list<CR>", 'Octo list issues'},
-    ["<leader>gia"] = {"<cmd>Octo issue create<CR>", 'Octo create issue'},
-    ["<leader>gie"] = {"<cmd>Octo issue edit<CR>", 'Octo edit issue'},
+    ["<leader>gil"] = { "<cmd>Octo issue list<CR>", "Octo list issues" },
+    ["<leader>gia"] = { "<cmd>Octo issue create<CR>", "Octo create issue" },
+    ["<leader>gie"] = { "<cmd>Octo issue edit<CR>", "Octo edit issue" },
 
-    ["<leader>grl"] = {"<cmd>Octo repo list<CR>", 'Octo list repos'},
+    ["<leader>grl"] = { "<cmd>Octo repo list<CR>", "Octo list repos" },
 
     ["<leader>fe"] = { "<cmd>Telescope emoji<CR>" },
   },
@@ -390,12 +391,12 @@ M.dap = {
   n = {
     ["<leader>af"] = {
       "<cmd> DapToggleBreakpoint <CR>",
-      "Add breakpoint at line"
+      "Add breakpoint at line",
     },
     ["<leader>ac"] = {
       "<cmd> DapContinue <CR>",
-      "Run or continue the debugger"
-    }
+      "Run or continue the debugger",
+    },
   },
 }
 
@@ -405,13 +406,13 @@ M.lspconfig = {
   -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
 
   n = {
-    ["<leader>fm"] = {
+    ["gf"] = {
       function()
         vim.lsp.buf.format { async = true }
       end,
       "LSP formatting",
-
     },
+
     ["gD"] = {
       function()
         vim.lsp.buf.declaration()
@@ -440,28 +441,28 @@ M.lspconfig = {
       "LSP implementation",
     },
 
-    ["<leader>ls"] = {
+    ["gk"] = {
       function()
         vim.lsp.buf.signature_help()
       end,
       "LSP signature help",
     },
 
-    ["<leader>D"] = {
+    ["gt"] = {
       function()
         vim.lsp.buf.type_definition()
       end,
       "LSP definition type",
     },
 
-    ["<leader>ra"] = {
+    ["gR"] = {
       function()
         require("nvchad.renamer").open()
       end,
       "LSP rename",
     },
 
-    ["<leader>ca"] = {
+    ["gq"] = {
       function()
         vim.lsp.buf.code_action()
       end,
@@ -475,49 +476,49 @@ M.lspconfig = {
       "LSP references",
     },
 
-    ["<leader>lf"] = {
+    ["<leader>gf"] = {
       function()
         vim.diagnostic.open_float { border = "rounded" }
       end,
       "Floating diagnostic",
     },
 
-    ["[d"] = {
+    ["gn"] = {
       function()
         vim.diagnostic.goto_prev { float = { border = "rounded" } }
       end,
       "Goto prev",
     },
 
-    ["]d"] = {
+    ["gm"] = {
       function()
         vim.diagnostic.goto_next { float = { border = "rounded" } }
       end,
       "Goto next",
     },
 
-    ["<leader>Q"] = {
+    ["gc"] = {
       function()
         vim.diagnostic.setloclist()
       end,
       "Diagnostic setloclist",
     },
 
-    ["<leader>wa"] = {
+    ["<leader>ga"] = {
       function()
         vim.lsp.buf.add_workspace_folder()
       end,
       "Add workspace folder",
     },
 
-    ["<leader>wr"] = {
+    ["<leader>gr"] = {
       function()
         vim.lsp.buf.remove_workspace_folder()
       end,
       "Remove workspace folder",
     },
 
-    ["<leader>wl"] = {
+    ["<leader>gl"] = {
       function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
       end,
@@ -526,7 +527,7 @@ M.lspconfig = {
   },
 
   v = {
-    ["<leader>ca"] = {
+    ["<leader>ga"] = {
       function()
         vim.lsp.buf.code_action()
       end,
@@ -536,13 +537,29 @@ M.lspconfig = {
 }
 
 -- Tmux Navigation
-vim.api.nvim_set_keymap('n', '<A-k>', [[winnr('#') < 0 ? 'k' : ':TmuxNavigateUp<CR>']],
-  { expr = true, noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-j>', [[winnr('#') < 0 ? 'j' : ':TmuxNavigateDown<CR>']],
-  { expr = true, noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-l>', [[winnr('#') < 0 ? 'l' : ':TmuxNavigateRight<CR>']],
-  { expr = true, noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-h>', [[winnr('#') < 0 ? 'h' : ':TmuxNavigateLeft<CR>']],
-  { expr = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  "n",
+  "<A-k>",
+  [[winnr('#') < 0 ? 'k' : ':TmuxNavigateUp<CR>']],
+  { expr = true, noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+  "n",
+  "<A-j>",
+  [[winnr('#') < 0 ? 'j' : ':TmuxNavigateDown<CR>']],
+  { expr = true, noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+  "n",
+  "<A-l>",
+  [[winnr('#') < 0 ? 'l' : ':TmuxNavigateRight<CR>']],
+  { expr = true, noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+  "n",
+  "<A-h>",
+  [[winnr('#') < 0 ? 'h' : ':TmuxNavigateLeft<CR>']],
+  { expr = true, noremap = true, silent = true }
+)
 
 return M

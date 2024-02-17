@@ -46,4 +46,7 @@ local options = {
   max_concurrent_installers = 10,
 }
 
+local mason_tool_installer = require "mason-tool-installer"
+mason_tool_installer.setup(options.ensure_installed)
+
 return options

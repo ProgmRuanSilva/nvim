@@ -8,16 +8,16 @@ for i = 1, 9, 1 do
 end
 
 -- Autoformat
-autocmd({"BufWritePost"},
-    {
-      pattern = "*.js,*.jsx,*.ts,*.tsx,*.json,*.css,*.scss,*.md,*.html,*.yaml",
-      callback = function()
-        vim.cmd("silent !black --quiet %")
-        vim.cmd("Prettier")
-        vim.cmd("silent w")
-      end,
-    }
-  )
+-- autocmd({"BufWritePost"},
+--     {
+--       pattern = "*.js,*.jsx,*.ts,*.tsx,*.json,*.css,*.scss,*.md,*.html,*.yaml",
+--       callback = function()
+--         vim.cmd("silent !black --quiet %")
+--         vim.cmd("Prettier")
+--         vim.cmd("silent w")
+--       end,
+--     }
+--   )
 
 autocmd("VimResized", {
   pattern = "*",

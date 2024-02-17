@@ -5,6 +5,10 @@ dofile(vim.g.base46_cache .. "cmp")
 local cmp_ui = require("core.utils").load_config().ui.cmp
 local cmp_style = cmp_ui.style
 
+-- TODO make a better configuration checkout the Notion
+vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+local defaults = require "cmp.config.default"()
+
 local field_arrangement = {
   atom = { "kind", "abbr", "menu" },
   atom_colored = { "kind", "abbr", "menu" },
@@ -46,7 +50,7 @@ end
 
 local options = {
   completion = {
-    completeopt = "menu,menuone",
+    completeopt = "menu,menuone,noinsert",
   },
 
   window = {
@@ -105,19 +109,21 @@ local options = {
     }),
   },
   sources = {
-    { name = "cmdline" },
     { name = "L3MON4D3/LuaSnip" },
-    { name = "Exafunction/codeium.vim" },
-    { name = "nvim_lsp",                trigger_characters = { "-" } },
-    { name = "luasnip" },
-    { name = "buffer" },
-    { name = "nvim_lua" },
-    { name = "path" },
     { name = "hrsh7th/cmp-nvim-lsp" },
     { name = "saadparwaiz1/cpm_luasnip" },
+    { name = "luasnip" },
+    { name = "nvim_lsp", trigger_characters = { "-" } },
+    { name = "nvim_lua" },
+    { name = "path" },
+    { name = "buffer" },
+    { name = "Exafunction/codeium.vim" },
   },
   experimental = {
-    ghost_text = true,
+    ghost_text = {
+      hl_group = "CmpGhostText",
+    },
+    -- sorting = defaults.sorting,
   },
 }
 
@@ -132,29 +138,29 @@ local options = {
 --   },
 -- })
 --
-cmp.setup.cmdline(":", {
-  preselect = "none",
-  mapping = cmp.mapping.preset.insert(),
-  completion = {
-    completeopt = "menu,preview,menuone,noselect",
-  },
-})
+-- cmp.setup.cmdline(":", {
+--   preselect = "none",
+--   mapping = cmp.mapping.preset.insert(),
+--   completion = {
+--     completeopt = "menu,preview,menuone,noselect",
+--   },
+-- })
 
- --  cmp.setup.cmdline({ '/', '?' }, {
- --    mapping = cmp.mapping.preset.insert(),
- --    sources = {
- --      { name = 'buffer' }
- --    }
- --  })
- --
- -- cmp.setup.cmdline(':', {
- --    mapping = cmp.mapping.preset.insert(),
- --    sources = cmp.config.sources({
- --      { name = 'path' }
- --    }, {
- --      { name = 'cmdline' }
- --    })
- --  })
+--  cmp.setup.cmdline({ '/', '?' }, {
+--    mapping = cmp.mapping.preset.insert(),
+--    sources = {
+--      { name = 'buffer' }
+--    }
+--  })
+--
+-- cmp.setup.cmdline(':', {
+--    mapping = cmp.mapping.preset.insert(),
+--    sources = cmp.config.sources({
+--      { name = 'path' }
+--    }, {
+--      { name = 'cmdline' }
+--    })
+--  })
 
 if cmp_style ~= "atom" and cmp_style ~= "atom_colored" then
   options.window.completion.border = border "CmpBorder"

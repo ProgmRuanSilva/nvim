@@ -44,15 +44,42 @@ local default_plugins = {
 
   {
     "lukas-reineke/indent-blankline.nvim",
-    version = "2.20.7",
     event = "User FilePost",
-    opts = function()
-      return require("plugins.configs.others").blankline
+    main = "ibl",
+    config = function()
+      require "plugins.configs.ibl"
     end,
-    config = function(_, opts)
-      require("core.utils").load_mappings "blankline"
-      dofile(vim.g.base46_cache .. "blankline")
-      require("indent_blankline").setup(opts)
+  },
+
+  {
+    "echasnovski/mini.indentscope",
+    event = "User FilePost",
+    config = function()
+      require "plugins.configs.identscope"
+    end,
+    opts = {
+      symbol = "▏",
+      options = { try_as_border = true },
+    },
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
+        callback = function()
+          vim.b.miniindentscope_disable = true
+        end,
+      })
     end,
   },
 
@@ -62,12 +89,34 @@ local default_plugins = {
     tag = "v0.9.2",
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
+    init = function(plugin)
+      require("lazy.core.loader").add_to_rtp(plugin)
+      require "nvim-treesitter.query_predicates"
+    end,
     opts = function()
       return require "plugins.configs.treesitter"
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "syntax")
       require("nvim-treesitter.configs").setup(opts)
+    end,
+  },
+
+  {
+    "andymass/vim-matchup",
+    matchup = {
+      enable = true, -- mandatory, false will disable the whole extension
+      disable = { "c", "ruby" }, -- optional, list of language that will be disabled
+      -- [options]
+    },
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "TSContextEnable", "TSContextDisable", "TSContextToggle" },
+    config = function()
+      require "plugins.configs.treesitterContext"
     end,
   },
 
@@ -92,6 +141,10 @@ local default_plugins = {
   -- lsp stuff
   {
     "williamboman/mason.nvim",
+    dependencies = {
+      "williamboman/mason-lspconfig.nvim", --maybe break lsp configuration check
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+    },
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
     opts = function()
       return require "plugins.configs.mason"
@@ -114,6 +167,12 @@ local default_plugins = {
   {
     "neovim/nvim-lspconfig",
     event = "User FilePost",
+    dependencies = {
+      { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = "nvim-lspconfig" },
+      { "folke/neodev.nvim", opts = {} },
+      "mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+    },
     config = function()
       require "plugins.configs.lspconfig"
     end,
@@ -154,7 +213,6 @@ local default_plugins = {
       {
         "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -171,12 +229,12 @@ local default_plugins = {
   {
     "numToStr/Comment.nvim",
     keys = {
-      { "gcc", mode = "n",          desc = "Comment toggle current line" },
-      { "gc",  mode = { "n", "o" }, desc = "Comment toggle linewise" },
-      { "gc",  mode = "x",          desc = "Comment toggle linewise (visual)" },
-      { "gbc", mode = "n",          desc = "Comment toggle current block" },
-      { "gb",  mode = { "n", "o" }, desc = "Comment toggle blockwise" },
-      { "gb",  mode = "x",          desc = "Comment toggle blockwise (visual)" },
+      { "gcc", mode = "n", desc = "Comment toggle current line" },
+      { "gc", mode = { "n", "o" }, desc = "Comment toggle linewise" },
+      { "gc", mode = "x", desc = "Comment toggle linewise (visual)" },
+      { "gbc", mode = "n", desc = "Comment toggle current block" },
+      { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
+      { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
     },
     init = function()
       require("core.utils").load_mappings "comment"
@@ -253,10 +311,11 @@ local default_plugins = {
     "nvim-telescope/telescope-file-browser.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim" },
+      "nvim-telescope/telescope.nvim",
+    },
     config = function()
       require "plugins.configs.file-browser"
-    end
+    end,
   },
 
   {
@@ -264,7 +323,7 @@ local default_plugins = {
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/popup.nvim" },
     config = function()
       require "plugins.configs.zoxide"
-    end
+    end,
   },
 
   {
@@ -272,7 +331,7 @@ local default_plugins = {
     event = { "VeryLazy" },
     config = function()
       require "plugins.configs.gitmoji"
-    end
+    end,
   },
 
   -- Navigation
@@ -310,12 +369,12 @@ local default_plugins = {
   },
 
   {
-    'rmagatti/goto-preview',
+    "rmagatti/goto-preview",
     event = "VeryLazy",
     config = function()
-      require('goto-preview').setup {
+      require("goto-preview").setup {
         width = 120, -- Width of the floating window
-        height = 15, -- Height of the floating window
+        height = 20, -- Height of the floating window
         border = { "↖", "─", "╮", "│", "╯", "─", "╰", "│" }, -- Border characters of the floating window
         default_mappings = false,
         debug = false, -- Print debug information
@@ -323,21 +382,17 @@ local default_plugins = {
         resizing_mappings = false, -- Binds arrow keys to resizing the floating window.
         post_open_hook = nil, -- A function taking two arguments, a buffer and a window to be ran as a hook.
         references = { -- Configure the telescope UI for slowing the references cycling window.
-          telescope = require("telescope")
+          telescope = require "telescope",
         },
-        focus_on_open = true,                                        -- Focus the floating window when opening it.
-        dismiss_on_move = true,                                      -- Dismiss the floating window when moving the cursor.
-        force_close = true,                                          -- passed into vim.api.nvim_win_close's second argument. See :h nvim_win_close
-        bufhidden = "wipe",                                          -- the bufhidden option to set on the floating window. See :h bufhidden
-        stack_floating_preview_windows = true,                       -- Whether to nest floating windows
+        focus_on_open = true, -- Focus the floating window when opening it.
+        dismiss_on_move = true, -- Dismiss the floating window when moving the cursor.
+        force_close = true, -- passed into vim.api.nvim_win_close's second argument. See :h nvim_win_close
+        bufhidden = "delete", -- the bufhidden option to set on the floating window. See :h bufhidden
+        stack_floating_preview_windows = true, -- Whether to nest floating windows
+        same_file_floating_window_appears = true,
         preview_window_title = { enable = true, position = "left" }, -- Whether
       }
-    end
-  },
-
-  {
-    "itchyny/vim-cursorword",
-    event = "VeryLazy",
+    end,
   },
 
   {
@@ -346,7 +401,7 @@ local default_plugins = {
     opts = {},
     dependencies = {
       "MunifTanjim/nui.nvim",
-    }
+    },
   },
 
   {
@@ -366,19 +421,27 @@ local default_plugins = {
     "Exafunction/codeium.vim",
     event = "BufEnter",
     config = function()
-      vim.keymap.set('i', '<A-i>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-      vim.keymap.set('i', '<A-[>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-      vim.keymap.set('i', '<A-]>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-      vim.keymap.set('i', '<A-[>', function() return vim.fn['codeium#Clear']() end, { expr = true })
-    end
+      vim.keymap.set("i", "<A-i>", function()
+        return vim.fn["codeium#Accept"]()
+      end, { expr = true })
+      vim.keymap.set("i", "<A-[>", function()
+        return vim.fn["codeium#CycleCompletions"](1)
+      end, { expr = true })
+      vim.keymap.set("i", "<A-]>", function()
+        return vim.fn["codeium#CycleCompletions"](-1)
+      end, { expr = true })
+      vim.keymap.set("i", "<A-[>", function()
+        return vim.fn["codeium#Clear"]()
+      end, { expr = true })
+    end,
   },
 
   {
     "vuki656/package-info.nvim",
     event = "VeryLazy",
     config = function()
-      require('package-info').setup()
-    end
+      require("package-info").setup()
+    end,
   },
 
   {
@@ -397,20 +460,19 @@ local default_plugins = {
     "kristijanhusak/vim-dadbod-ui",
     event = "VeryLazy",
     dependencies = {
-      { 'tpope/vim-dadbod',                     lazy = true },
-      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+      { "tpope/vim-dadbod", lazy = true },
+      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
     },
     cmd = {
-      'DBUI',
-      'DBUIToggle',
-      'DBUIAddConnection',
-      'DBUIFindBuffer',
+      "DBUI",
+      "DBUIToggle",
+      "DBUIAddConnection",
+      "DBUIFindBuffer",
     },
     init = function()
       vim.g.db_ui_use_nerd_fonts = 1
     end,
   },
-
 
   -- Visual
   {
@@ -439,36 +501,23 @@ local default_plugins = {
   },
 
   {
-    "MunifTanjim/prettier.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "jose-elias-alvarez/null-ls.nvim",
-    },
-    config = function()
-      require("plugins.configs.prettier")
-    end
-  },
-
-  {
     "kylechui/nvim-surround",
     version = "*",
     event = "VeryLazy",
     config = function()
-      require("nvim-surround").setup({
+      require("nvim-surround").setup {
         --We need configurate on surround file
-      })
-    end
+      }
+    end,
   },
-
 
   {
     "rcarriga/nvim-notify",
     config = function()
-      require("notify").setup({
+      require("notify").setup {
         background_colour = "#000000",
-      })
-    end
+      }
+    end,
   },
 
   {
@@ -480,7 +529,7 @@ local default_plugins = {
     },
     config = function()
       require "plugins.configs.noice"
-    end
+    end,
   },
 
   {
@@ -497,14 +546,186 @@ local default_plugins = {
   },
 
   {
-    'nvimdev/dashboard-nvim',
-    event = 'VimEnter',
+    "nvimdev/dashboard-nvim",
+    event = "VimEnter",
     config = function()
-      require"plugins.configs.dashboard"
+      require "plugins.configs.dashboard"
     end,
-    dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+    dependencies = { { "nvim-tree/nvim-web-devicons" } },
   },
 
+  {
+    "stevearc/dressing.nvim",
+    event = "VeryLazy",
+    config = function()
+      require "plugins.configs.dressing"
+    end,
+  },
+
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = { "TroubleToggle", "Trouble" },
+    opts = function()
+      require "plugins.configs.trouble"
+    end,
+  },
+
+  {
+    "nvim-pack/nvim-spectre",
+    event = "VeryLazy",
+    build = false,
+    cmd = "Spectre",
+    opts = { open_cmd = "noswapfile vnew" },
+    keys = {
+      {
+        "<leader>sr",
+        function()
+          require("spectre").open()
+        end,
+        desc = "Replace in files (Spectre)",
+      },
+    },
+  },
+
+  -- {
+  --   "itchyny/vim-cursorword",
+  --   event = "VeryLazy",
+  -- },
+
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    event = "VeryLazy",
+    cmd = { "TodoTrouble", "TodoTelescope" },
+    opts = {
+      {
+        signs = true, -- show icons in the signs column
+        sign_priority = 8, -- sign priority
+        -- keywords recognized as todo comments
+        keywords = {
+          FIX = {
+            icon = " ", -- icon used for the sign, and in search results
+            color = "error", -- can be a hex color, or a named color (see below)
+            alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+            -- signs = false, -- configure signs for some keywords individually
+          },
+          TODO = { icon = " ", color = "info" },
+          HACK = { icon = " ", color = "warning" },
+          WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+          PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+          NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+          TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+        },
+        gui_style = {
+          fg = "NONE", -- The gui style to use for the fg highlight group.
+          bg = "BOLD", -- The gui style to use for the bg highlight group.
+        },
+        merge_keywords = true, -- when true, custom keywords will be merged with the defaults
+        -- highlighting of the line containing the todo comment
+        -- * before: highlights before the keyword (typically comment characters)
+        -- * keyword: highlights of the keyword
+        -- * after: highlights after the keyword (todo text)
+        highlight = {
+          multiline = true, -- enable multine todo comments
+          multiline_pattern = "^.", -- lua pattern to match the next multiline from the start of the matched keyword
+          multiline_context = 10, -- extra lines that will be re-evaluated when changing a line
+          before = "", -- "fg" or "bg" or empty
+          keyword = "wide", -- "fg", "bg", "wide", "wide_bg", "wide_fg" or empty. (wide and wide_bg is the same as bg, but will also highlight surrounding characters, wide_fg acts accordingly but with fg)
+          after = "fg", -- "fg" or "bg" or empty
+          pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns, used for highlighting (vim regex)
+          comments_only = true, -- uses treesitter to match keywords in comments only
+          max_line_len = 400, -- ignore lines longer than this
+          exclude = {}, -- list of file types to exclude highlighting
+        },
+        -- list of named colors where we try to extract the guifg from the
+        -- list of highlight groups or use the hex color if hl not found as a fallback
+        colors = {
+          error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
+          warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
+          info = { "DiagnosticInfo", "#2563EB" },
+          hint = { "DiagnosticHint", "#10B981" },
+          default = { "Identifier", "#7C3AED" },
+          test = { "Identifier", "#FF00FF" },
+        },
+        search = {
+          command = "rg",
+          args = {
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+          },
+          -- regex that will be used to match keywords.
+          -- don't replace the (KEYWORDS) placeholder
+          pattern = [[\b(KEYWORDS):]], -- ripgrep regex
+          -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
+        },
+      },
+    },
+  },
+
+  {
+    "RRethy/vim-illuminate",
+    event = "VeryLazy",
+    opts = {
+      delay = 200,
+      large_file_cutoff = 2000,
+      large_file_overrides = {
+        providers = { "lsp" },
+      },
+      under_cursor = false,
+    },
+    config = function(_, opts)
+      require("illuminate").configure(opts)
+
+      local function map(key, dir, buffer)
+        vim.keymap.set("n", key, function()
+          require("illuminate")["goto_" .. dir .. "_reference"](false)
+        end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
+      end
+
+      map("<S-l>", "next")
+      map("<S-h>", "prev")
+
+      -- also set it after loading ftplugins, since a lot overwrite ll and ll
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+          local buffer = vim.api.nvim_get_current_buf()
+          map("<S-l>", "next", buffer)
+          map("<S-h>", "prev", buffer)
+        end,
+      })
+    end,
+    keys = {
+      { "<S-l>", desc = "Next Reference" },
+      { "<S-h>", desc = "Prev Reference" },
+    },
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    event = {
+      "BufReadPre",
+      "BufNewFile",
+    },
+    dependencies = {
+      "mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+    },
+    config = function()
+      require "plugins.configs.lint"
+    end,
+  },
+
+  {
+    "stevearc/conform.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require "plugins.configs.conform"
+    end,
+  },
 
   -- {
   --   "",
@@ -525,17 +746,6 @@ local default_plugins = {
   --   "",
   --   event = "VeryLazy",
   -- },
-
-  -- {
-  --   "",
-  --   event = "VeryLazy",
-  -- },
-
-  -- {
-  --   "",
-  --   event = "VeryLazy",
-  -- },
-
 }
 
 local config = require("core.utils").load_config()

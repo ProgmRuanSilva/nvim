@@ -2,6 +2,10 @@ local M = {}
 local utils = require "core.utils"
 
 M.blankline = {
+  intent = {
+    char = "│",
+    tab_char = "│",
+  },
   indentLine_enabled = 1,
   filetype_exclude = {
     "help",

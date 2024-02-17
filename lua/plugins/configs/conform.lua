@@ -1,15 +1,32 @@
-local options = {
+local conform = require "conform"
+
+require("conform").setup {
   formatters_by_ft = {
-    lua = { "stylua" },
     javascript = { "prettier" },
-    javascriptreact = { "prettier" },
     typescript = { "prettier" },
+    javascriptreact = { "prettier" },
     typescriptreact = { "prettier" },
+    svelte = { "prettier" },
     css = { "prettier" },
     html = { "prettier" },
     json = { "prettier" },
-    sh = { "shfmt" },
+    yaml = { "prettier" },
+    markdown = { "prettier" },
+    graphql = { "prettier" },
+    lua = { "stylua" },
+    python = { "isort", "black" },
+  },
+  format_on_save = {
+    lsp_fallback = true,
+    async = false,
+    timeout_ms = 500,
   },
 }
 
-require("conform").setup(options)
+vim.keymap.set({ "n" }, "gf", function()
+  conform.format {
+    lsp_fallback = true,
+    async = false,
+    timeout_ms = 500,
+  }
+end, { desc = "Format file or range (in visual mode)" })
