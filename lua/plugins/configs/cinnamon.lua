@@ -19,12 +19,12 @@ require("cinnamon").setup {
   -- DEFAULT_KEYMAPS:
 
   -- Half-window movements:
-  vim.keymap.set({ "n", "x" }, "w", "<Cmd>lua Scroll('<C-u>', 1, 1)<CR>"),
-  vim.keymap.set({ "n", "x" }, "e", "<Cmd>lua Scroll('<C-d>', 1, 1)<CR>"),
+  vim.keymap.set({ "n", "x" }, "<A-w>", "<Cmd>lua Scroll('<C-u>', 1, 1)<CR>"),
+  vim.keymap.set({ "n", "x" }, "<A-e>", "<Cmd>lua Scroll('<C-d>', 1, 1)<CR>"),
 
   -- Page movements:
-  vim.keymap.set({ "n", "x" }, "<A-w>", "<Cmd>lua Scroll('<C-b>', 1, 1)<CR>"),
-  vim.keymap.set({ "n", "x" }, "<A-e>", "<Cmd>lua Scroll('<C-f>', 1, 1)<CR>"),
+  vim.keymap.set({ "n", "x" }, "w", "<Cmd>lua Scroll('<C-b>', 1, 1)<CR>"),
+  vim.keymap.set({ "n", "x" }, "e", "<Cmd>lua Scroll('<C-f>', 1, 1)<CR>"),
   vim.keymap.set({ "n", "x" }, "<PageUp>", "<Cmd>lua Scroll('<C-b>', 1, 1)<CR>"),
   vim.keymap.set({ "n", "x" }, "<PageDown>", "<Cmd>lua Scroll('<C-f>', 1, 1)<CR>"),
 

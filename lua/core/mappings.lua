@@ -184,26 +184,26 @@ M.tabufline = {
       "Close buffer",
     },
 
-    ["<S-h>"] = {
+    ["<A-]>"] = {
       function()
         require("nvchad.tabufline").tabuflineNext()
       end,
       "Goto next buffer",
     },
 
-    -- ["<S-n>"] = {
+    ["<A-[>"] = {
+      function()
+        require("nvchad.tabufline").tabuflinePrev()
+      end,
+      "Goto prev buffer",
+    },
+
+    -- ["<S-l>"] = {
     --   function()
-    --     require("nvchad.tabufline").tabuflinePrev()
+    --     require("nvchad.tabufline").tabuflineNext()
     --   end,
-    --   "Goto prev buffer",
+    --   "Goto next buffer",
     -- },
-
-    ["<S-l>"] = {
-      function()
-        require("nvchad.tabufline").tabuflineNext()
-      end,
-      "Goto next buffer",
-    },
 
     -- ["<S-j>"] = {
     --   function()

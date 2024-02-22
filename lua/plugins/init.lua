@@ -349,9 +349,8 @@ local default_plugins = {
   },
 
   {
-    "phaazon/hop.nvim",
-    branch = "v2",
-    event = { "VimEnter" },
+    "mistweaverco/hop.nvim",
+    event = { "VeryLazy" },
     config = function()
       require "plugins.configs.hop"
     end,
