@@ -74,8 +74,8 @@ M.general = {
     ["f"] = { "<END>", "navigate to end of line" },
     ["ff"] = { "<HOME>", "navigate to beggining of line" },
 
-    ["<S-n>"] = { "<S-v>xp", "move line to down" },
-    ["<S-m>"] = { "<S-v>xk<S-p>", "move line to up" },
+    ["<A-n>"] = { "<S-v>xp", "move line to down" },
+    ["<A-m>"] = { "<S-v>xk<S-p>", "move line to up" },
 
     [","] = { "o<C-c>", "add a new line in normal mode" },
     ["."] = { "<S-o><C-c>", "add a new line below in normal mode" },
@@ -139,18 +139,21 @@ M.general = {
     ["m"] = { "w" },
     ["n"] = { "b" },
 
-    ["<A-f>"] = { "0" },
     ["f"] = { "$" },
 
-    ["<A-q>"] = { "<Esc>" },
+    ["<A-f>"] = { "<cmd>HopWord<CR>", "HopWord" },
+    ["<A-a>"] = { "<cmd>HopAnywhere<CR>", "HopAnywhere" },
+    ["<A-c>"] = { "<cmd>HopLine<CR>", "HopAnywhere" },
+
+    ["<A-e>"] = { "<C-q>", "Block selection mode" },
+    ["<A-q>"] = { "<Esc>", "Quit from visual mode" },
   },
 
   c = {
-
     ["<A-p>"] = { "<Backspace>" },
     ["<A-j>"] = { "<Enter>" },
-    ["<A-k>"] = { "<Down>" },
-    ["<A-l>"] = { "<Up>" },
+    ["<A-k>"] = { "<C-n>" },
+    ["<A-l>"] = { "<C-p>" },
     ["<A-h>"] = { "<Left>" },
   },
 
@@ -181,19 +184,19 @@ M.tabufline = {
       "Close buffer",
     },
 
-    ["<A-m>"] = {
+    ["<S-h>"] = {
       function()
         require("nvchad.tabufline").tabuflineNext()
       end,
       "Goto next buffer",
     },
 
-    ["<A-n>"] = {
-      function()
-        require("nvchad.tabufline").tabuflinePrev()
-      end,
-      "Goto prev buffer",
-    },
+    -- ["<S-n>"] = {
+    --   function()
+    --     require("nvchad.tabufline").tabuflinePrev()
+    --   end,
+    --   "Goto prev buffer",
+    -- },
 
     ["<S-l>"] = {
       function()

@@ -336,10 +336,10 @@ local default_plugins = {
 
   -- Navigation
   {
-    "karb94/neoscroll.nvim",
-    event = { "VeryLazy" },
+    "declancm/cinnamon.nvim",
+    event = { "VimEnter" },
     config = function()
-      require "plugins.configs.neoscroll"
+      require "plugins.configs.cinnamon"
     end,
   },
 
@@ -350,6 +350,7 @@ local default_plugins = {
 
   {
     "phaazon/hop.nvim",
+    branch = "v2",
     event = { "VimEnter" },
     config = function()
       require "plugins.configs.hop"
