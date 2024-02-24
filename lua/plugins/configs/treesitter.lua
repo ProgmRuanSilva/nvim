@@ -36,8 +36,9 @@ local options = {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "<C-space>",
-      node_incremental = "<C-space>",
+      init_selection = "gnn",
+      node_incremental = "grn",
+      -- node_incremental = "<C-space>",
       scope_incremental = false,
       node_decremental = "<bs>",
     },

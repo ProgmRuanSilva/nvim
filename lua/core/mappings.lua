@@ -9,7 +9,6 @@ M.general = {
     ["<A-l>"] = { "<Right>", "Move right" },
 
     ["<A-c>"] = { "<C-o><End>", "End of line" },
-    ["<A-g>"] = { "<ESC>^i", "Begin of line" },
 
     ["<A-n>"] = { "<C-o>b", "Back word phrase" },
     ["<A-m>"] = { "<C-o>w", "Next word phrase" },
@@ -18,12 +17,15 @@ M.general = {
     ["<A-q>"] = { "<C-o>db<Backspace>", "Delete previews word" },
     ["<A-p>"] = { "<Backspace>", "Backward Delete char" },
 
+    ["<A-x>"] = { "<C-o>d", "Delete word" },
+
     ["<A-o>"] = { "<C-o>o", "Create empty line on bottom" },
     ["<A-b>"] = { "<C-o><S-v>y<C-o>p", "Copy line to below" },
 
     ["<A-s>"] = { "<cmd>w!<CR>", "save" },
-    ["<A-u>"] = { "<C-o>u", "restore" },
-    ["<A-r>"] = { "<C-o><C-r>", "undo restore" },
+    ["<A-g>"] = { "<C-o>u", "Undo" },
+    ["<A-r>"] = { "<C-o><C-r>", "Restore" },
+
     ["<A-v>"] = { "<ESC>", "Escape insert mode" },
 
     ["<A-0>"] = { ")", "Add  on insertion mode" },
@@ -74,8 +76,8 @@ M.general = {
     ["f"] = { "<END>", "navigate to end of line" },
     ["ff"] = { "<HOME>", "navigate to beggining of line" },
 
-    ["<A-n>"] = { "<S-v>xp", "move line to down" },
-    ["<A-m>"] = { "<S-v>xk<S-p>", "move line to up" },
+    ["<S-l>"] = { "<S-v>xp", "move line to down" },
+    ["<S-h>"] = { "<S-v>xk<S-p>", "move line to up" },
 
     [","] = { "o<C-c>", "add a new line in normal mode" },
     ["."] = { "<S-o><C-c>", "add a new line below in normal mode" },
@@ -184,20 +186,19 @@ M.tabufline = {
       "Close buffer",
     },
 
-    ["<A-]>"] = {
-      function()
-        require("nvchad.tabufline").tabuflineNext()
-      end,
-      "Goto next buffer",
-    },
-
-    ["<A-[>"] = {
+    ["<A-n>"] = {
       function()
         require("nvchad.tabufline").tabuflinePrev()
       end,
       "Goto prev buffer",
     },
 
+    ["<A-m>"] = {
+      function()
+        require("nvchad.tabufline").tabuflineNext()
+      end,
+      "Goto next buffer",
+    },
     -- ["<S-l>"] = {
     --   function()
     --     require("nvchad.tabufline").tabuflineNext()
@@ -380,7 +381,7 @@ M.gitsigns = {
     --   "Blame line",
     -- },
 
-    ["<leader>gt"] = {
+    ["<leader>gu"] = {
       function()
         require("gitsigns").toggle_deleted()
       end,

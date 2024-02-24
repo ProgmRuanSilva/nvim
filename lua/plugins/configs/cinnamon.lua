@@ -25,14 +25,14 @@ require("cinnamon").setup {
   -- Page movements:
   vim.keymap.set({ "n", "x" }, "w", "<Cmd>lua Scroll('<C-b>', 1, 1)<CR>"),
   vim.keymap.set({ "n", "x" }, "e", "<Cmd>lua Scroll('<C-f>', 1, 1)<CR>"),
-  vim.keymap.set({ "n", "x" }, "<PageUp>", "<Cmd>lua Scroll('<C-b>', 1, 1)<CR>"),
-  vim.keymap.set({ "n", "x" }, "<PageDown>", "<Cmd>lua Scroll('<C-f>', 1, 1)<CR>"),
+  -- vim.keymap.set({ "n", "x" }, "<PageUp>", "<Cmd>lua Scroll('<C-b>', 1, 1)<CR>"),
+  -- vim.keymap.set({ "n", "x" }, "<PageDown>", "<Cmd>lua Scroll('<C-f>', 1, 1)<CR>"),
 
   -- EXTRA_KEYMAPS:
 
   -- Start/end of file and line number movements:
-  vim.keymap.set({ "n", "x" }, "gg", "<Cmd>lua Scroll('gg')<CR>"),
-  vim.keymap.set({ "n", "x" }, "G", "<Cmd>lua Scroll('G', 0, 1)<CR>"),
+  -- vim.keymap.set({ "n", "x" }, "gg", "<Cmd>lua Scroll('gg')<CR>"),
+  -- vim.keymap.set({ "n", "x" }, "G", "<Cmd>lua Scroll('G', 0, 1)<CR>"),
 
   -- Start/end of line:
   vim.keymap.set({ "n", "x" }, "0", "<Cmd>lua Scroll('0')<CR>"),
@@ -46,34 +46,34 @@ require("cinnamon").setup {
   -- Previous/next search result:
   vim.keymap.set("n", "n", "<Cmd>lua Scroll('n', 1)<CR>"),
   vim.keymap.set("n", "N", "<Cmd>lua Scroll('N', 1)<CR>"),
-  vim.keymap.set("n", "*", "<Cmd>lua Scroll('*', 1)<CR>"),
-  vim.keymap.set("n", "#", "<Cmd>lua Scroll('#', 1)<CR>"),
-  vim.keymap.set("n", "g*", "<Cmd>lua Scroll('g*', 1)<CR>"),
-  vim.keymap.set("n", "g#", "<Cmd>lua Scroll('g#', 1)<CR>"),
+  -- vim.keymap.set("n", "*", "<Cmd>lua Scroll('*', 1)<CR>"),
+  -- vim.keymap.set("n", "#", "<Cmd>lua Scroll('#', 1)<CR>"),
+  -- vim.keymap.set("n", "g*", "<Cmd>lua Scroll('g*', 1)<CR>"),
+  -- vim.keymap.set("n", "g#", "<Cmd>lua Scroll('g#', 1)<CR>"),
 
-  -- Previous/next cursor location:
-  vim.keymap.set("n", "<C-o>", "<Cmd>lua Scroll('<C-o>', 1)<CR>"),
-  vim.keymap.set("n", "<C-i>", "<Cmd>lua Scroll('1<C-i>', 1)<CR>"),
+  -- -- Previous/next cursor location:
+  -- vim.keymap.set("n", "<C-o>", "<Cmd>lua Scroll('<C-o>', 1)<CR>"),
+  -- vim.keymap.set("n", "<C-i>", "<Cmd>lua Scroll('1<C-i>', 1)<CR>"),
 
   -- Screen scrolling:
   vim.keymap.set("n", "fj", "<Cmd>lua Scroll('zz', 0, 1)<CR>"),
-  vim.keymap.set("n", "fk", "<Cmd>lua Scroll('zt', 0, 1)<CR>"),
-  vim.keymap.set("n", "fl", "<Cmd>lua Scroll('zb', 0, 1)<CR>"),
-  vim.keymap.set("n", "z.", "<Cmd>lua Scroll('z.', 0, 1)<CR>"),
-  vim.keymap.set("n", "z<CR>", "<Cmd>lua Scroll('zt^', 0, 1)<CR>"),
-  vim.keymap.set("n", "z-", "<Cmd>lua Scroll('z-', 0, 1)<CR>"),
-  vim.keymap.set("n", "z^", "<Cmd>lua Scroll('z^', 0, 1)<CR>"),
-  vim.keymap.set("n", "z+", "<Cmd>lua Scroll('z+', 0, 1)<CR>"),
-  vim.keymap.set("n", "<C-y>", "<Cmd>lua Scroll('<C-y>', 0, 1)<CR>"),
-  vim.keymap.set("n", "<C-e>", "<Cmd>lua Scroll('<C-e>', 0, 1)<CR>"),
+  vim.keymap.set("n", "fl", "<Cmd>lua Scroll('zt', 0, 1)<CR>"),
+  vim.keymap.set("n", "fk", "<Cmd>lua Scroll('zb', 0, 1)<CR>"),
+  -- vim.keymap.set("n", "z.", "<Cmd>lua Scroll('z.', 0, 1)<CR>"),
+  -- vim.keymap.set("n", "z<CR>", "<Cmd>lua Scroll('zt^', 0, 1)<CR>"),
+  -- vim.keymap.set("n", "z-", "<Cmd>lua Scroll('z-', 0, 1)<CR>"),
+  -- vim.keymap.set("n", "z^", "<Cmd>lua Scroll('z^', 0, 1)<CR>"),
+  -- vim.keymap.set("n", "z+", "<Cmd>lua Scroll('z+', 0, 1)<CR>"),
+  -- vim.keymap.set("n", "<C-y>", "<Cmd>lua Scroll('<C-y>', 0, 1)<CR>"),
+  -- vim.keymap.set("n", "<C-e>", "<Cmd>lua Scroll('<C-e>', 0, 1)<CR>"),
 
   -- Horizontal screen scrolling:
-  vim.keymap.set("n", "zH", "<Cmd>lua Scroll('zH')<CR>"),
-  vim.keymap.set("n", "zL", "<Cmd>lua Scroll('zL')<CR>"),
-  vim.keymap.set("n", "zs", "<Cmd>lua Scroll('zs')<CR>"),
-  vim.keymap.set("n", "ze", "<Cmd>lua Scroll('ze')<CR>"),
-  vim.keymap.set("n", "zh", "<Cmd>lua Scroll('zh', 0, 1)<CR>"),
-  vim.keymap.set("n", "zl", "<Cmd>lua Scroll('zl', 0, 1)<CR>"),
+  -- vim.keymap.set("n", "zH", "<Cmd>lua Scroll('zH')<CR>"),
+  -- vim.keymap.set("n", "zL", "<Cmd>lua Scroll('zL')<CR>"),
+  -- vim.keymap.set("n", "zs", "<Cmd>lua Scroll('zs')<CR>"),
+  -- vim.keymap.set("n", "ze", "<Cmd>lua Scroll('ze')<CR>"),
+  -- vim.keymap.set("n", "zh", "<Cmd>lua Scroll('zh', 0, 1)<CR>"),
+  -- vim.keymap.set("n", "zl", "<Cmd>lua Scroll('zl', 0, 1)<CR>"),
 
   -- EXTENDED_KEYMAPS:
 
@@ -97,8 +97,8 @@ require("cinnamon").setup {
   -- LSP_KEYMAPS:
 
   -- LSP go-to-definition:
-  vim.keymap.set("n", "gd", "<Cmd>lua Scroll('definition')<CR>"),
+  -- vim.keymap.set("n", "gd", "<Cmd>lua Scroll('definition')<CR>"),
 
   -- LSP go-to-declaration:
-  vim.keymap.set("n", "gD", "<Cmd>lua Scroll('declaration')<CR>"),
+  -- vim.keymap.set("n", "gD", "<Cmd>lua Scroll('declaration')<CR>"),
 }

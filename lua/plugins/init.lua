@@ -102,14 +102,13 @@ local default_plugins = {
     end,
   },
 
-  {
-    "andymass/vim-matchup",
-    matchup = {
-      enable = true, -- mandatory, false will disable the whole extension
-      disable = { "c", "ruby" }, -- optional, list of language that will be disabled
-      -- [options]
-    },
-  },
+  -- {
+  --   "andymass/vim-matchup",
+  --   event = { "VeryLazy" },
+  --   setup = function()
+  --     vim.g.matchup_matchparen_offscreen = { method = "popup" }
+  --   end,
+  -- },
 
   {
     "nvim-treesitter/nvim-treesitter-context",

@@ -5,11 +5,11 @@ local util = require "lspconfig/util"
 local on_attach = config.on_attach
 local capabilities = config.capabilities
 
-lspconfig.markdownlint.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  filetypes = { "markdown", "md" },
-}
+-- lspconfig.markdownlint.setup {
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   filetypes = { "markdown", "md" },
+-- }
 
 lspconfig.eslint.setup {
   on_attach = on_attach,
