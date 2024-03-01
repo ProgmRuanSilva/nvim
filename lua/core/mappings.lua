@@ -90,6 +90,7 @@ M.general = {
 
     ["<A-f>"] = { "<cmd>HopWord<CR>", "HopWord" },
     ["<A-a>"] = { "<cmd>HopAnywhere<CR>", "HopAnywhere" },
+    ["<A-c>"] = { "<cmd>HopLine<CR>", "HopAnywhere" },
 
     ["<leader>gf"] = { "<cmd>GitBlameToggle<CR>" },
 
@@ -102,8 +103,13 @@ M.general = {
 
     ["<leader>zz"] = { "<cmd>ZenMode<CR>" },
 
-    ["<leader>cm"] = { "<cmd>Mason<CR>", "git status" },
-    ["<leader>cl"] = { "<cmd>Lazy<CR>", "git branches" },
+    ["<leader>cm"] = { "<cmd>Mason<CR>", "Mason configuration" },
+    ["<leader>cl"] = { "<cmd>Lazy<CR>", "Lazy configuration" },
+    ["<leader>cf"] = { "<cmd>ConformInfo<CR>", "Conform configuration" },
+    ["<leader>ci"] = { "<cmd>LspInfo<CR>", "LspInfo" },
+    ["<leader>cs"] = { "<cmd>help lspconfig-all<CR>", "Lspconfig server" },
+
+    ["<leader>fp"] = { "<cmd>MarkdownPreviewToggle<CR>", "Markdown Preview Toggle" },
 
     -- ["gd"] = { "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", "goto definition" },
     -- ["gr"] = { "<cmd>lua require('goto-preview').goto_preview_references()<CR>", "goto reference" },
@@ -410,12 +416,12 @@ M.lspconfig = {
   -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
 
   n = {
-    ["gf"] = {
-      function()
-        vim.lsp.buf.format { async = true }
-      end,
-      "LSP formatting",
-    },
+    -- ["gf"] = {
+    --   function()
+    --     vim.lsp.buf.format { async = true }
+    --   end,
+    --   "LSP formatting",
+    -- },
 
     ["gD"] = {
       function()
@@ -480,12 +486,12 @@ M.lspconfig = {
       "LSP references",
     },
 
-    ["<leader>gf"] = {
-      function()
-        vim.diagnostic.open_float { border = "rounded" }
-      end,
-      "Floating diagnostic",
-    },
+    -- ["<leader>gf"] = {
+    --   function()
+    --     vim.diagnostic.open_float { border = "rounded" }
+    --   end,
+    --   "Floating diagnostic",
+    -- },
 
     ["gn"] = {
       function()

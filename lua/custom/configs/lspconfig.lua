@@ -5,12 +5,6 @@ local util = require "lspconfig/util"
 local on_attach = config.on_attach
 local capabilities = config.capabilities
 
--- lspconfig.markdownlint.setup {
---   on_attach = on_attach,
---   capabilities = capabilities,
---   filetypes = { "markdown", "md" },
--- }
-
 lspconfig.eslint.setup {
   on_attach = on_attach,
   capabilities = capabilities,
@@ -29,6 +23,25 @@ lspconfig.tsserver.setup {
   init_options = {
     preferences = {
       disableSuggestions = false,
+    },
+  },
+}
+
+lspconfig.pylint.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { ".py" },
+}
+
+lspconfig.pylsp.setup {
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          ignore = { "W391" },
+          maxLineLength = 100,
+        },
+      },
     },
   },
 }
