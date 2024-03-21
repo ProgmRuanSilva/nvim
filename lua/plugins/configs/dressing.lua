@@ -1,4 +1,4 @@
-require("dressing").setup({
+require("dressing").setup {
   input = {
     -- Set to false to disable the vim.ui.input implementation
     enabled = true,
@@ -28,8 +28,8 @@ require("dressing").setup({
     width = nil,
     -- min_width and max_width can be a list of mixed types.
     -- min_width = {20, 0.2} means "the greater of 20 columns or 20% of total"
-    max_width = { 140, 0.9 },
-    min_width = { 20, 0.2 },
+    max_width = { 200, 0.9 },
+    min_width = { 70, 0.2 },
 
     buf_options = {},
     win_options = {
@@ -47,12 +47,17 @@ require("dressing").setup({
       n = {
         ["<Esc>"] = "Close",
         ["<CR>"] = "Confirm",
+        ["<A-q>"] = "Close",
+        ["<A-j>"] = "Confirm",
       },
       i = {
         ["<C-c>"] = "Close",
+        ["<A-q>"] = "Close",
         ["<CR>"] = "Confirm",
+        ["<A-j>"] = "Confirm",
         ["<Up>"] = "HistoryPrev",
-        ["<Down>"] = "HistoryNext",
+        ["<A-k>"] = "HistoryPrev",
+        ["<A-l>"] = "HistoryNext",
       },
     },
 
@@ -78,7 +83,7 @@ require("dressing").setup({
     -- Options for telescope selector
     -- These are passed into the telescope picker directly. Can be used like:
     -- telescope = require('telescope.themes').get_ivy({...})
-    telescope = nil,
+    telescope = require "telescope.themes",
 
     -- Options for fzf selector
     fzf = {
@@ -137,7 +142,7 @@ require("dressing").setup({
       -- max_width = {140, 0.8} means "the lesser of 140 columns or 80% of total"
       width = nil,
       max_width = { 140, 0.8 },
-      min_width = { 40, 0.2 },
+      min_width = { 80, 0.2 },
       height = nil,
       max_height = 0.9,
       min_height = { 10, 0.2 },
@@ -162,4 +167,4 @@ require("dressing").setup({
     -- see :help dressing_get_config
     get_config = nil,
   },
-})
+}

@@ -7,19 +7,19 @@ for i = 1, 9, 1 do
   end)
 end
 
--- Autoformat
--- autocmd({"BufWritePost"},
---     {
---       pattern = "*.js,*.jsx,*.ts,*.tsx,*.json,*.css,*.scss,*.md,*.html,*.yaml",
---       callback = function()
---         vim.cmd("silent !black --quiet %")
---         vim.cmd("Prettier")
---         vim.cmd("silent w")
---       end,
---     }
---   )
+autocmd("BufEnter", {
+  pattern = "*.md",
+  callback = function()
+    vim.cmd "MarkdownPreviewToggle"
+  end,
+})
 
 autocmd("VimResized", {
   pattern = "*",
   command = "tabdo wincmd =",
 })
+
+-- autocmd("BufWritePre", {
+--   pattern = "*",
+--   command = "OrganizeImports",
+-- })

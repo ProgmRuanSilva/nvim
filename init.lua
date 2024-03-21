@@ -8,6 +8,9 @@ end
 
 require("core.utils").load_mappings()
 
+-- Cursor
+vim.o.guicursor = "n-v-c-sm:block,ci-ve:ver25,r-cr-o:hor20,i:block-blinkwait700-blinkoff400-blinkon10-Cursor/lCursor"
+
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
 -- bootstrap lazy.nvim!

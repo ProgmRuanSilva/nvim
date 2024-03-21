@@ -1,9 +1,12 @@
-require("dashboard").setup({
+require("dashboard").setup {
   theme = "hyper",
   disable_move = true,
   config = {
     week_header = {
       enable = true,
+      project = {
+        enable = false,
+      },
     },
     shortcut = {
       { desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
@@ -37,4 +40,4 @@ require("dashboard").setup({
       },
     },
   },
-})
+}

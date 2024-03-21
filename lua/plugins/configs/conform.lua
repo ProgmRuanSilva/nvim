@@ -15,6 +15,9 @@ require("conform").setup {
     graphql = { "prettier" },
     lua = { "stylua" },
     python = { "isort", "black" },
+    sh = { "shfmt" },
+    zsh = { "shfmt" },
+    bash = { "shfmt" },
   },
   format_on_save = {
     lsp_fallback = true,
