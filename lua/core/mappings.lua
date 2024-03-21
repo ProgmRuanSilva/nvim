@@ -76,6 +76,8 @@ M.general = {
     ["f"] = { "<END>", "navigate to end of line" },
     ["ff"] = { "<HOME>", "navigate to beggining of line" },
 
+    ["fs"] = { "za", "toggle fold" },
+
     ["<S-l>"] = { "<S-v>xp", "move line to down" },
     ["<S-h>"] = { "<S-v>xk<S-p>", "move line to up" },
 

@@ -27,10 +27,15 @@ lspconfig.tsserver.setup {
   },
 }
 
-lspconfig.pylint.setup {
+lspconfig.shesllchekc.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { ".py" },
+  filetypes = { ".sh", ".bash", ".zsh" },
+}
+
+lspconfig.bashls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
 }
 
 lspconfig.pylsp.setup {
