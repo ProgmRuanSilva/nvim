@@ -23,8 +23,8 @@ M.general = {
     ["<A-b>"] = { "<C-o><S-v>y<C-o>p", "Copy line to below" },
 
     ["<A-s>"] = { "<cmd>w!<CR>", "save" },
-    ["<A-g>"] = { "<C-o>u", "Undo" },
-    ["<A-r>"] = { "<C-o><C-r>", "Restore" },
+    ["<A-r>"] = { "<C-o>u", "Undo" },
+    ["<A-g>"] = { "<C-o><C-r>", "Restore" },
 
     ["<A-v>"] = { "<ESC>", "Escape insert mode" },
 
@@ -51,8 +51,8 @@ M.general = {
     ["<A-,>"] = { "<", "Add < on insertion mode" },
     ["<A-.>"] = { ">", "Add > on insertion mode" },
 
-    ["<A-;>"] = { "<C-o><S-o><C-c>i", "Add a line into on insertion mode" },
-    ["<A-/>"] = { "<C-o><S-o><C-c>i", "Add a line into on insertion mode" },
+    ["<A-;>"] = { ":", "Add : on insertion mode" },
+    ["<A-/>"] = { "?", "Add ? on insertion mode" },
   },
 
   n = {
@@ -70,7 +70,6 @@ M.general = {
     ["<A-r>"] = { "<C-r>", "undo restore" },
 
     [";"] = { ":", "enter command mode" },
-    -- ["<A-q>"] = { "<Esc>", "esc key" },
     ["<leader>u"] = { "<cmd>q<CR>", "Quit window" },
 
     ["f"] = { "<END>", "navigate to end of line" },
@@ -90,14 +89,17 @@ M.general = {
     ["<leader>i"] = { "<cmd>vsplit<CR>", "new vertical split" },
     ["<leader>o"] = { "<cmd>split<CR>", "new horizontal split" },
 
+    ["s"] = { "<cmd>HopLine<CR>", "HopLine" },
+    ["q"] = { "<cmd>HopWord<CR>", "HopLine" },
+
     ["<A-f>"] = { "<cmd>HopWord<CR>", "HopWord" },
     ["<A-a>"] = { "<cmd>HopAnywhere<CR>", "HopAnywhere" },
     ["<A-c>"] = { "<cmd>HopLine<CR>", "HopAnywhere" },
 
-    ["<leader>gf"] = { "<cmd>GitBlameToggle<CR>" },
+    ["<leader>gg"] = { "<cmd>GitBlameToggle<CR>" },
 
     ["<leader>gd"] = { "<cmd>LazyGit<CR>" },
-    ["<leader>ld"] = { "<cmd>LazyDocker<CR>" },
+    ["<leader>dp"] = { "<cmd>LazyDocker<CR>" },
 
     ["<leader>q"] = { "<cmd>DBUIToggle<CR>" },
 
@@ -140,6 +142,9 @@ M.general = {
   },
 
   v = {
+    ["q"] = { "<cmd>'<,'>Gen<CR>", "Move down" },
+
+    ["v"] = { "<S-v>", "Select line" },
 
     ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
     ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
@@ -154,6 +159,10 @@ M.general = {
     ["<A-f>"] = { "<cmd>HopWord<CR>", "HopWord" },
     ["<A-a>"] = { "<cmd>HopAnywhere<CR>", "HopAnywhere" },
     ["<A-c>"] = { "<cmd>HopLine<CR>", "HopAnywhere" },
+
+    ["s"] = { "<cmd>HopWord<CR>", "HopWord" },
+    ["a"] = { "<cmd>HopAnywhere<CR>", "HopAnywhere" },
+    ["c"] = { "<cmd>HopLine<CR>", "HopLine" },
 
     ["<A-e>"] = { "<C-q>", "Block selection mode" },
     ["<A-q>"] = { "<Esc>", "Quit from visual mode" },
@@ -228,12 +237,15 @@ M.telescope = {
 
   n = {
     -- find
-    ["<leader><leader>"] = { "<cmd>Telescope find_files<CR>" },
+    ["<leader>j"] = { "<cmd>Telescope file_browser<CR>", "Open File Browser" },
+    ["<leader><leader>"] = { "<cmd>Telescope file_browser<CR>", "Open File Browser" },
 
-    ["<leader>d"] = { "<cmd>Telescope oldfiles<CR>" },
-    ["<leader>j"] = { "<cmd>Telescope file_browser<CR>" },
+    ["<leader>k"] = { "<cmd>Telescope buffers<CR>", "Open File Browser" },
+    -- ["<leader>j"] = { "<cmd>Telescope find_files<CR>" },
 
-    ["<leader>f"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
+    ["<leader>fo"] = { "<cmd>Telescope oldfiles<CR>" },
+
+    ["<leader>ff"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
 
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" },
 
@@ -241,7 +253,9 @@ M.telescope = {
 
     ["<leader>ft"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
 
-    ["<leader>l"] = { "<cmd>Telescope zoxide list<CR>" },
+    ["<leader>fd"] = { "<cmd> Telescope diagnostics<CR>", "Lsp Diagnostics" },
+
+    ["<leader>fl"] = { "<cmd>Telescope zoxide list<CR>" },
     ["<leader>["] = { "<cmd>Telescope notify<CR>" },
     ["<leader>pp"] = { "<cmd>Telescope package_info<CR>" },
 
@@ -286,6 +300,10 @@ M.comment = {
 
   v = {
     ["<leader>/"] = {
+      "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+      "Toggle comment",
+    },
+    ["/"] = {
       "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
       "Toggle comment",
     },
@@ -548,6 +566,10 @@ M.lspconfig = {
   },
 }
 
+vim.api.nvim_set_keymap("n", "s", "<cmd>HopWord<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "q", "<cmd>HopLine<CR>", { noremap = true, silent = true })
+
 -- Tmux Navigation
 vim.api.nvim_set_keymap(
   "n",
@@ -555,12 +577,12 @@ vim.api.nvim_set_keymap(
   [[winnr('#') < 0 ? 'k' : ':TmuxNavigateUp<CR>']],
   { expr = true, noremap = true, silent = true }
 )
-vim.api.nvim_set_keymap(
-  "n",
-  "<A-j>",
-  [[winnr('#') < 0 ? 'j' : ':TmuxNavigateDown<CR>']],
-  { expr = true, noremap = true, silent = true }
-)
+-- vim.api.nvim_set_keymap(
+--   "n",
+--   "<A-i>",
+--   [[winnr('#') < 0 ? 'i' : ':TmuxNavigateDown<CR>']],
+--   { expr = true, noremap = true, silent = true }
+-- )
 vim.api.nvim_set_keymap(
   "n",
   "<A-l>",

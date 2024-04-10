@@ -3,8 +3,8 @@ vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
-vim.keymap.set("n", "zA", require("ufo").openAllFolds)
-vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+vim.keymap.set("n", "fo", require("ufo").openAllFolds)
+vim.keymap.set("n", "fc", require("ufo").closeAllFolds)
 vim.keymap.set("n", "zK", function()
   local winid = require("ufo").peekFoldedLinesUnderCursor()
   if not winid then

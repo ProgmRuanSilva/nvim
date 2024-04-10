@@ -1,3 +1,5 @@
+local action = require "telescope.actions"
+
 local options = {
   defaults = {
     vimgrep_arguments = {
@@ -45,40 +47,42 @@ local options = {
     buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
     mappings = {
       i = {
-        ["<A-k>"] = require("telescope.actions").move_selection_next,
-        ["<A-l>"] = require("telescope.actions").move_selection_previous,
-        ["<A-j>"] = require("telescope.actions").select_default,
+        ["<A-k>"] = action.move_selection_next,
+        ["<A-l>"] = action.move_selection_previous,
+        ["<A-j>"] = action.select_default,
 
-        ["<A-w>"] = require("telescope.actions").file_vsplit,
-        ["<A-e>"] = require("telescope.actions").file_split,
+        ["<A-w>"] = action.file_vsplit,
+        ["<A-e>"] = action.file_split,
 
-        ["<A-m>"] = require("telescope.actions").preview_scrolling_down,
-        ["<A-n>"] = require("telescope.actions").preview_scrolling_down,
+        ["<A-m>"] = action.preview_scrolling_down,
+        ["<A-n>"] = action.preview_scrolling_down,
 
-        ["<A-q>"] = require("telescope.actions").close,
+        ["<A-q>"] = action.close,
 
-        ["<A-a>"] = require("telescope.actions").toggle_all,
+        ["<A-a>"] = action.toggle_all,
       },
 
       n = {
-        ["j"] = require("telescope.actions").select_default,
-        ["<A-j>"] = require("telescope.actions").select_default,
+        ["j"] = action.select_default,
+        ["<A-j>"] = action.select_default,
 
-        ["k"] = require("telescope.actions").move_selection_next,
-        ["l"] = require("telescope.actions").move_selection_previous,
+        ["k"] = action.move_selection_next,
+        ["l"] = action.move_selection_previous,
+        ["<A-k>"] = action.move_selection_next,
+        ["<A-l>"] = action.move_selection_previous,
 
-        ["<A-w>"] = require("telescope.actions").file_vsplit,
-        ["<A-e>"] = require("telescope.actions").file_split,
+        ["<A-w>"] = action.file_vsplit,
+        ["<A-e>"] = action.file_split,
 
-        ["<A-n>"] = require("telescope.actions").preview_scrolling_up,
-        ["<A-m>"] = require("telescope.actions").preview_scrolling_down,
+        ["<A-n>"] = action.preview_scrolling_up,
+        ["<A-m>"] = action.preview_scrolling_down,
 
-        ["q"] = require("telescope.actions").close,
-        ["<A-q>"] = require("telescope.actions").close,
+        ["q"] = action.close,
+        ["<A-q>"] = action.close,
       },
     },
   },
-  extensions_list = { "themes", "gitmoji", "git_worktree", "emoji" },
+  extensions_list = { "themes", "gitmoji", "git_worktree", "emoji", "file_browser" },
   extensions = {
     fzf = {
       fuzzy = true,
