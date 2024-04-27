@@ -18,6 +18,7 @@ require("conform").setup {
     sh = { "shfmt" },
     zsh = { "shfmt" },
     bash = { "shfmt" },
+    ruby = { "rubocop" },
   },
   format_on_save = {
     lsp_fallback = true,

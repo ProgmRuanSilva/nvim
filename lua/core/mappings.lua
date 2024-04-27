@@ -89,8 +89,8 @@ M.general = {
     ["<leader>i"] = { "<cmd>vsplit<CR>", "new vertical split" },
     ["<leader>o"] = { "<cmd>split<CR>", "new horizontal split" },
 
-    ["s"] = { "<cmd>HopLine<CR>", "HopLine" },
-    ["q"] = { "<cmd>HopWord<CR>", "HopLine" },
+    ["q"] = { "<cmd>HopLine<CR>", "HopLine" },
+    ["s"] = { "<cmd>HopWord<CR>", "HopLine" },
 
     ["<A-f>"] = { "<cmd>HopWord<CR>", "HopWord" },
     ["<A-a>"] = { "<cmd>HopAnywhere<CR>", "HopAnywhere" },
@@ -142,7 +142,7 @@ M.general = {
   },
 
   v = {
-    ["q"] = { "<cmd>'<,'>Gen<CR>", "Move down" },
+    [";"] = { "<cmd>'<,'>Gen<CR>", "Move down" },
 
     ["v"] = { "<S-v>", "Select line" },
 
@@ -161,7 +161,7 @@ M.general = {
     ["<A-c>"] = { "<cmd>HopLine<CR>", "HopAnywhere" },
 
     ["s"] = { "<cmd>HopWord<CR>", "HopWord" },
-    ["a"] = { "<cmd>HopAnywhere<CR>", "HopAnywhere" },
+    ["q"] = { "<cmd>HopAnywhere<CR>", "HopAnywhere" },
     ["c"] = { "<cmd>HopLine<CR>", "HopLine" },
 
     ["<A-e>"] = { "<C-q>", "Block selection mode" },
