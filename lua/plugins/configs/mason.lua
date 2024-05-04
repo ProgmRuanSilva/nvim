@@ -16,6 +16,11 @@ local options = {
     "clangd",
     "clang-format",
 
+    "solargraph",
+    "rubocop",
+    "erb_lint",
+    "erb_formatter",
+
     "gopls",
 
     "shfmt",

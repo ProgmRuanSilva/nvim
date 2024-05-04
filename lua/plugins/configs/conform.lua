@@ -20,6 +20,7 @@ require("conform").setup {
     bash = { "shfmt" },
     ruby = { "rubocop" },
     erb = { "erb_formatter" },
+    eruby = { "erb_formatter" },
   },
   format_on_save = {
     lsp_fallback = true,

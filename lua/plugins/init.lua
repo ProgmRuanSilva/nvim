@@ -603,11 +603,6 @@ local default_plugins = {
     },
   },
 
-  -- {
-  --   "itchyny/vim-cursorword",
-  --   event = "VeryLazy",
-  -- },
-
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -682,40 +677,59 @@ local default_plugins = {
   },
 
   {
-    "RRethy/vim-illuminate",
-    event = "VeryLazy",
-    opts = {
-      delay = 200,
-      large_file_cutoff = 2000,
-      large_file_overrides = {
-        providers = { "lsp" },
+    {
+      "RRethy/vim-illuminate",
+      event = { "BufReadPost", "BufNewFile" },
+      opts = {
+        delay = 200,
+        filetypes_denylist = {
+          "dirbuf",
+          "dirvish",
+          "fugitive",
+          "NvimTree",
+        },
       },
-      under_cursor = false,
-    },
-    config = function(_, opts)
-      require("illuminate").configure(opts)
+      config = function(_, opts)
+        require("illuminate").configure(opts)
+        vim.api.nvim_create_autocmd("FileType", {
+          callback = function()
+            local buffer = vim.api.nvim_get_current_buf()
+            pcall(vim.keymap.del, "n", "<S-m>", { buffer = buffer })
+            pcall(vim.keymap.del, "n", "<S-j>", { buffer = buffer })
+          end,
+        })
 
-      local function map(key, dir, buffer)
-        vim.keymap.set("n", key, function()
-          require("illuminate")["goto_" .. dir .. "_reference"](false)
-        end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
-      end
+        -- change the highlight style
+        vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
+        vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
+        vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
 
-      map("<S-l>", "next")
-      map("<S-h>", "prev")
-
-      -- also set it after loading ftplugins, since a lot overwrite ll and ll
-      vim.api.nvim_create_autocmd("FileType", {
-        callback = function()
-          local buffer = vim.api.nvim_get_current_buf()
-          map("<S-l>", "next", buffer)
-          map("<S-h>", "prev", buffer)
-        end,
-      })
-    end,
-    keys = {
-      { "<S-l>", desc = "Next Reference" },
-      { "<S-h>", desc = "Prev Reference" },
+        --- auto update the highlight style on colorscheme change
+        vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+          pattern = { "*" },
+          callback = function(ev)
+            vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
+            vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
+            vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
+          end,
+        })
+      end,
+      keys = {
+        {
+          "<S-m>",
+          function()
+            require("illuminate").goto_next_reference(false)
+          end,
+          desc = "Next Reference",
+        },
+        {
+          "<S-j>",
+          function()
+            require("illuminate").goto_prev_reference(false)
+          end,
+          desc = "Prev Reference",
+        },
+      },
     },
   },
 
