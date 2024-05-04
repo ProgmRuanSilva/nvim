@@ -63,7 +63,7 @@ lspconfig.pylsp.setup {
 lspconfig.solargraph.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { "ruby", ".rb", ".erb" },
+  filetypes = { "ruby", ".rb" },
   root_dir = util.root_pattern("Gemfile", ".git"),
   settings = {
     solargraph = {
@@ -71,6 +71,19 @@ lspconfig.solargraph.setup {
       formatting = true,
     },
   },
+}
+
+lspconfig.rubocop.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "ruby", ".rb" },
+  root_dir = util.root_pattern("Gemfile", ".git"),
+}
+
+lspconfig.erb_lint.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "eruby", ".erb", ".html.erb" },
 }
 
 lspconfig.gopls.setup {

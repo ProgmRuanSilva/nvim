@@ -8,6 +8,7 @@ local options = {
     "typescript-language-server",
     "unocss-language-server",
     "eslint-lsp",
+    "eslint_d",
     "deno",
     "prettier",
     "json-lsp",
