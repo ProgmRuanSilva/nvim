@@ -1,17 +1,43 @@
 local options = {
 	formatters_by_ft = {
-		lua = { "stylua" },
+		javascript = { "prettier" },
+		typescript = { "prettier" },
+		javascriptreact = { "prettier" },
+		typescriptreact = { "prettier" },
+		svelte = { "prettier" },
 		css = { "prettier" },
 		html = { "prettier" },
-		typescript = { "prettier" },
-		javascript = { "prettier" },
+		json = { "prettier" },
+		yaml = { "prettier" },
+		markdown = { "prettier" },
+		graphql = { "prettier" },
+		lua = { "stylua" },
+		python = { "isort", "black" },
+		sh = { "shfmt" },
+		zsh = { "shfmt" },
+		bash = { "shfmt" },
+		ruby = { "rubocop" },
+		erb = { "erb_formatter" },
+		eruby = { "erb_formatter" },
 	},
-
 	format_on_save = {
-		-- These options will be passed to conform.format()
-		timeout_ms = 500,
 		lsp_fallback = true,
+		async = false,
+		timeout_ms = 500,
 	},
 }
+-- formatters_by_ft = {
+-- 	lua = { "stylua" },
+-- 	css = { "prettier" },
+-- 	html = { "prettier" },
+-- 	typescript = { "prettier" },
+-- 	javascript = { "prettier" },
+-- },
+--
+-- format_on_save = {
+-- 	-- These options will be passed to conform.format()
+-- 	timeout_ms = 500,
+-- 	lsp_fallback = true,
+-- },
 
 require("conform").setup(options)

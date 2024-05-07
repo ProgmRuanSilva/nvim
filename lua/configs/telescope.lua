@@ -1,6 +1,6 @@
 local conf = require("nvchad.configs.telescope")
-local mappings = require("lua.mappings").telescope
-local file_browser = require("lua.mappings").file_browser
+package.path = "lua/?.lua;" .. package.path
+local mappings = require("mappings")
 
 conf.defaults = {
 	vimgrep_arguments = {
@@ -46,7 +46,7 @@ conf.defaults = {
 	grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
 	qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
 	buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
-	mappings = mappings,
+	mappings = mappings.telescope,
 }
 conf.extensions_list = { "themes", "file_browser", "emoji", "gitmoji" }
 
@@ -77,7 +77,7 @@ conf.extensions = {
 		hijack_netrw = true,
 		use_fd = true,
 		git_status = false,
-		mappings = file_browser,
+		mappings = mappings.file_browser,
 	},
 
 	gitmoji = {

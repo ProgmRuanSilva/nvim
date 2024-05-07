@@ -73,13 +73,9 @@ M.ui = {
 
 	cheatsheet = { theme = "grid" }, -- simple/grid
 
-	-- lsp = {
-	-- 	-- show function signatures i.e args as you type
-	-- 	signature = {
-	-- 		disabled = false,
-	-- 		silent = false, -- silences 'no signature help available' message from appearing
-	-- 	},
-	-- },
+	lsp = {
+		signature = false,
+	},
 }
 -- M.ui = {
 -- 	theme = "chadracula",

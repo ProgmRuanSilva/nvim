@@ -1,13 +1,14 @@
 require("nvchad.mappings")
+
 local fb_actions = require("telescope._extensions.file_browser.actions")
 local fb_utils = require("telescope._extensions.file_browser.utils")
 local action_state = require("telescope.actions.state")
-
 local map = vim.keymap.set
 
 -- Universal Utils
 map({ "n", "i", "v" }, "<C-s>", "<cmd> w! <cr>")
-map({ "n", "i", "v" }, "<A-q>", "<Esc>")
+map("n", "<A-q>", "<cmd> noh <CR>")
+map({ "i", "v" }, "<A-q>", "<Esc>")
 map({ "n", "v" }, "m", "w")
 map({ "n", "v" }, "n", "b")
 map({ "n", "i" }, "<A-s>", "<cmd>w!<CR>")
@@ -29,21 +30,26 @@ map("i", "<A-.>", ">")
 map("i", "<A-v>", "<Esc>")
 map("i", "<A-o>", "<C-o>o")
 map("i", "<A-b>", "<C-o><S-v>y<C-o>p")
+map("n", "<A-o>", "<S-o>")
+map("i", "<A-r>", "<C-o>u")
+map("i", "<A-g>", "<C-o><C-r>")
 
 -- Insertion Chars
 map("i", "<A-9>", "()<Left>")
 map("i", "<A-0>", ")<Left>")
-map("i", "<A-[>", "[]<Left>")
-map("i", "<A-]>", "]<Left>")
-map("i", "<A-{>", "{}<Left>")
-map("i", "<A-}>", "}<Left>")
-map("i", "<A-;>", ";")
+map("i", "<A-[>", "{}<Left>")
+map("i", "<A-]>", "}<Left>")
+map("i", "<A-;>", ":")
 map("i", "<A-/>", "?")
+map("i", "<A-'>", "'")
+map("i", '<A-">', '"')
 
 -- Deletes
+map("i", "<A-x>", "<C-o>d")
 map("i", "<A-p>", "<Backspace>")
 map("n", "dm", "dw")
 map("n", "dn", "db")
+map("n", "df", "d$")
 map("i", "<A-w>", "<C-o>dw")
 map("i", "<A-q>", "<C-o>db")
 
@@ -57,105 +63,176 @@ map("n", "<leader>u", "<cmd>q!<CR>")
 map("n", "<leader>i", "<cmd>vsplit<CR>")
 map("n", "<leader>o", "<cmd>split<CR>")
 
--- Scroll
--- map("n", "<A-e>", "<C-d>")
--- map("n", "e", "<C-d>")
--- map("n", "<A-w>", "<C-u>")
--- map("n", "w", "<C-u>")
+-- Command
+map("c", "<A-l>", "<Up>")
+map("c", "<A-k>", "<Down>")
+map("c", "<A-f>", "<Left>")
+map("c", "<A-h>", "<Right>")
+map("c", "<A-b>", "<Home>")
+map("c", "<A-c>", "<End>")
+map("c", "<A-s>", "<Del>")
+map("c", "<A-p>", "<BS>")
+map("c", "<A-j>", "<Enter>")
 
 -- Visual
 map("n", "vv", "<S-v>")
+map({ "v", "n" }, "<A-q>", "<C-q>")
+
+-- Tabs
+map("n", "<A-m>", "<cmd>bnext<CR>", { desc = "Next Tab" })
+map("n", "<A-n>", "<cmd>bprev<CR>", { desc = "Next Tab" })
+
+-- Configurations
+map("n", "<leader>cm", "<cmd> Mason <CR>", { desc = "Mason" })
+map("n", "<leader>cl", "<cmd> Lazy <CR>")
+map("n", "<leader>cf", "<cmd> ConformInfo <CR>")
+map("n", "<leader>ci", "<cmd> LspInfo <CR>")
+map("n", "<leader>cs", "<cmd> help lspconfig-all <CR>")
+
+-- Lsp
+map("n", "gkd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true })
+map("n", "gkD", "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>", { noremap = true })
+map("n", "gki", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", { noremap = true })
+map("n", "gkl", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>", { noremap = true })
+map("n", "gkg", "<cmd>lua require('goto-preview').close_all_win()<CR>", { noremap = true })
+map("n", "gkr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", { noremap = true })
 
 ---------------------- Plugins -----------------------------
 local Plugins = {}
 
---Telescope
-map("n", "<leader><leader>", "<cmd>Telescope find_files<CR>")
-map("n", "<leader>j", "<cmd>Telescope file_browser<CR>")
-map("n", "<leader>fe", "<cmd>Telescope emoji<CR>")
-map("n", "<leader>gc", "<cmd>Telescope gitmoji<CR>")
+-- Lazygit
+map("n", "<leader>gd", "<cmd>LazyGit<CR>")
+
+-- Git
+map("n", "<leader>gf", "<cmd>GitBlameToggle<CR>")
+
+-- Lazydocker
+map("n", "<leader>dl", "<cmd>LazyDocker<CR>")
+
+-- Trouble
+map("n", "<leader>fq", "<cmd>TroubleToggle<CR>")
+
+-- NvimTree
+map("n", "<leader>e", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle NvimTree" })
+
+-- Dadbod
+map("n", "<leader>q", "<cmd>DBUIToggle<CR>")
+
+-- Ufo
+map("n", "fs", "za")
+map("n", "fo", "<cmd>lua require('ufo').openAllFolds()<CR>")
+map("n", "fc", "<cmd>lua require('ufo').closeAllFolds()<CR>")
 
 -- Hop
 map({ "n", "v", "i" }, "<A-f>", "<cmd>HopWord<CR>")
 map({ "n", "v", "i" }, "<A-a>", "<cmd>HopAnywhere<CR>")
 map({ "n", "v" }, "<A-c>", "<cmd>HopLine<CR>")
+map("v", "c", "<cmd>HopLine<CR>")
+map({ "n", "v" }, "s", "<cmd>HopWord<CR>")
+map({ "n", "v" }, "q", "<cmd>HopAnywhere<CR>")
+
+--Telescope
+map("n", "<leader><leader>", "<cmd>Telescope file_browser<CR>")
+map("n", "<leader>j", "<cmd>Telescope file_browser<CR>")
+
+map("n", "<leader>fk", "<cmd>Telescope find_buffer<CR>")
+map("n", "<leader>ff", "<cmd>Telescope live_grep<CR>")
+
+map("i", "<A-g>", "<cmd>Telescope emoji <CR>")
+map("n", "<leader>fe", "<cmd> Telescope emoji <CR>")
+map("n", "<leader>gc", "<cmd> Telescope gitmoji <CR>")
+map("n", "<leader>[", "<cmd> Telescope notify <CR>")
+map("n", "<leader>f]", "<cmd> TodoTelescope <CR>")
+
+-- Package Info
+map("n", "<leader>ps", function()
+	return require("package-info").show()
+end, { noremap = true })
+
+map("n", "<leader>pc", function()
+	return require("package-info").hide()
+end, { noremap = true })
+
+map("n", "<leader>pt", function()
+	return require("package-info").toggle()
+end, { noremap = true })
+
+map("n", "<leader>pu", function()
+	return require("package-info").update()
+end, { noremap = true })
+
+map("n", "<leader>pd", function()
+	return require("package-info").delete()
+end, { noremap = true })
+
+map("n", "<leader>pi", function()
+	return require("package-info").install()
+end, { noremap = true })
+
+map("n", "<leader>pv", function()
+	return require("package-info").change_version()
+end, { noremap = true })
+
+-- Comment
+map("v", "/", function()
+	require("Comment.api").toggle.linewise.current(vim.fn.visualmode())
+end, { desc = "Comment selection" })
+
+-- Tabufline
+map("n", "<S-m>", function()
+	require("nvchad.tabufline").move_buf(1)
+end, { desc = "" })
+
+map("n", "<S-b>", function()
+	require("nvchad.tabufline").move_buf(-1)
+end, { desc = "" })
+
+-- Octo
+map("n", "<leader>gpl", "<cmd>Octo pr list<CR>", { desc = "List Pull Requests" })
+map("n", "<leader>gpa", "<cmd>Octo pr create<CR>", { desc = "Open A New Pull Request" })
+map("n", "<leader>gpe", "<cmd>Octo pr edit<CR>", { desc = "Edit Pull Request" })
+map("n", "<leader>gpc", "<cmd>Octo pr changes<CR>", { desc = "Pull Request Diff" })
+map("n", "<leader>gpd", "<cmd>Octo pr close<CR>", { desc = "Close Pull Request" })
+
+map("n", "<leader>gil", "<cmd>Octo issue list<CR>", { desc = "List Issues Request" })
+map("n", "<leader>gia", "<cmd>Octo issue create<CR>", { desc = "Create A New Issue Request" })
+map("n", "<leader>gie", "<cmd>Octo issue edit<CR>", { desc = "Edit Issue Request" })
+
+map("n", "<leader>grl", "<cmd>Octo repo list<CR>", { desc = "List Repositories" })
 
 -- Cinnamon
 -- Half-window movements:
-vim.keymap.set({ "n", "x" }, "<A-w>", "<Cmd>lua Scroll('<C-u>', 1, 1)<CR>")
-vim.keymap.set({ "n", "x" }, "<A-e>", "<Cmd>lua Scroll('<C-d>', 1, 1)<CR>")
+map({ "n", "x" }, "<A-w>", "<Cmd>lua Scroll('<C-u>', 1, 1)<CR>")
+map({ "n", "x" }, "<A-e>", "<Cmd>lua Scroll('<C-d>', 1, 1)<CR>")
 
 -- Page movements:
-vim.keymap.set({ "n", "x" }, "w", "<Cmd>lua Scroll('<C-b>', 1, 1)<CR>")
-vim.keymap.set({ "n", "x" }, "e", "<Cmd>lua Scroll('<C-f>', 1, 1)<CR>")
--- vim.keymap.set({ "n", "x" }, "<PageUp>", "<Cmd>lua Scroll('<C-b>', 1, 1)<CR>"),
--- vim.keymap.set({ "n", "x" }, "<PageDown>", "<Cmd>lua Scroll('<C-f>', 1, 1)<CR>"),
-
--- EXTRA_KEYMAPS:
+map({ "n", "x" }, "w", "<Cmd>lua Scroll('<C-b>', 1, 1)<CR>")
+map({ "n", "x" }, "e", "<Cmd>lua Scroll('<C-f>', 1, 1)<CR>")
 
 -- Start/end of file and line number movements:
--- vim.keymap.set({ "n", "x" }, "gg", "<Cmd>lua Scroll('gg')<CR>"),
--- vim.keymap.set({ "n", "x" }, "G", "<Cmd>lua Scroll('G', 0, 1)<CR>"),
-
--- Start/end of line:
-vim.keymap.set({ "n", "x" }, "0", "<Cmd>lua Scroll('0')<CR>")
-vim.keymap.set({ "n", "x" }, "^", "<Cmd>lua Scroll('^')<CR>")
-vim.keymap.set({ "n", "x" }, "$", "<Cmd>lua Scroll('$', 0, 1)<CR>")
-
--- Paragraph movements:
-vim.keymap.set({ "n", "x" }, "{", "<Cmd>lua Scroll('{')<CR>")
-vim.keymap.set({ "n", "x" }, "}", "<Cmd>lua Scroll('}')<CR>")
-
--- Previous/next search result:
-vim.keymap.set("n", "n", "<Cmd>lua Scroll('n', 1)<CR>")
-vim.keymap.set("n", "N", "<Cmd>lua Scroll('N', 1)<CR>")
--- vim.keymap.set("n", "*", "<Cmd>lua Scroll('*', 1)<CR>"),
--- vim.keymap.set("n", "#", "<Cmd>lua Scroll('#', 1)<CR>"),
--- vim.keymap.set("n", "g*", "<Cmd>lua Scroll('g*', 1)<CR>"),
--- vim.keymap.set("n", "g#", "<Cmd>lua Scroll('g#', 1)<CR>"),
-
--- -- Previous/next cursor location:
--- vim.keymap.set("n", "<C-o>", "<Cmd>lua Scroll('<C-o>', 1)<CR>"),
--- vim.keymap.set("n", "<C-i>", "<Cmd>lua Scroll('1<C-i>', 1)<CR>"),
+map({ "n", "x" }, "gg", "<Cmd>lua Scroll('gg')<CR>")
+map({ "n", "x" }, "]]", "<Cmd>lua Scroll('G', 0, 1)<CR>")
 
 -- Screen scrolling:
-vim.keymap.set("n", "fj", "<Cmd>lua Scroll('zz', 0, 1)<CR>")
-vim.keymap.set("n", "fl", "<Cmd>lua Scroll('zt', 0, 1)<CR>")
-vim.keymap.set("n", "fk", "<Cmd>lua Scroll('zb', 0, 1)<CR>")
--- vim.keymap.set("n", "z.", "<Cmd>lua Scroll('z.', 0, 1)<CR>"),
--- vim.keymap.set("n", "z<CR>", "<Cmd>lua Scroll('zt^', 0, 1)<CR>"),
--- vim.keymap.set("n", "z-", "<Cmd>lua Scroll('z-', 0, 1)<CR>"),
--- vim.keymap.set("n", "z^", "<Cmd>lua Scroll('z^', 0, 1)<CR>"),
--- vim.keymap.set("n", "z+", "<Cmd>lua Scroll('z+', 0, 1)<CR>"),
--- vim.keymap.set("n", "<C-y>", "<Cmd>lua Scroll('<C-y>', 0, 1)<CR>"),
--- vim.keymap.set("n", "<C-e>", "<Cmd>lua Scroll('<C-e>', 0, 1)<CR>"),
-
--- Horizontal screen scrolling:
--- vim.keymap.set("n", "zH", "<Cmd>lua Scroll('zH')<CR>"),
--- vim.keymap.set("n", "zL", "<Cmd>lua Scroll('zL')<CR>"),
--- vim.keymap.set("n", "zs", "<Cmd>lua Scroll('zs')<CR>"),
--- vim.keymap.set("n", "ze", "<Cmd>lua Scroll('ze')<CR>"),
--- vim.keymap.set("n", "zh", "<Cmd>lua Scroll('zh', 0, 1)<CR>"),
--- vim.keymap.set("n", "zl", "<Cmd>lua Scroll('zl', 0, 1)<CR>"),
-
--- EXTENDED_KEYMAPS:
+map("n", "fj", "<Cmd>lua Scroll('zz', 0, 1)<CR>")
+map("n", "fl", "<Cmd>lua Scroll('zt', 0, 1)<CR>")
+map("n", "fk", "<Cmd>lua Scroll('zb', 0, 1)<CR>")
 
 -- Up/down movements:
-vim.keymap.set({ "n", "x" }, "k", "<Cmd>lua Scroll('k', 0, 1)<CR>")
-vim.keymap.set({ "n", "x" }, "j", "<Cmd>lua Scroll('j', 0, 1)<CR>")
-vim.keymap.set({ "n", "x" }, "<Up>", "<Cmd>lua Scroll('k', 0, 1)<CR>")
-vim.keymap.set({ "n", "x" }, "<Down>", "<Cmd>lua Scroll('j', 0, 1)<CR>")
+map({ "n", "x" }, "k", "<Cmd>lua Scroll('k', 0, 1)<CR>")
+map({ "n", "x" }, "j", "<Cmd>lua Scroll('j', 0, 1)<CR>")
+map({ "n", "x" }, "<Up>", "<Cmd>lua Scroll('k', 0, 1)<CR>")
+map({ "n", "x" }, "<Down>", "<Cmd>lua Scroll('j', 0, 1)<CR>")
 
 -- Left/right movements:
-vim.keymap.set({ "n", "x" }, "h", "<Cmd>lua Scroll('h', 0, 1)<CR>")
-vim.keymap.set({ "n", "x" }, "l", "<Cmd>lua Scroll('l', 0, 1)<CR>")
-vim.keymap.set({ "n", "x" }, "<Left>", "<Cmd>lua Scroll('h', 0, 1)<CR>")
-vim.keymap.set({ "n", "x" }, "<Right>", "<Cmd>lua Scroll('l', 0, 1)<CR>")
+map({ "n", "x" }, "h", "<Cmd>lua Scroll('h', 0, 1)<CR>")
+map({ "n", "x" }, "l", "<Cmd>lua Scroll('l', 0, 1)<CR>")
+map({ "n", "x" }, "<Left>", "<Cmd>lua Scroll('h', 0, 1)<CR>")
+map({ "n", "x" }, "<Right>", "<Cmd>lua Scroll('l', 0, 1)<CR>")
 
 -- SCROLL_WHEEL_KEYMAPS:
-
-vim.keymap.set({ "n", "x" }, "<ScrollWheelUp>", "<Cmd>lua Scroll('<ScrollWheelUp>')<CR>")
-vim.keymap.set({ "n", "x" }, "<ScrollWheelDown>", "<Cmd>lua Scroll('<ScrollWheelDown>')<CR>")
+map({ "n", "x" }, "<ScrollWheelUp>", "<Cmd>lua Scroll('<ScrollWheelUp>')<CR>")
+map({ "n", "x" }, "<ScrollWheelDown>", "<Cmd>lua Scroll('<ScrollWheelDown>')<CR>")
 
 Plugins.telescope = {
 	i = {
@@ -195,7 +272,6 @@ Plugins.telescope = {
 }
 
 Plugins.file_browser = {
-
 	["i"] = {
 		["<C-o>"] = fb_actions.open,
 		["<C-e>"] = fb_actions.goto_home_dir,
@@ -274,5 +350,12 @@ vim.api.nvim_set_keymap(
 	[[winnr('#') < 0 ? 'h' : ':TmuxNavigateLeft<CR>']],
 	{ expr = true, noremap = true, silent = true }
 )
+
+-- Change between tabs with numbers
+for i = 1, 9, 1 do
+	map("n", string.format("%s", i), function()
+		vim.api.nvim_set_current_buf(vim.t.bufs[i])
+	end)
+end
 
 return Plugins
