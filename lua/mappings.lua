@@ -76,7 +76,10 @@ map("c", "<A-j>", "<Enter>")
 
 -- Visual
 map("n", "vv", "<S-v>")
-map({ "v", "n" }, "<A-q>", "<C-q>")
+map("n", "<A-q>", "<C-q>")
+map("v", "<A-e>", "<C-q>")
+map("v", "c", "<cmd>HopLine<CR>")
+map("v", "a", "<cmd>HopAnywhere<CR>")
 
 -- Tabs
 map("n", "<A-m>", "<cmd>bnext<CR>", { desc = "Next Tab" })
@@ -112,8 +115,9 @@ map("n", "<leader>dl", "<cmd>LazyDocker<CR>")
 -- Trouble
 map("n", "<leader>fq", "<cmd>TroubleToggle<CR>")
 
--- NvimTree
-map("n", "<leader>e", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle NvimTree" })
+-- Gen
+map("n", "<leader>ll", "<cmd>Gen Chat<CR>")
+map("v", "<leader>ll", "<cmd>'<,'>Gen Chat<CR>")
 
 -- Dadbod
 map("n", "<leader>q", "<cmd>DBUIToggle<CR>")
@@ -127,7 +131,6 @@ map("n", "fc", "<cmd>lua require('ufo').closeAllFolds()<CR>")
 map({ "n", "v", "i" }, "<A-f>", "<cmd>HopWord<CR>")
 map({ "n", "v", "i" }, "<A-a>", "<cmd>HopAnywhere<CR>")
 map({ "n", "v" }, "<A-c>", "<cmd>HopLine<CR>")
-map("v", "c", "<cmd>HopLine<CR>")
 map({ "n", "v" }, "s", "<cmd>HopWord<CR>")
 map({ "n", "v" }, "q", "<cmd>HopAnywhere<CR>")
 
@@ -143,6 +146,24 @@ map("n", "<leader>fe", "<cmd> Telescope emoji <CR>")
 map("n", "<leader>gc", "<cmd> Telescope gitmoji <CR>")
 map("n", "<leader>[", "<cmd> Telescope notify <CR>")
 map("n", "<leader>f]", "<cmd> TodoTelescope <CR>")
+map("n", "<leader>fp", "<cmd> MarkdownPreviewToggle <CR>")
+
+-- ChatGPT
+map("n", "<leader>cc", "<cmd>ChatGPT<CR>")
+
+-- NvimTree
+map("n", "<leader>e", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle NvimTree" })
+
+-- Codeium
+map("i", "<A-i>", function()
+	return vim.fn["codeium#Accept"]()
+end, { expr = true })
+map("i", "<A-z>", function()
+	return vim.fn["codeium#CycleCompletions"](1)
+end, { expr = true })
+map("i", "<A-t>", function()
+	return vim.fn["codeium#Clear"]()
+end, { expr = true })
 
 -- Package Info
 map("n", "<leader>ps", function()
@@ -358,4 +379,5 @@ for i = 1, 9, 1 do
 	end)
 end
 
+-- vim.api.nvim_set_keymap("n", "<A-j>", "<cmd>Gen Chat<CR>", { buffer = "gen.nvim", noremap = true, silent = true })
 return Plugins

@@ -133,7 +133,7 @@ return {
 		},
 		presets = {
 			bottom_search = false, -- use a classic bottom cmdline for search
-			command_palette = true, -- position the cmdline and popupmenu together
+			command_palette = false, -- position the cmdline and popupmenu together
 			long_message_to_split = true, -- long messages will be sent to a split
 			inc_rename = false, -- enables an input dialog for inc-rename.nvim
 			lsp_doc_border = true, -- add a border to hover docs and signature help
@@ -176,68 +176,45 @@ return {
 			backend = "nui", -- backend to use to show regular cmdline completions
 			-- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
 			kind_icons = {}, -- set to `false` to disable icons
-			-- relative = "editor",
-			-- position = {
-			--   row = 28,
-			--   col = "50%",
-			-- },
-			-- size = {
-			--   width = 62,
-			--   height = 8,
-			-- },
 			border = {
 				style = "rounded",
 				padding = { 0, 10 },
 			},
-			win_options = {
-				winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
-			},
 		},
 		--- @see section on views
-		-- views = {
-		--   cmdline_popup = {
-		--     position = {
-		--       row = 25,
-		--       col = "50%",
-		--     },
-		--     size = {
-		--       row = 28,
-		--       width = 80,
-		--       height = "auto",
-		--     },
-		--   },
-		-- },
-		-- views = {
-		--   cmdline_popup = {
-		--     position = {
-		--       row = 25,
-		--       col = "50%",
-		--     },
-		--     size = {
-		--       width = 60,
-		--       height = "auto",
-		--     },
-		--   },
-		--   popupmenu = {
-		--     -- relative = "editor",
-		--     position = {
-		--       row = 38,
-		--       col = "60%",
-		--     },
-		--     size = {
-		--       width = 60,
-		--       height = 10,
-		--     },
-		--     border = {
-		--       style = "rounded",
-		--       padding = { 0, 1 },
-		--     },
-		--     win_options = {
-		--       winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
-		--     },
-		-- },
-		-- },
-
+		views = {
+			cmdline_popup = {
+				position = {
+					row = 30,
+					col = "50%",
+				},
+				size = {
+					width = 70,
+					height = "auto",
+				},
+				win_options = {
+					winhighlight = { Normal = "Normal", FloatBorder = "FloatBorder" },
+				},
+			},
+			popupmenu = {
+				relative = "editor",
+				position = {
+					row = 33,
+					col = "50%",
+				},
+				size = {
+					width = 70,
+					height = 15,
+				},
+				border = {
+					style = "rounded",
+					padding = { 0, 1 },
+				},
+				win_options = {
+					winhighlight = { Normal = "Normal", FloatBorder = "FloatBorder" },
+				},
+			},
+		},
 		markdown = {
 			-- hover = {
 			-- 	["|(%S-)|"] = vim.cmd.help, -- vim help links

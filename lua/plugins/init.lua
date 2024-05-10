@@ -1,3 +1,4 @@
+-- TODO: Create a autocommand to rezise the pane
 return {
 	{
 		"stevearc/conform.nvim",
