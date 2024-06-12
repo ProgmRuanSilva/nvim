@@ -2,11 +2,9 @@ return {
 	"echasnovski/mini.animate",
 	event = "VimEnter",
 	config = function()
-		-- local animate = require("mini.animate")
 		require("mini.animate").setup({
 			cursor = {
-				enable = true,
-				-- timing = animate.gen_timing.linear({ duration = 85, unit = "total" }),
+				enable = false,
 			},
 			scroll = {
 				enable = false,
@@ -18,7 +16,7 @@ return {
 				enable = false,
 			},
 			resize = {
-				enable = false,
+				enable = true,
 			},
 		})
 	end,
