@@ -6,16 +6,18 @@ local M = {}
 M.ui = {
 	------------------------------- base46 -------------------------------------
 	-- hl = highlights
-	hl_add = {},
-	hl_override = {},
+	-- hl_add = {
+	-- },
+	-- hl_override = {
+	-- },
 	-- changed_themes = {},
 	-- theme_toggle = { "onedark", "one_light" },
 	theme = "chadracula", -- default theme
 	transparency = true,
-	lsp_semantic_tokens = true, -- needs nvim v0.9, just adds highlight groups for lsp semantic tokens
+	lsp_semantic_tokens = false, -- needs nvim v0.9, just adds highlight groups for lsp semantic tokens
 
 	-- https://github.com/NvChad/base46/tree/v2.0/lua/base46/extended_integrations
-	extended_integrations = { "notify" }, -- these aren't compiled by default, ex: "alpha", "notify"
+	extended_integrations = { "notify", "noice", "todo" }, -- these aren't compiled by default, ex: "alpha", "notify"
 
 	-- cmp themeing
 	cmp = {
@@ -77,21 +79,5 @@ M.ui = {
 		signature = false,
 	},
 }
--- M.ui = {
--- 	theme = "chadracula",
--- 	transparency = true,
--- 	lsp_semantic_tokens = true,
--- 	tabufline = {
--- 		show_numbers = false,
--- 		enabled = true,
--- 		lazyload = true,
--- 		overriden_modules = nil,
--- 	},
-
--- hl_override = {
--- 	Comment = { italic = true },
--- 	["@comment"] = { italic = true },
--- },
--- }
 
 return M

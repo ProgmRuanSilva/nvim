@@ -1,6 +1,6 @@
 -- Open preview when opening a markdown file
 vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = { "*.md", "*.nvim" },
+	pattern = { "*.md", "gen.nvim" },
 	callback = function()
 		vim.cmd("MarkdownPreviewToggle")
 	end,
@@ -11,7 +11,7 @@ return {
 	cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 	build = "cd app && yarn install",
 	init = function()
-		vim.g.mkdp_filetypes = { "markdown", ".md", ".nvim" }
+		vim.g.mkdp_filetypes = { "markdown", ".md" }
 	end,
 	ft = { "markdown" },
 }
