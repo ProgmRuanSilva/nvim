@@ -118,7 +118,7 @@ return {
 			indent = { enable = true },
 
 			incremental_selection = {
-				enable = true,
+				enable = false,
 				keymaps = {
 					init_selection = "gnn",
 					node_incremental = "grn",

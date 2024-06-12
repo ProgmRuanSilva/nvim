@@ -31,7 +31,6 @@ return {
 				local buffer = vim.api.nvim_get_current_buf()
 				vim.api.nvim_buf_del_keymap(buffer, "n", "<A-i>")
 				vim.api.nvim_buf_del_keymap(buffer, "n", "<CR>")
-				vim.api.nvim_buf_del_keymap(buffer, "n", "<A-j>")
 				vim.api.nvim_buf_del_keymap(buffer, "n", "<A-o>")
 				vim.api.nvim_buf_del_keymap(buffer, "n", "<A-t>")
 			end
@@ -40,7 +39,6 @@ return {
 		local function post_open_hook(buf, win)
 			vim.keymap.set("n", "<A-i>", open_preview(win, "vertical"), { buffer = buf })
 			vim.keymap.set("n", "<CR>", open_preview(win, "default"), { buffer = buf })
-			vim.keymap.set("n", "<A-j>", open_preview(win, "default"), { buffer = buf })
 			vim.keymap.set("n", "<A-o>", open_preview(win, "horizontal"), { buffer = buf })
 			vim.keymap.set("n", "<A-t>", open_preview(win, "tab"), { buffer = buf })
 		end
@@ -60,7 +58,7 @@ return {
 			},
 			-- These two configs can also be passed down to the goto-preview definition and implementation calls for one off "peak" functionality.
 			focus_on_open = true, -- Focus the floating window when opening it.
-			dismiss_on_move = false, -- Dismiss the floating window when moving the cursor.
+			dismiss_on_move = true, -- Dismiss the floating window when moving the cursor.
 			force_close = true, -- passed into vim.api.nvim_win_close's second argument. See :h nvim_win_close
 			bufhidden = "wipe", -- the bufhidden option to set on the floating window. See :h bufhidden
 			stack_floating_preview_windows = true, -- Whether to nest floating windows

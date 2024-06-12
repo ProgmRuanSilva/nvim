@@ -59,7 +59,7 @@ return {
 					["<CR>"] = "Confirm",
 					["<A-j>"] = "Confirm",
 					["<Up>"] = "HistoryPrev",
-					["<A-k>"] = "HistoryPrev",
+					-- ["<A-k>"] = "HistoryPrev",
 					["<A-l>"] = "HistoryNext",
 				},
 			},
