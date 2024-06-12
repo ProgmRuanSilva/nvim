@@ -1,5 +1,5 @@
 return {
 	"mg979/vim-visual-multi",
-	event = { "VimEnter" },
+	event = "VimEnter",
 	branch = "master",
 }
