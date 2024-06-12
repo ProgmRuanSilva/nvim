@@ -3,7 +3,7 @@ local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require("lspconfig")
-local servers = { "html", "cssls" }
+local servers = { "html", "cssls", "jsonls", "solargraph", "gopls", "tsserver", "eslint", "bashls", "crystalline" }
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
@@ -31,10 +31,6 @@ lspconfig.tsserver.setup({
 	on_init = function(client)
 		client.server_capabilities.semanticTokensProvider = false
 	end,
-	-- on_attach = function(client, bufnr)
-	-- 	on_attach(client, bufnr)
-	-- 	client.server_capabilities.semanticTokensProvider = false
-	-- end,
 	on_attach = on_attach,
 	capabilities = capabilities,
 	init_options = {
@@ -45,6 +41,19 @@ lspconfig.tsserver.setup({
 })
 
 lspconfig.bashls.setup({
+	on_attach = on_attach,
+	on_init = on_init,
+	capabilities = capabilities,
+})
+
+lspconfig.jsonls.setup({
+	on_attach = on_attach,
+	on_init = on_init,
+	capabilities = capabilities,
+	filetypes = { "json", "jsonc" },
+})
+
+lspconfig.rust_analyzer.setup({
 	on_attach = on_attach,
 	on_init = on_init,
 	capabilities = capabilities,
