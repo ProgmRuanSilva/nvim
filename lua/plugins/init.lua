@@ -44,9 +44,10 @@ return {
 
 				"gopls",
 
-				"shfmt",
 				"shellcheck",
 				"bash-language-server",
+
+				"pyright",
 			},
 		},
 

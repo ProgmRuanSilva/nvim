@@ -14,6 +14,7 @@ local servers = {
 	"bashls",
 	"crystalline",
 	"bashls",
+	"pyright",
 }
 
 -- lsps with default config
@@ -30,7 +31,6 @@ lspconfig.eslint.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 	filetypes = { ".tsx", ".ts", ".js", ".mjs", ".cjs" },
-	-- root_dir = util.root_pattern(".eslintignore", ".eslintrc.mjs", ".eslintrc.cjs"),
 	init_options = {
 		preferences = {
 			disableSuggestions = false,
@@ -65,6 +65,19 @@ lspconfig.jsonls.setup({
 })
 
 lspconfig.rust_analyzer.setup({
+	on_init = function(client)
+		client.server_capabilities.semanticTokensProvider = false
+	end,
+	on_attach = on_attach,
+	capabilities = capabilities,
+	init_options = {
+		preferences = {
+			disableSuggestions = false,
+		},
+	},
+})
+
+lspconfig.pyright.setup({
 	on_attach = on_attach,
 	on_init = on_init,
 	capabilities = capabilities,
