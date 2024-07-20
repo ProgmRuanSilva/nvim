@@ -48,7 +48,7 @@ conf.defaults = {
 	buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
 	mappings = mappings.telescope,
 }
-conf.extensions_list = { "themes", "file_browser", "emoji", "gitmoji" }
+conf.extensions_list = { "themes", "file_browser", "emoji" }
 
 conf.extensions = {
 
@@ -78,23 +78,6 @@ conf.extensions = {
 		use_fd = true,
 		git_status = false,
 		mappings = mappings.file_browser,
-	},
-
-	gitmoji = {
-		action = function(entry)
-			local emoji = entry.value.value
-			vim.ui.input({ prompt = "Enter commit message: " .. emoji .. " " }, function(msg)
-				if not msg then
-					return
-				end
-
-				local git_tool = ":!git"
-				if vim.g.loaded_fugitive then
-					git_tool = ":G"
-				end
-				vim.cmd(string.format('%s commit -m "%s %s"', git_tool, emoji, msg))
-			end)
-		end,
 	},
 
 	emoji = {
