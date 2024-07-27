@@ -1,23 +1,16 @@
 require("nvchad.mappings")
-local utils = require("utils")
 
+--TODO: Change the mapping of cmp, it has overriten by another plugin
+--TODO: Add <A-v> to visual mode
+--TODO: Check the Neogit can open in a vetical split
+--TODO: Check the Octo can open in a vetical split too
+
+local utils = require("utils")
 local lint = require("lint")
 local gitsigns = require("gitsigns")
 local fb_actions = require("telescope._extensions.file_browser.actions")
 
 local map = vim.keymap.set
-
--- Navigation
-map("i", "<A-k>", "<Up>", { desc = "Up" })
-map("i", "<A-j>", "<Down>", { desc = "Down" })
-map("i", "<A-h>", "<Left>", { desc = "Left" })
-map("i", "<A-l>", "<Right>", { desc = "Right" })
-map("i", "<A-c>", "<C-o>$", { desc = "End of line", silent = true })
-map("i", "<A-m>", "<C-o>w", { desc = "Next word", silent = true })
-map("i", "<A-n>", "<C-o>b", { desc = "Previous word", silent = true })
-map("n", "<A-v>", "<cmd> noh <cr>", { desc = "Clear highlight", silent = true })
-map("i", "<A-a>", "<C-o>%", { desc = "Jump toggle pair", noremap = true, silent = true })
-map({ "n", "v" }, "<A-a>", "%", { desc = "Move between pairs", noremap = true, silent = true })
 
 -- Cinnamon
 map({ "n", "x" }, "<A-w>", function()
@@ -99,6 +92,18 @@ end, { desc = "Hop Line" })
 map({ "n", "v" }, "fn", function()
 	require("hop").hint_vertical()
 end, { desc = "Hop Vertical" })
+
+-- Navigation
+map("i", "<A-k>", "<Up>", { desc = "Up" })
+map("i", "<A-j>", "<Down>", { desc = "Down" })
+map("i", "<A-h>", "<Left>", { desc = "Left" })
+map("i", "<A-l>", "<Right>", { desc = "Right" })
+map("i", "<A-c>", "<C-o>$", { desc = "End of line", silent = true })
+map("i", "<A-m>", "<C-o>w", { desc = "Next word", silent = true })
+map("i", "<A-n>", "<C-o>b", { desc = "Previous word", silent = true })
+map("n", "<A-v>", "<cmd> noh <cr>", { desc = "Clear highlight", silent = true })
+map("i", "<A-a>", "<C-o>%", { desc = "Jump toggle pair", noremap = true, silent = true })
+map({ "n", "v" }, "<A-a>", "%", { desc = "Move between pairs", noremap = true, silent = true })
 
 -- Insert Utils
 map("i", "<A-v>", "<Esc>", { desc = "Escape from insert mode" })
