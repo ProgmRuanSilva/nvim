@@ -7,86 +7,88 @@ local gitsigns = require("gitsigns")
 local fb_actions = require("telescope._extensions.file_browser.actions")
 
 local map = vim.keymap.set
+map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 
+map("i", "<M-BS>", "<C-W>", { desc = "Delete previews word", noremap = true })
 -- Cinnamon
 map({ "n", "x" }, "<A-w>", function()
-  require("cinnamon").scroll("<C-u>")
+	require("cinnamon").scroll("<C-u>")
 end, { desc = "Scroll up", noremap = true })
 
 map({ "n", "x" }, "<A-e>", function()
-  require("cinnamon").scroll("<C-d>")
+	require("cinnamon").scroll("<C-d>")
 end, { desc = "Scroll down", noremap = true })
 
 -- Page movements:
 map({ "n", "x" }, "w", function()
-  require("cinnamon").scroll("<C-b>zz")
+	require("cinnamon").scroll("<C-b>zz")
 end, { desc = "Scroll up", noremap = true })
 
 map({ "n", "x" }, "e", function()
-  require("cinnamon").scroll("<C-f>zz")
+	require("cinnamon").scroll("<C-f>zz")
 end, { desc = "Scroll down", noremap = true })
 
 -- Screen scrolling:
 map("n", "f", function()
-  require("cinnamon").scroll("zz")
+	require("cinnamon").scroll("zz")
 end, { desc = "Center cursor" })
 map("n", "fw", function()
-  require("cinnamon").scroll("zt")
+	require("cinnamon").scroll("zt")
 end, { desc = "Move Cursor to Top" })
 map("n", "fe", function()
-  require("cinnamon").scroll("zb")
+	require("cinnamon").scroll("zb")
 end, { desc = "Move Cursor to Bottom" })
 
 -- Universal Utils
 map({ "n", "v" }, "m", function()
-  require("cinnamon").scroll("w")
+	require("cinnamon").scroll("w")
 end, { desc = "Move forward word", silent = true, noremap = true })
 map({ "n", "v", "x", "o" }, "n", function()
-  require("cinnamon").scroll("N")
+	require("cinnamon").scroll("N")
 end, { desc = "Move back word", silent = true, noremap = true, nowait = true, expr = true })
 map({ "n", "v", "x", "o" }, "nn", function()
-  require("cinnamon").scroll("b")
+	require("cinnamon").scroll("b")
 end, { desc = "Move back word", silent = true, noremap = true })
 
 -- Insetion
 map({ "i", "v" }, "<A-f>k", function()
-  require("hop").hint_words()
+	require("hop").hint_words()
 end, { desc = "Hop Word" })
 
 map({ "i", "v" }, "<A-f>j", function()
-  require("hop").hint_lines()
+	require("hop").hint_lines()
 end, { desc = "Hop Anywhere" })
 
 map({ "i", "v" }, "<A-f>l", function()
-  require("hop").hint_anywhere()
+	require("hop").hint_anywhere()
 end, { desc = "Hop Line" })
 
 map({ "i", "v" }, "<A-f>;", function()
-  require("hop").hint_anywhere({ current_line_only = true })
+	require("hop").hint_anywhere({ current_line_only = true })
 end, { desc = "Hop Current Line" })
 
 map({ "i", "v" }, "<A-f>n", function()
-  require("hop").hint_vertical()
+	require("hop").hint_vertical()
 end, { desc = "Hop Vertical" })
 
 map({ "n", "v" }, "fk", function()
-  require("hop").hint_words()
+	require("hop").hint_words()
 end, { desc = "Hop Word" })
 
 map({ "n", "v" }, "fj", function()
-  require("hop").hint_lines()
+	require("hop").hint_lines()
 end, { desc = "Hop Anywhere" })
 
 map({ "n", "v" }, "fl", function()
-  require("hop").hint_anywhere()
+	require("hop").hint_anywhere()
 end, { desc = "Hop Anywhere" })
 
 map({ "n", "v" }, "f;", function()
-  require("hop").hint_anywhere({ current_line_only = true })
+	require("hop").hint_anywhere({ current_line_only = true })
 end, { desc = "Hop Line" })
 
 map({ "n", "v" }, "fn", function()
-  require("hop").hint_vertical()
+	require("hop").hint_vertical()
 end, { desc = "Hop Vertical" })
 
 -- Navigation
@@ -97,12 +99,12 @@ map("i", "<A-l>", "<Right>", { desc = "Right" })
 map("i", "<A-c>", "<C-o>$", { desc = "End of line", silent = true })
 map("i", "<A-m>", "<C-o>w", { desc = "Next word", silent = true })
 map("i", "<A-n>", "<C-o>b", { desc = "Previous word", silent = true })
-map("n", "<A-v>", "<cmd> noh <cr>", { desc = "Clear highlight", silent = true })
+-- map("n", "<A-v>", "<cmd> noh <cr>", { desc = "Clear highlight", silent = true })
 map("i", "<A-a>", "<C-o>%", { desc = "Jump toggle pair", noremap = true, silent = true })
 map({ "n", "v" }, "<A-a>", "%", { desc = "Move between pairs", noremap = true, silent = true })
 
 -- Insert Utils
-map("i", "<A-v>", "<Esc>", { desc = "Escape from insert mode" })
+map("i", "<A-q>", "<Esc>", { desc = "Escape from insert mode" })
 map("i", "<A-o>", "<C-o>o", { desc = "New line" })
 map("i", "<A-b>", "<C-o><S-v>y<C-o>p", { desc = "Copy line to bottom" })
 map("n", "<A-o>", "<S-o>", { desc = "New Line " })
@@ -125,11 +127,11 @@ map("i", "<A-.>", "v:lua.MiniPairs.close('<>')", { expr = true, noremap = true, 
 map("i", "<A-'>", "v:lua.MiniPairs.open('\"\"')", { expr = true, noremap = true, replace_keycodes = false })
 
 -- Deletes
-map({ "n", "v" }, "<A-q>", "<cmd> noh <cr>", { desc = "Clear highlight" })
+map({ "n", "v" }, "<A-q>", "<cmd> noh <cr>", { desc = "Clear highlight" }) --Change this to be BS
 map({ "n", "v" }, "<A-q>j", "<cmd> noh <cr>", { desc = "Clear highlight" })
 map("i", "<A-f>d", "<C-o>d", { desc = "Delete mode" })
 map("i", "<A-w>", "<C-o>dw", { desc = "Delete next word" })
-map("i", "<A-q>", "<C-o>db", { desc = "Delete previous word" })
+-- map("i", "<A-q>", "<C-o>db", { desc = "Delete previous word" })
 map("i", "<A-f>dm", "<C-o>dw", { desc = "Delete next word" })
 map("i", "<A-f>dn", "<C-o>db", { desc = "Delete previous word" })
 map("i", "<A-f>df", "<C-o>d$", { desc = "Delete to end of line" })
@@ -145,13 +147,13 @@ map("n", ".", "<S-o><C-c>", { desc = "Create new line" })
 map("n", "<A-b>", "<S-v>yp", { desc = "Copy line below" })
 map("n", "<A-r>", "<C-r>", { desc = "Redo" })
 map({ "n", "v" }, "ff", function()
-  utils.move_cursor()
+	utils.move_cursor()
 end, { desc = "Move cursor on the line" })
 
 -- Marks
 map("n", "fa", "m", { desc = "Add a new mark", silent = true })
 map({ "n", "v" }, ";", function()
-  require("which-key").show("'", { mode = "n", auto = true })
+	require("which-key").show("'", { mode = "n", auto = true })
 end, { desc = "show marks" })
 
 -- Folds
@@ -213,49 +215,49 @@ map("n", "<leader>i", "<cmd>vsplit<CR>", { desc = "Split vertical" })
 map("n", "<leader>o", "<cmd>split<CR>", { desc = "Split horizontal" })
 
 map("n", ">>", function()
-  require("nvchad.tabufline").move_buf(1)
+	require("nvchad.tabufline").move_buf(1)
 end, { desc = "Move Buffer Right" })
 
 map("n", "<<", function()
-  require("nvchad.tabufline").move_buf(-1)
+	require("nvchad.tabufline").move_buf(-1)
 end, { desc = "Move Buffer Left" })
 
 -- Lsp
 map(
-  "n",
-  "gkd",
-  "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
-  { noremap = true, desc = "Goto Definition" }
+	"n",
+	"gkd",
+	"<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
+	{ noremap = true, desc = "Goto Definition" }
 )
 map(
-  "n",
-  "gkD",
-  "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
-  { noremap = true, desc = "Goto Type Definition" }
+	"n",
+	"gkD",
+	"<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
+	{ noremap = true, desc = "Goto Type Definition" }
 )
 map(
-  "n",
-  "gki",
-  "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
-  { noremap = true, desc = "Goto Implementation" }
+	"n",
+	"gki",
+	"<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+	{ noremap = true, desc = "Goto Implementation" }
 )
 map(
-  "n",
-  "gkk",
-  "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
-  { noremap = true, desc = "Goto Declaration" }
+	"n",
+	"gkk",
+	"<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
+	{ noremap = true, desc = "Goto Declaration" }
 )
 map(
-  "n",
-  "gkg",
-  "<cmd>lua require('goto-preview').close_all_win()<CR>",
-  { noremap = true, desc = "Close all preview windows" }
+	"n",
+	"gkg",
+	"<cmd>lua require('goto-preview').close_all_win()<CR>",
+	{ noremap = true, desc = "Close all preview windows" }
 )
 map(
-  "n",
-  "gr",
-  "<cmd>lua require('goto-preview').goto_preview_references()<CR>",
-  { noremap = true, desc = "Goto References" }
+	"n",
+	"gr",
+	"<cmd>lua require('goto-preview').goto_preview_references()<CR>",
+	{ noremap = true, desc = "Goto References" }
 )
 map("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, desc = "Lsp code actions" })
 
@@ -304,72 +306,72 @@ map("n", "<leader>grl", "<cmd>Octo repo list<CR>", { desc = "List Repositories" 
 map("n", "ghs", gitsigns.stage_hunk, { desc = "Stage hunk" })
 map("n", "ghr", gitsigns.reset_hunk, { desc = "Reset hunk" })
 map("v", "ghs", function()
-  gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }, { desc = "Stage hunk" })
+	gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }, { desc = "Stage hunk" })
 end)
 map("v", "ghr", function()
-  gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }, { desc = "Reset hunk" })
+	gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }, { desc = "Reset hunk" })
 end)
 map("n", "ghS", gitsigns.stage_buffer, { desc = "Stage buffer" })
 map("n", "ghu", gitsigns.undo_stage_hunk, { desc = "Undo stage hunk" })
 map("n", "ghR", gitsigns.reset_buffer, { desc = "Reset buffer" })
 map("n", "ghp", gitsigns.preview_hunk, { desc = "Preview hunk" })
 map("n", "ghb", function()
-  gitsigns.blame_line({ full = true }, { desc = "Blame line" })
+	gitsigns.blame_line({ full = true }, { desc = "Blame line" })
 end)
 map("n", "gtb", gitsigns.toggle_current_line_blame, { desc = "Toggle current line blame" })
 map("n", "ghd", gitsigns.diffthis, { desc = "Diff this" })
 map("n", "ghD", function()
-  gitsigns.diffthis("~")
+	gitsigns.diffthis("~")
 end, { desc = "Diff this ~" })
 map("n", "td", gitsigns.toggle_deleted, { desc = "Toggle deleted" })
 
 -- Codeium
 map("i", "<A-i>", function()
-  return vim.fn["codeium#Accept"]()
+	return vim.fn["codeium#Accept"]()
 end, { noremap = true, expr = true, silent = true, desc = "Accept codeium suggestion" })
 map("i", "<A-z>", function()
-  return vim.fn["codeium#CycleCompletions"](1)
+	return vim.fn["codeium#CycleCompletions"](1)
 end, { noremap = true, expr = true, silent = true, desc = "Cycle codeium suggestion" })
 map("i", "<A-t>", function()
-  return vim.fn["codeium#Clear"]()
+	return vim.fn["codeium#Clear"]()
 end, { noremap = true, expr = true, silent = true, desc = "Clear codeium suggestion" })
 
 -- Package Info
 map("n", "<leader>ps", function()
-  return require("package-info").show()
+	return require("package-info").show()
 end, { noremap = true, desc = "Show package info" })
 
 map("n", "<leader>pc", function()
-  return require("package-info").hide()
+	return require("package-info").hide()
 end, { noremap = true, desc = "Hide package info" })
 
 map("n", "<leader>pt", function()
-  return require("package-info").toggle()
+	return require("package-info").toggle()
 end, { noremap = true, desc = "Toggle package info" })
 
 map("n", "<leader>pu", function()
-  return require("package-info").update()
+	return require("package-info").update()
 end, { noremap = true, desc = "Update package info" })
 
 map("n", "<leader>pd", function()
-  return require("package-info").delete()
+	return require("package-info").delete()
 end, { noremap = true, desc = "Delete package info" })
 
 map("n", "<leader>pi", function()
-  return require("package-info").install()
+	return require("package-info").install()
 end, { noremap = true, desc = "Install package info" })
 
 map("n", "<leader>pv", function()
-  return require("package-info").change_version()
+	return require("package-info").change_version()
 end, { noremap = true, desc = "Change version package info" })
 
 -- Comment
 map({ "v", "x" }, "/", function()
-  require("Comment.api").toggle.linewise.current(vim.fn.visualmode())
+	require("Comment.api").toggle.linewise.current(vim.fn.visualmode())
 end, { desc = "Comment selection" })
 
 map("n", "<leader>gll", function()
-  lint.try_lint()
+	lint.try_lint()
 end, { desc = "Trigger linting for current file" })
 
 -- Lazydocker
@@ -407,82 +409,82 @@ map("n", "<leader>fp", "<cmd> MarkdownPreviewToggle <CR>", { desc = "Markdown Pr
 
 local Plugins = {}
 Plugins.telescope = {
-  i = {
-    ["<A-k>"] = require("telescope.actions").move_selection_next,
-    ["<A-l>"] = require("telescope.actions").move_selection_previous,
-    ["<A-j>"] = require("telescope.actions").select_default,
+	i = {
+		["<A-k>"] = require("telescope.actions").move_selection_next,
+		["<A-l>"] = require("telescope.actions").move_selection_previous,
+		["<A-j>"] = require("telescope.actions").select_default,
 
-    ["<A-i>"] = require("telescope.actions").file_vsplit,
-    ["<A-o>"] = require("telescope.actions").file_split,
+		["<A-i>"] = require("telescope.actions").file_vsplit,
+		["<A-o>"] = require("telescope.actions").file_split,
 
-    ["<A-m>"] = require("telescope.actions").preview_scrolling_down,
-    ["<A-n>"] = require("telescope.actions").preview_scrolling_down,
+		["<A-m>"] = require("telescope.actions").preview_scrolling_down,
+		["<A-n>"] = require("telescope.actions").preview_scrolling_down,
 
-    ["<A-q>"] = require("telescope.actions").close,
+		["<A-q>"] = require("telescope.actions").close,
 
-    ["<A-a>"] = require("telescope.actions").toggle_all,
-  },
+		["<A-a>"] = require("telescope.actions").toggle_all,
+	},
 
-  n = {
-    ["j"] = require("telescope.actions").select_default,
-    ["<A-j>"] = require("telescope.actions").select_default,
+	n = {
+		["j"] = require("telescope.actions").select_default,
+		["<A-j>"] = require("telescope.actions").select_default,
 
-    ["k"] = require("telescope.actions").move_selection_next,
-    ["l"] = require("telescope.actions").move_selection_previous,
-    ["<A-k>"] = require("telescope.actions").move_selection_next,
-    ["<A-l>"] = require("telescope.actions").move_selection_previous,
+		["k"] = require("telescope.actions").move_selection_next,
+		["l"] = require("telescope.actions").move_selection_previous,
+		["<A-k>"] = require("telescope.actions").move_selection_next,
+		["<A-l>"] = require("telescope.actions").move_selection_previous,
 
-    ["<A-i>"] = require("telescope.actions").file_vsplit,
-    ["<A-o>"] = require("telescope.actions").file_split,
+		["<A-i>"] = require("telescope.actions").file_vsplit,
+		["<A-o>"] = require("telescope.actions").file_split,
 
-    ["<A-n>"] = require("telescope.actions").preview_scrolling_up,
-    ["<A-m>"] = require("telescope.actions").preview_scrolling_down,
+		["<A-n>"] = require("telescope.actions").preview_scrolling_up,
+		["<A-m>"] = require("telescope.actions").preview_scrolling_down,
 
-    ["q"] = require("telescope.actions").close,
-    ["<A-q>"] = require("telescope.actions").close,
-  },
+		["q"] = require("telescope.actions").close,
+		["<A-q>"] = require("telescope.actions").close,
+	},
 }
 
 Plugins.file_browser = {
-  ["i"] = {
-    ["<C-o>"] = fb_actions.open,
-    ["<C-e>"] = fb_actions.goto_home_dir,
-    ["<C-w>"] = fb_actions.goto_cwd,
-    ["<C-t>"] = fb_actions.change_cwd,
-    ["<C-h>"] = fb_actions.toggle_hidden,
-    ["<C-s>"] = fb_actions.toggle_all,
-    ["<bs>"] = fb_actions.backspace,
+	["i"] = {
+		["<C-o>"] = fb_actions.open,
+		["<C-e>"] = fb_actions.goto_home_dir,
+		["<C-w>"] = fb_actions.goto_cwd,
+		["<C-t>"] = fb_actions.change_cwd,
+		["<C-h>"] = fb_actions.toggle_hidden,
+		["<C-s>"] = fb_actions.toggle_all,
+		["<bs>"] = fb_actions.backspace,
 
-    ["<A-h>"] = fb_actions.goto_cwd,
-    ["<A-s>"] = fb_actions.remove,
-    ["<A-f>"] = fb_actions.toggle_browser,
-    ["<A-c>"] = fb_actions.create,
-    ["<S-CR>"] = fb_actions.create_from_prompt,
-    ["<A-r>"] = fb_actions.rename,
-    ["<A-m>"] = fb_actions.move,
-    ["<A-y>"] = fb_actions.copy,
-  },
-  ["n"] = {
-    ["<A-d>"] = fb_actions.remove,
-    ["<A-c>"] = fb_actions.create,
-    ["<A-j>"] = fb_actions.open,
+		["<A-h>"] = fb_actions.goto_cwd,
+		["<A-s>"] = fb_actions.remove,
+		["<A-f>"] = fb_actions.toggle_browser,
+		["<A-c>"] = fb_actions.create,
+		["<S-CR>"] = fb_actions.create_from_prompt,
+		["<A-r>"] = fb_actions.rename,
+		["<A-m>"] = fb_actions.move,
+		["<A-y>"] = fb_actions.copy,
+	},
+	["n"] = {
+		["<A-d>"] = fb_actions.remove,
+		["<A-c>"] = fb_actions.create,
+		["<A-j>"] = fb_actions.open,
 
-    ["c"] = fb_actions.create,
-    ["a"] = fb_actions.create,
-    ["f"] = fb_actions.create,
-    ["r"] = fb_actions.rename,
-    ["m"] = fb_actions.move,
-    ["y"] = fb_actions.copy,
-    ["d"] = fb_actions.remove,
-    ["o"] = fb_actions.open,
-    ["g"] = fb_actions.goto_parent_dir,
-    ["e"] = fb_actions.goto_home_dir,
-    ["w"] = fb_actions.goto_cwd,
-    ["t"] = fb_actions.change_cwd,
-    ["b"] = fb_actions.toggle_browser,
-    ["h"] = fb_actions.toggle_hidden,
-    ["s"] = fb_actions.toggle_all,
-  },
+		["c"] = fb_actions.create,
+		["a"] = fb_actions.create,
+		["f"] = fb_actions.create,
+		["r"] = fb_actions.rename,
+		["m"] = fb_actions.move,
+		["y"] = fb_actions.copy,
+		["d"] = fb_actions.remove,
+		["o"] = fb_actions.open,
+		["g"] = fb_actions.goto_parent_dir,
+		["e"] = fb_actions.goto_home_dir,
+		["w"] = fb_actions.goto_cwd,
+		["t"] = fb_actions.change_cwd,
+		["b"] = fb_actions.toggle_browser,
+		["h"] = fb_actions.toggle_hidden,
+		["s"] = fb_actions.toggle_all,
+	},
 }
 -------------------- EOF --------------------------
 
@@ -571,35 +573,35 @@ Plugins.file_browser = {
 
 -- Tmux Navigation
 vim.api.nvim_set_keymap(
-  "n",
-  "<A-k>",
-  [[winnr('#') < 0 ? 'k' : ':TmuxNavigateUp<CR>']],
-  { expr = true, noremap = true, silent = true, desc = "Navigate up" }
+	"n",
+	"<A-k>",
+	[[winnr('#') < 0 ? 'k' : ':TmuxNavigateUp<CR>']],
+	{ expr = true, noremap = true, silent = true, desc = "Navigate up" }
 )
 vim.api.nvim_set_keymap(
-  "n",
-  "<A-j>",
-  [[winnr('#') < 0 ? 'j' : ':TmuxNavigateDown<CR>']],
-  { expr = true, noremap = true, silent = true, desc = "Navigate down" }
+	"n",
+	"<A-j>",
+	[[winnr('#') < 0 ? 'j' : ':TmuxNavigateDown<CR>']],
+	{ expr = true, noremap = true, silent = true, desc = "Navigate down" }
 )
 vim.api.nvim_set_keymap(
-  "n",
-  "<A-l>",
-  [[winnr('#') < 0 ? 'l' : ':TmuxNavigateRight<CR>']],
-  { expr = true, noremap = true, silent = true, desc = "Navigate right" }
+	"n",
+	"<A-l>",
+	[[winnr('#') < 0 ? 'l' : ':TmuxNavigateRight<CR>']],
+	{ expr = true, noremap = true, silent = true, desc = "Navigate right" }
 )
 vim.api.nvim_set_keymap(
-  "n",
-  "<A-h>",
-  [[winnr('#') < 0 ? 'h' : ':TmuxNavigateLeft<CR>']],
-  { expr = true, noremap = true, silent = true, desc = "Navigate left" }
+	"n",
+	"<A-h>",
+	[[winnr('#') < 0 ? 'h' : ':TmuxNavigateLeft<CR>']],
+	{ expr = true, noremap = true, silent = true, desc = "Navigate left" }
 )
 
 -- Change between buffers with numbers
 for i = 1, 9, 1 do
-  map("n", string.format("%s", i), function()
-    vim.api.nvim_set_current_buf(vim.t.bufs[i])
-  end)
+	map("n", string.format("%s", i), function()
+		vim.api.nvim_set_current_buf(vim.t.bufs[i])
+	end)
 end
 
 return Plugins
