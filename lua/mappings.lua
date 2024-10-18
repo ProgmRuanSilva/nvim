@@ -1,54 +1,20 @@
 require("nvchad.mappings")
 
--- Might change the mappings n and m to be a and s or another letter would be good to write better, we should improve our hop and the common keys.
-local utils = require("utils")
+-- TODO: 🛑 We need to solve the insertion problem after the hopping.
 local lint = require("lint")
 local gitsigns = require("gitsigns")
 local fb_actions = require("telescope._extensions.file_browser.actions")
 
 local map = vim.keymap.set
-map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 
-map("i", "<M-BS>", "<C-W>", { desc = "Delete previews word", noremap = true })
--- Cinnamon
-map({ "n", "x" }, "<A-w>", function()
-	require("cinnamon").scroll("<C-u>")
-end, { desc = "Scroll up", noremap = true })
-
-map({ "n", "x" }, "<A-e>", function()
-	require("cinnamon").scroll("<C-d>")
-end, { desc = "Scroll down", noremap = true })
-
--- Page movements:
-map({ "n", "x" }, "w", function()
-	require("cinnamon").scroll("<C-b>zz")
-end, { desc = "Scroll up", noremap = true })
-
-map({ "n", "x" }, "e", function()
-	require("cinnamon").scroll("<C-f>zz")
-end, { desc = "Scroll down", noremap = true })
-
--- Screen scrolling:
-map("n", "f", function()
-	require("cinnamon").scroll("zz")
-end, { desc = "Center cursor" })
-map("n", "fw", function()
-	require("cinnamon").scroll("zt")
-end, { desc = "Move Cursor to Top" })
-map("n", "fe", function()
-	require("cinnamon").scroll("zb")
-end, { desc = "Move Cursor to Bottom" })
+-- 🚧 Test Area 🚧
+map({ "i", "v", "n" }, "<A-s>", "<C-Right>", { desc = "Next word", silent = true, noremap = true }) -- Change it to not be used with Contrl
+map({ "i", "v", "n" }, "<A-a>", "<C-Left>", { desc = "Previous word", silent = true, noremap = true })
 
 -- Universal Utils
-map({ "n", "v" }, "m", function()
-	require("cinnamon").scroll("w")
-end, { desc = "Move forward word", silent = true, noremap = true })
-map({ "n", "v", "x", "o" }, "n", function()
-	require("cinnamon").scroll("N")
-end, { desc = "Move back word", silent = true, noremap = true, nowait = true, expr = true })
-map({ "n", "v", "x", "o" }, "nn", function()
-	require("cinnamon").scroll("b")
-end, { desc = "Move back word", silent = true, noremap = true })
+-- map({ "n", "v" }, "m", function() 🛑 This isn't the correcty way to make it now
+-- 	require("cinnamon").scroll("w")
+-- end, { desc = "Move forward word", silent = true, noremap = true })
 
 -- Insetion
 map({ "i", "v" }, "<A-f>k", function()
@@ -71,6 +37,7 @@ map({ "i", "v" }, "<A-f>n", function()
 	require("hop").hint_vertical()
 end, { desc = "Hop Vertical" })
 
+-- Normal Mode
 map({ "n", "v" }, "fk", function()
 	require("hop").hint_words()
 end, { desc = "Hop Word" })
@@ -97,11 +64,8 @@ map("i", "<A-j>", "<Down>", { desc = "Down" })
 map("i", "<A-h>", "<Left>", { desc = "Left" })
 map("i", "<A-l>", "<Right>", { desc = "Right" })
 map("i", "<A-c>", "<C-o>$", { desc = "End of line", silent = true })
-map("i", "<A-m>", "<C-o>w", { desc = "Next word", silent = true })
-map("i", "<A-n>", "<C-o>b", { desc = "Previous word", silent = true })
--- map("n", "<A-v>", "<cmd> noh <cr>", { desc = "Clear highlight", silent = true })
-map("i", "<A-a>", "<C-o>%", { desc = "Jump toggle pair", noremap = true, silent = true })
-map({ "n", "v" }, "<A-a>", "%", { desc = "Move between pairs", noremap = true, silent = true })
+map({ "i", "n", "v" }, "<A-g>", "<C-o>%", { desc = "Jump toggle pair", noremap = true, silent = true }) -- 🛑 We should use this later
+-- map({ "n", "v" }, "<A-a>", "%", { desc = "Move between pairs", noremap = true, silent = true })
 
 -- Insert Utils
 map("i", "<A-q>", "<Esc>", { desc = "Escape from insert mode" })
@@ -127,11 +91,11 @@ map("i", "<A-.>", "v:lua.MiniPairs.close('<>')", { expr = true, noremap = true, 
 map("i", "<A-'>", "v:lua.MiniPairs.open('\"\"')", { expr = true, noremap = true, replace_keycodes = false })
 
 -- Deletes
+map({ "i", "n", "c", "v" }, "<M-BS>", "<C-W>", { desc = "Delete previews word", noremap = true })
 map({ "n", "v" }, "<A-q>", "<cmd> noh <cr>", { desc = "Clear highlight" }) --Change this to be BS
 map({ "n", "v" }, "<A-q>j", "<cmd> noh <cr>", { desc = "Clear highlight" })
 map("i", "<A-f>d", "<C-o>d", { desc = "Delete mode" })
 map("i", "<A-w>", "<C-o>dw", { desc = "Delete next word" })
--- map("i", "<A-q>", "<C-o>db", { desc = "Delete previous word" })
 map("i", "<A-f>dm", "<C-o>dw", { desc = "Delete next word" })
 map("i", "<A-f>dn", "<C-o>db", { desc = "Delete previous word" })
 map("i", "<A-f>df", "<C-o>d$", { desc = "Delete to end of line" })
@@ -173,7 +137,7 @@ map("c", "<A-s>", "<Del>", { desc = "Delete" })
 map("c", "<A-p>", "<BS>", { desc = "Delete" })
 map("c", "<A-j>", "<Enter>", { desc = "Enter" })
 map("c", "<A-n>", "<C-b>", { desc = "Next word" })
-map("c", "<A-m>", "<C-f>", { desc = "Previous word" })
+-- map("c", "<A-m>", "<C-f>", { desc = "Previous word" })
 
 -- Visual
 map("n", "vv", "<S-v>", { desc = "Select all line" })
@@ -189,7 +153,7 @@ map("n", "<leader>cs", "<cmd> help lspconfig-all <CR>", { desc = "LSP Info" })
 
 -- Saves
 map("n", "<leader>s", "<cmd>up<CR>", { desc = "Save", silent = true })
-map("i", "<A-s>", "<cmd>up<CR>", { desc = "Save", silent = true })
+-- map("i", "<A-s>", "<cmd>up<CR>", { desc = "Save", silent = true })
 
 -- Pastes
 map({ "n", "v" }, "<A-p>", '"0p', { desc = "Paste the current clipboard" })
@@ -201,6 +165,7 @@ map("n", "qj", "<cmd>close<CR>", { desc = "Close a split" })
 map("n", "qk", "<cmd>bd %<CR>", { desc = "Close buffer" })
 map("n", "qx", "<cmd>tabclose %<cr>", { desc = "Close buffer" })
 map("n", "<leader>u", "<cmd>q!<CR>", { desc = "Force quit" })
+map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 
 -- Buffer
 map("n", "<A-m>", "<cmd>bnext<CR>", { desc = "Next Tab" })
@@ -262,6 +227,43 @@ map(
 map("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, desc = "Lsp code actions" })
 
 ---------------------- Plugins -----------------------------
+
+-- Cinnamon
+map({ "n", "x" }, "<A-w>", function()
+	require("cinnamon").scroll("<C-u>")
+end, { desc = "Scroll up", noremap = true })
+
+map({ "n", "x" }, "<A-e>", function()
+	require("cinnamon").scroll("<C-d>")
+end, { desc = "Scroll down", noremap = true })
+
+-- Page movements:
+map({ "n", "x" }, "w", function()
+	require("cinnamon").scroll("<C-b>zz")
+end, { desc = "Scroll up", noremap = true })
+
+map({ "n", "x" }, "e", function()
+	require("cinnamon").scroll("<C-f>zz")
+end, { desc = "Scroll down", noremap = true })
+
+-- Screen scrolling:
+map("n", "f", function()
+	require("cinnamon").scroll("zz")
+end, { desc = "Center cursor" })
+map("n", "fw", function()
+	require("cinnamon").scroll("zt")
+end, { desc = "Move Cursor to Top" })
+map("n", "fe", function()
+	require("cinnamon").scroll("zb")
+end, { desc = "Move Cursor to Bottom" })
+
+-- ⚠️ This is needed for the N key mapping that isno't working, a new mappins is under test.
+map({ "n", "v", "x", "o" }, "n", function()
+	require("cinnamon").scroll("N")
+end, { desc = "Move back word", silent = true, noremap = true, nowait = true, expr = true })
+map({ "n", "v", "x", "o" }, "nn", function()
+	require("cinnamon").scroll("b")
+end, { desc = "Move back word", silent = true, noremap = true })
 
 -- Git
 map("n", "gF", "<cmd>GitBlameToggle<CR>", { desc = "Git Blame" })
@@ -405,7 +407,7 @@ map("n", "<leader>fe", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" 
 map("i", "<A-f>e", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" })
 map("n", "<leader>[", "<cmd> Telescope notify <CR>", { desc = "Telescope Notify" })
 map("n", "<leader>f]", "<cmd> TodoTelescope <CR>", { desc = "Todo" })
-map("n", "<leader>fp", "<cmd> MarkdownPreviewToggle <CR>", { desc = "Markdown Preview" })
+-- map("n", "<leader>fp", "<cmd> MarkdownPreviewToggle <CR>", { desc = "Markdown Preview" })
 
 local Plugins = {}
 Plugins.telescope = {
@@ -422,7 +424,7 @@ Plugins.telescope = {
 
 		["<A-q>"] = require("telescope.actions").close,
 
-		["<A-a>"] = require("telescope.actions").toggle_all,
+		-- ["<A-a>"] = require("telescope.actions").toggle_all,
 	},
 
 	n = {

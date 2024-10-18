@@ -1,11 +1,11 @@
 return {
-	"hadronized/hop.nvim",
-	branch = "v2",
+	"progmruansilva/neohop.nvim",
 	event = { "VeryLazy" },
-	config = {
-		keys = "eovqpdgflhckisuran",
-		-- directions = require("hop.hint").HintDirection,
-		quit_key = "<SPC>",
-		multi_windows = true,
-	},
+	config = function()
+		require("hop").setup({
+			keys = "eovqpdgflhckisuran",
+			quit_key = "<SPC>",
+			multi_windows = true,
+		})
+	end,
 }
