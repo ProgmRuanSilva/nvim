@@ -1,20 +1,15 @@
 require("nvchad.mappings")
 
--- TODO: 🛑 We need to solve the insertion problem after the hopping.
 local lint = require("lint")
 local gitsigns = require("gitsigns")
 local fb_actions = require("telescope._extensions.file_browser.actions")
+local utils = require("utils")
 
 local map = vim.keymap.set
 
 -- 🚧 Test Area 🚧
 map({ "i", "v", "n" }, "<A-s>", "<C-Right>", { desc = "Next word", silent = true, noremap = true }) -- Change it to not be used with Contrl
 map({ "i", "v", "n" }, "<A-a>", "<C-Left>", { desc = "Previous word", silent = true, noremap = true })
-
--- Universal Utils
--- map({ "n", "v" }, "m", function() 🛑 This isn't the correcty way to make it now
--- 	require("cinnamon").scroll("w")
--- end, { desc = "Move forward word", silent = true, noremap = true })
 
 -- Insetion
 map({ "i", "v" }, "<A-f>k", function()
@@ -96,12 +91,12 @@ map({ "n", "v" }, "<A-q>", "<cmd> noh <cr>", { desc = "Clear highlight" }) --Cha
 map({ "n", "v" }, "<A-q>j", "<cmd> noh <cr>", { desc = "Clear highlight" })
 map("i", "<A-f>d", "<C-o>d", { desc = "Delete mode" })
 map("i", "<A-w>", "<C-o>dw", { desc = "Delete next word" })
-map("i", "<A-f>dm", "<C-o>dw", { desc = "Delete next word" })
-map("i", "<A-f>dn", "<C-o>db", { desc = "Delete previous word" })
+map("i", "<A-f>ds", "<C-o>dw", { desc = "Delete next word" })
+map("i", "<A-f>da", "<C-o>db", { desc = "Delete previous word" })
 map("i", "<A-f>df", "<C-o>d$", { desc = "Delete to end of line" })
 map("i", "<A-p>", "<Backspace>", { desc = "Backspace" })
-map("n", "dm", "dw", { desc = "Delete word" })
-map("n", "dn", "db", { desc = "Delete word" })
+map("n", "ds", "dw", { desc = "Delete word" })
+map("n", "da", "db", { desc = "Delete word" })
 map("n", "df", "d$", { desc = "Delete to end of line" })
 
 -- Normal Mode Utils
@@ -134,10 +129,10 @@ map("c", "<A-f>", "<Right>", { desc = "Right" })
 map("c", "<A-b>", "<Home>", { desc = "Start of line" })
 map("c", "<A-c>", "<End>", { desc = "End of line" })
 map("c", "<A-s>", "<Del>", { desc = "Delete" })
-map("c", "<A-p>", "<BS>", { desc = "Delete" })
+map("c", "<A-BS>", "<C-BS>", { desc = "Delete" })
 map("c", "<A-j>", "<Enter>", { desc = "Enter" })
-map("c", "<A-n>", "<C-b>", { desc = "Next word" })
--- map("c", "<A-m>", "<C-f>", { desc = "Previous word" })
+map("c", "<A-a>", "<C-b>", { desc = "Next word" })
+map("c", "<A-f>", "<C-f>", { desc = "Previous word" })
 
 -- Visual
 map("n", "vv", "<S-v>", { desc = "Select all line" })
@@ -153,7 +148,6 @@ map("n", "<leader>cs", "<cmd> help lspconfig-all <CR>", { desc = "LSP Info" })
 
 -- Saves
 map("n", "<leader>s", "<cmd>up<CR>", { desc = "Save", silent = true })
--- map("i", "<A-s>", "<cmd>up<CR>", { desc = "Save", silent = true })
 
 -- Pastes
 map({ "n", "v" }, "<A-p>", '"0p', { desc = "Paste the current clipboard" })
