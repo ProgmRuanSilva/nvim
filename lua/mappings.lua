@@ -10,25 +10,26 @@ local map = vim.keymap.set
 -- 🚧 Test Area 🚧
 map({ "i", "v", "n" }, "<A-s>", "<C-Right>", { desc = "Next word", silent = true, noremap = true }) -- Change it to not be used with Contrl
 map({ "i", "v", "n" }, "<A-a>", "<C-Left>", { desc = "Previous word", silent = true, noremap = true })
+map("n", "vj", "viw", { desc = "Delete to end of line" })
 
 -- Insetion
-map({ "i", "v" }, "<A-f>k", function()
+map({ "i", "v" }, "<A-d>k", function()
 	require("hop").hint_words()
 end, { desc = "Hop Word" })
 
-map({ "i", "v" }, "<A-f>j", function()
+map({ "i", "v" }, "<A-d>j", function()
 	require("hop").hint_lines()
 end, { desc = "Hop Anywhere" })
 
-map({ "i", "v" }, "<A-f>l", function()
+map({ "i", "v" }, "<A-d>l", function()
 	require("hop").hint_anywhere()
 end, { desc = "Hop Line" })
 
-map({ "i", "v" }, "<A-f>;", function()
+map({ "i", "v" }, "<A-d>;", function()
 	require("hop").hint_anywhere({ current_line_only = true })
 end, { desc = "Hop Current Line" })
 
-map({ "i", "v" }, "<A-f>n", function()
+map({ "i", "v" }, "<A-d>n", function()
 	require("hop").hint_vertical()
 end, { desc = "Hop Vertical" })
 
@@ -94,9 +95,10 @@ map("i", "<A-w>", "<C-o>dw", { desc = "Delete next word" })
 map("i", "<A-f>ds", "<C-o>dw", { desc = "Delete next word" })
 map("i", "<A-f>da", "<C-o>db", { desc = "Delete previous word" })
 map("i", "<A-f>df", "<C-o>d$", { desc = "Delete to end of line" })
-map("i", "<A-p>", "<Backspace>", { desc = "Backspace" })
-map("n", "ds", "dw", { desc = "Delete word" })
-map("n", "da", "db", { desc = "Delete word" })
+-- map("i", "<A-p>", "<Backspace>", { desc = "Backspace" })
+map("n", "ds", "dw", { desc = "Delete next word" })
+map("n", "da", "db", { desc = "Delete previews word" })
+map("n", "dj", "diw", { desc = "Delete current word" })
 map("n", "df", "d$", { desc = "Delete to end of line" })
 
 -- Normal Mode Utils
@@ -114,6 +116,8 @@ map("n", "fa", "m", { desc = "Add a new mark", silent = true })
 map({ "n", "v" }, ";", function()
 	require("which-key").show("'", { mode = "n", auto = true })
 end, { desc = "show marks" })
+map("n", ";;", "<C-o>", { desc = "Toggle between jumps", silent = true })
+map("n", "<A-;>", "<C-i>", { desc = "Toggle between jumps", silent = true })
 
 -- Folds
 map("n", "fs", "za", { desc = "Toggle fold" })
@@ -397,8 +401,8 @@ map("n", "<leader>fd", "<cmd>Telescope oldfiles<CR>", { desc = "Oldfiles" })
 map("n", "<leader>k", "<cmd>Telescope find_buffer<CR>", { desc = "Find Buffer" })
 map("n", "<leader>ff", "<cmd>Telescope live_grep<CR>", { desc = "Live Grep" })
 
-map("n", "<leader>fe", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" })
-map("i", "<A-f>e", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" })
+map("n", "<leader>de", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" })
+map("i", "<A-d>e", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" })
 map("n", "<leader>[", "<cmd> Telescope notify <CR>", { desc = "Telescope Notify" })
 map("n", "<leader>f]", "<cmd> TodoTelescope <CR>", { desc = "Todo" })
 -- map("n", "<leader>fp", "<cmd> MarkdownPreviewToggle <CR>", { desc = "Markdown Preview" })
