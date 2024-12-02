@@ -140,7 +140,7 @@ map("c", "<A-f>", "<C-f>", { desc = "Previous word" })
 
 -- Visual
 map("n", "vv", "<S-v>", { desc = "Select all line" })
-map("v", "<A-e>", "<C-q>", { desc = "Block mode", noremap = true })
+-- map("v", "<A-e>", "<C-q>", { desc = "Block mode", noremap = true })
 map("v", "<A-v>", "<Esc>", { desc = "Exit from visual mode", noremap = true })
 
 -- Configurations
@@ -231,8 +231,16 @@ map({ "n", "x" }, "<A-w>", function()
 	require("cinnamon").scroll("<C-u>")
 end, { desc = "Scroll up", noremap = true })
 
+map({ "n", "x" }, "<A-d>", function()
+	require("cinnamon").scroll("<C-u>zz")
+end, { desc = "Scroll up", noremap = true })
+
 map({ "n", "x" }, "<A-e>", function()
 	require("cinnamon").scroll("<C-d>")
+end, { desc = "Scroll down", noremap = true })
+
+map({ "n", "x" }, "<A-f>", function()
+	require("cinnamon").scroll("<C-d>zz")
 end, { desc = "Scroll down", noremap = true })
 
 -- Page movements:
