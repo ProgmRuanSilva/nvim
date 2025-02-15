@@ -1,4 +1,3 @@
--- TODO: Create a autocommand to rezise the pane
 return {
 	{
 		"stevearc/conform.nvim",
@@ -127,11 +126,6 @@ return {
 					scope_incremental = false,
 					node_decremental = "<bs>",
 				},
-			},
-
-			keys = {
-				{ "<c-space>", desc = "Increment selection" },
-				{ "<bs>", desc = "Decrement selection", mode = "x" },
 			},
 		},
 	},

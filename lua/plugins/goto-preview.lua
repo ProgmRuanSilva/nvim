@@ -1,6 +1,6 @@
 return {
-	"rmagatti/goto-preview",
-	event = "VimEnter",
+	"embe221ed/goto-preview",
+	event = "VeryLazy",
 	config = function()
 		local gtp = require("goto-preview")
 		local select_to_edit_map = {

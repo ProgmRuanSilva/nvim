@@ -3,7 +3,6 @@ local cmp = require("cmp")
 
 conf.mapping = {
 	["<A-v>"] = cmp.mapping.complete(),
-	-- ["<A-l>"] = cmp.mapping.select_prev_item(),
 	["<A-k>"] = cmp.mapping.select_next_item(),
 	["<C-d>"] = cmp.mapping.scroll_docs(-4),
 	["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -16,18 +15,6 @@ conf.mapping = {
 		behavior = cmp.ConfirmBehavior.Insert,
 		select = true,
 	}),
-	-- ["<Tab>"] = cmp.mapping(function(fallback)
-	-- 	if cmp.visible() then
-	-- 		cmp.select_next_item()
-	-- 	elseif require("luasnip").expand_or_jumpable() then
-	-- 		vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-	-- 	else
-	-- 		fallback()
-	-- 	end
-	-- end, {
-	-- 	"i",
-	-- 	"s",
-	-- }),
 	["<S-Tab>"] = cmp.mapping(function(fallback)
 		if cmp.visible() then
 			cmp.select_prev_item()

@@ -1,11 +1,18 @@
+-- return {}
 return {
 	"nvimdev/dashboard-nvim",
 	dependencies = { { "nvim-tree/nvim-web-devicons" } },
 	event = "VimEnter",
-	config = {
+	opts = {
 		theme = "hyper",
 		disable_move = true,
+		shortcut_type = "number",
 		config = {
+			hide = {
+				statusline = true,
+				tabline = true,
+				winbar = true,
+			},
 			week_header = {
 				enable = true,
 				project = {
@@ -13,13 +20,13 @@ return {
 				},
 			},
 			shortcut = {
-				{ desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
+				{ desc = "󰊳 Check updates", group = "@property", action = "Lazy check", key = "c" },
 				{
 					icon = " ",
 					icon_hl = "@variable",
 					desc = "Files",
 					group = "Label",
-					action = "Telescope find_files",
+					action = "Telescope oldfiles",
 					key = "f",
 				},
 				{
@@ -27,12 +34,6 @@ return {
 					group = "DiagnosticHint",
 					action = "Telescope zoxide list",
 					key = "l",
-				},
-				{
-					desc = " Oldfiles",
-					group = "Label",
-					action = "Telescope oldfiles",
-					key = "d",
 				},
 				{
 					icon = " ",

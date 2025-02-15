@@ -59,7 +59,7 @@ map("i", "<A-k>", "<Up>", { desc = "Up" })
 map("i", "<A-j>", "<Down>", { desc = "Down" })
 map("i", "<A-h>", "<Left>", { desc = "Left" })
 map("i", "<A-l>", "<Right>", { desc = "Right" })
-map("i", "<A-c>", "<C-o>$", { desc = "End of line", silent = true })
+-- map("i", "<A-c>", "<C-o>$", { desc = "End of line", silent = true })
 map({ "i", "n", "v" }, "<A-g>", "<C-o>%", { desc = "Jump toggle pair", noremap = true, silent = true }) -- 🛑 We should use this later
 -- map({ "n", "v" }, "<A-a>", "%", { desc = "Move between pairs", noremap = true, silent = true })
 
@@ -90,11 +90,11 @@ map("i", "<A-'>", "v:lua.MiniPairs.open('\"\"')", { expr = true, noremap = true,
 map({ "i", "n", "c", "v" }, "<M-BS>", "<C-W>", { desc = "Delete previews word", noremap = true })
 map({ "n", "v" }, "<A-q>", "<cmd> noh <cr>", { desc = "Clear highlight" }) --Change this to be BS
 map({ "n", "v" }, "<A-q>j", "<cmd> noh <cr>", { desc = "Clear highlight" })
-map("i", "<A-f>d", "<C-o>d", { desc = "Delete mode" })
+map("i", "<A-f>", "<C-o>$", { desc = "End of line" }) --WARN: Test unset the <A-c> key
 map("i", "<A-w>", "<C-o>dw", { desc = "Delete next word" })
-map("i", "<A-f>ds", "<C-o>dw", { desc = "Delete next word" })
-map("i", "<A-f>da", "<C-o>db", { desc = "Delete previous word" })
-map("i", "<A-f>df", "<C-o>d$", { desc = "Delete to end of line" })
+-- map("i", "<A-f>ds", "<C-o>dw", { desc = "Delete next word" })
+-- map("i", "<A-f>da", "<C-o>db", { desc = "Delete previous word" })
+-- map("i", "<A-f>df", "<C-o>d$", { desc = "Delete to end of line" })
 -- map("i", "<A-p>", "<Backspace>", { desc = "Backspace" })
 map("n", "ds", "dw", { desc = "Delete next word" })
 map("n", "da", "db", { desc = "Delete previews word" })
@@ -121,6 +121,7 @@ map("n", "<A-;>", "<C-i>", { desc = "Toggle between jumps", silent = true })
 
 -- Folds
 map("n", "fs", "za", { desc = "Toggle fold" })
+map("n", "<A-j>", "za", { desc = "Toggle fold" })
 map("n", "fo", "zA", { desc = "Toggle all folds" })
 map("n", "fO", "<cmd>lua require('ufo').openAllFolds()<CR>", { desc = "Open all folds" })
 map("n", "fc", "<cmd>lua require('ufo').closeAllFolds()<CR>", { desc = "Close all folds" })
@@ -188,31 +189,31 @@ end, { desc = "Move Buffer Left" })
 -- Lsp
 map(
 	"n",
-	"gkd",
+	"gpd",
 	"<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
 	{ noremap = true, desc = "Goto Definition" }
 )
 map(
 	"n",
-	"gkD",
+	"gpD",
 	"<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
 	{ noremap = true, desc = "Goto Type Definition" }
 )
 map(
 	"n",
-	"gki",
+	"gpi",
 	"<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
 	{ noremap = true, desc = "Goto Implementation" }
 )
 map(
 	"n",
-	"gkk",
+	"gpk",
 	"<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
 	{ noremap = true, desc = "Goto Declaration" }
 )
 map(
 	"n",
-	"gkg",
+	"gpg",
 	"<cmd>lua require('goto-preview').close_all_win()<CR>",
 	{ noremap = true, desc = "Close all preview windows" }
 )
@@ -400,6 +401,16 @@ map("n", "<leader>fs", "<cmd>lua require('spectre').open()<CR>", { desc = "Spect
 -- NvimTree
 map("n", "<leader>e", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle NvimTree", noremap = true })
 
+map("n", "<leader>aa", "<cmd> CodeCompanionChat Toggle <CR>", { desc = "Focus on CodeCompanionChat", noremap = true })
+map(
+	{ "n", "i", "v" },
+	"<leader>as",
+	"<cmd>CodeCompanionActions<CR>",
+	{ desc = "CodeCompanion Actions", noremap = true }
+)
+
+map("n", "<leader>af", "<cmd>CodeCompanionChat deepseek<CR>", { desc = "Chat with deepseek ", noremap = true })
+
 -- Telescope
 map("n", "<leader>j", "<cmd>Telescope file_browser<CR>", { desc = "File Browser" })
 map("n", "<leader><leader>", "<cmd>Telescope file_browser<CR>", { desc = "File Brower" })
@@ -410,7 +421,7 @@ map("n", "<leader>k", "<cmd>Telescope find_buffer<CR>", { desc = "Find Buffer" }
 map("n", "<leader>ff", "<cmd>Telescope live_grep<CR>", { desc = "Live Grep" })
 
 map("n", "<leader>de", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" })
-map("i", "<A-d>e", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" })
+map("i", "<A-c>", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" })
 map("n", "<leader>[", "<cmd> Telescope notify <CR>", { desc = "Telescope Notify" })
 map("n", "<leader>f]", "<cmd> TodoTelescope <CR>", { desc = "Todo" })
 -- map("n", "<leader>fp", "<cmd> MarkdownPreviewToggle <CR>", { desc = "Markdown Preview" })
@@ -585,12 +596,6 @@ vim.api.nvim_set_keymap(
 	"<A-k>",
 	[[winnr('#') < 0 ? 'k' : ':TmuxNavigateUp<CR>']],
 	{ expr = true, noremap = true, silent = true, desc = "Navigate up" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<A-j>",
-	[[winnr('#') < 0 ? 'j' : ':TmuxNavigateDown<CR>']],
-	{ expr = true, noremap = true, silent = true, desc = "Navigate down" }
 )
 vim.api.nvim_set_keymap(
 	"n",

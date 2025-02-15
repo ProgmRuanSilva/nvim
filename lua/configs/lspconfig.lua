@@ -7,14 +7,14 @@ local servers = {
 	"html",
 	"cssls",
 	"jsonls",
-	"solargraph",
-	"gopls",
 	"ts_ls",
 	"eslint",
 	"bashls",
-	"crystalline",
 	"bashls",
 	"pyright",
+	-- "solargraph",
+	-- "gopls",
+	-- "crystalline",
 }
 
 -- lsps with default config
@@ -26,7 +26,6 @@ for _, lsp in ipairs(servers) do
 	})
 end
 
--- typescript
 lspconfig.eslint.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
