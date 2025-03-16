@@ -14,7 +14,7 @@ return {
 						name = "qwen",
 						schema = {
 							model = {
-								default = "qwen2.5-coder:14b",
+								default = "qwen2.5-coder:7b",
 							},
 							num_ctx = {
 								default = 16384,

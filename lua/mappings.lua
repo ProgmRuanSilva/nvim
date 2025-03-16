@@ -71,7 +71,7 @@ map("n", "<A-o>", "<S-o>", { desc = "New Line " })
 map("i", "<A-r>", "<C-o>u", { desc = "Undo" })
 map("i", "<A-g>", "<C-o><C-r>", { desc = "Redo" })
 
-map("i", "<A-;>", ":", { desc = "Colon" })
+-- map("i", "<A-;>", ":", { desc = "Colon" })
 map("i", "<A-/>", "?", { desc = "Question" })
 map("i", "<A-->", "_", { desc = "Underscore" })
 map("i", "<A-=>", "=", { desc = "Equal" })
@@ -176,7 +176,7 @@ map("n", "<C-n>", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
 
 -- Splits
 map("n", "<leader>i", "<cmd>vsplit<CR>", { desc = "Split vertical" })
-map("n", "<leader>o", "<cmd>split<CR>", { desc = "Split horizontal" })
+-- map("n", "<leader>o", "<cmd>split<CR>", { desc = "Split horizontal" })
 
 map("n", ">>", function()
 	require("nvchad.tabufline").move_buf(1)
@@ -290,26 +290,26 @@ map("n", "<leader>gc", "<cmd> Neogit commit <CR>", { desc = "Commit" })
 map("n", "<leader>gm", "<cmd> Neogit merge <CR>", { desc = "Merge" })
 
 -- Octo
-map("n", "<leader>gpl", "<cmd>Octo pr list<CR>", { desc = "List Pull Requests" })
-map("n", "<leader>gpa", "<cmd>Octo pr create<CR>", { desc = "Open A New Pull Request" })
-map("n", "<leader>gpe", "<cmd>Octo pr edit<CR>", { desc = "Edit Pull Request" })
-map("n", "<leader>gpc", "<cmd>Octo pr changes<CR>", { desc = "Pull Request Diff" })
-map("n", "<leader>gpd", "<cmd>Octo pr close<CR>", { desc = "Close Pull Request" })
+map("n", "<leader>opl", "<cmd>Octo pr list<CR>", { desc = "List Pull Requests" })
+map("n", "<leader>opa", "<cmd>Octo pr create<CR>", { desc = "Open A New Pull Request" })
+map("n", "<leader>ope", "<cmd>Octo pr edit<CR>", { desc = "Edit Pull Request" })
+map("n", "<leader>opc", "<cmd>Octo pr changes<CR>", { desc = "Pull Request Diff" })
+map("n", "<leader>opd", "<cmd>Octo pr close<CR>", { desc = "Close Pull Request" })
 
-map("n", "<leader>gpr", "<cmd>Octo pr review<CR>", { desc = "Mark Pull Request as review" })
-map("n", "<leader>gpR", "<cmd>Octo pr reopen<CR>", { desc = "Reopen Pull Request" })
+map("n", "<leader>opr", "<cmd>Octo pr review<CR>", { desc = "Mark Pull Request as review" })
+map("n", "<leader>opR", "<cmd>Octo pr reopen<CR>", { desc = "Reopen Pull Request" })
 
-map("n", "<leader>gph", "<cmd>Octo pr checks<CR>", { desc = "View Pull Request Actions" })
-map("n", "<leader>gpu", "<cmd>Octo pr url<CR>", { desc = "Copy Pull Request url" })
-map("n", "<leader>gpbc", "<cmd>Octo pr checkout<CR>", { desc = "Checkout Pull Request Branch" })
-map("n", "<leader>gpo", "<cmd>Octo pr browser<CR>", { desc = "Open Pull Request" })
+map("n", "<leader>oph", "<cmd>Octo pr checks<CR>", { desc = "View Pull Request Actions" })
+map("n", "<leader>opu", "<cmd>Octo pr url<CR>", { desc = "Copy Pull Request url" })
+map("n", "<leader>opbc", "<cmd>Octo pr checkout<CR>", { desc = "Checkout Pull Request Branch" })
+map("n", "<leader>opo", "<cmd>Octo pr browser<CR>", { desc = "Open Pull Request" })
 
-map("n", "<leader>gil", "<cmd>Octo issue list<CR>", { desc = "List Issues Request" })
-map("n", "<leader>gia", "<cmd>Octo issue create<CR>", { desc = "Create A New Issue Request" })
-map("n", "<leader>gie", "<cmd>Octo issue edit<CR>", { desc = "Edit Issue Request" })
-map("n", "<leader>gie", "<cmd>Octo issue edit<CR>", { desc = "Edit Issue Request" })
+map("n", "<leader>oil", "<cmd>Octo issue list<CR>", { desc = "List Issues Request" })
+map("n", "<leader>oia", "<cmd>Octo issue create<CR>", { desc = "Create A New Issue Request" })
+map("n", "<leader>oie", "<cmd>Octo issue edit<CR>", { desc = "Edit Issue Request" })
+map("n", "<leader>oie", "<cmd>Octo issue edit<CR>", { desc = "Edit Issue Request" })
 
-map("n", "<leader>grl", "<cmd>Octo repo list<CR>", { desc = "List Repositories" })
+map("n", "<leader>orl", "<cmd>Octo repo list<CR>", { desc = "List Repositories" })
 
 -- GitSigns
 map("n", "ghs", gitsigns.stage_hunk, { desc = "Stage hunk" })
@@ -335,7 +335,7 @@ end, { desc = "Diff this ~" })
 map("n", "td", gitsigns.toggle_deleted, { desc = "Toggle deleted" })
 
 -- Codeium
-map("i", "<A-i>", function()
+map("i", "<A-;>", function()
 	return vim.fn["codeium#Accept"]()
 end, { noremap = true, expr = true, silent = true, desc = "Accept codeium suggestion" })
 map("i", "<A-z>", function()
@@ -402,14 +402,10 @@ map("n", "<leader>fs", "<cmd>lua require('spectre').open()<CR>", { desc = "Spect
 map("n", "<leader>e", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle NvimTree", noremap = true })
 
 map("n", "<leader>aa", "<cmd> CodeCompanionChat Toggle <CR>", { desc = "Focus on CodeCompanionChat", noremap = true })
-map(
-	{ "n", "i", "v" },
-	"<leader>as",
-	"<cmd>CodeCompanionActions<CR>",
-	{ desc = "CodeCompanion Actions", noremap = true }
-)
+map({ "n", "v" }, "<leader>af", "<cmd>CodeCompanionActions<CR>", { desc = "CodeCompanion Actions", noremap = true }) -- This can't be used on the insertion mode because of the <leader> key delay
 
-map("n", "<leader>af", "<cmd>CodeCompanionChat deepseek<CR>", { desc = "Chat with deepseek ", noremap = true })
+map("n", "<leader>as", "<cmd>CodeCompanionChat deepseek<CR>", { desc = "Chat with deepseek ", noremap = true })
+map("n", "<leader>ad", "<cmd>CodeCompanionChat qwen<CR>", { desc = "Chat with deepseek ", noremap = true })
 
 -- Telescope
 map("n", "<leader>j", "<cmd>Telescope file_browser<CR>", { desc = "File Browser" })
