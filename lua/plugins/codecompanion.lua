@@ -9,12 +9,28 @@ return {
 		},
 		opts = {
 			adapters = {
+				-- openai = function()
+				-- 	return require("codecompanion.adapters").extend("openai", {
+				-- 		name = "openai",
+				-- 		schema = {
+				-- 			model = {
+				-- 				default = "gpt-3.5-turbo",
+				-- 			},
+				-- 			num_ctx = {
+				-- 				default = 4096,
+				-- 			},
+				-- 			num_predict = {
+				-- 				default = -1,
+				-- 			},
+				-- 		},
+				-- 	})
+				-- end,
 				qwen = function()
 					return require("codecompanion.adapters").extend("ollama", {
 						name = "qwen",
 						schema = {
 							model = {
-								default = "qwen2.5-coder:7b",
+								default = "qwen2.5-coder:14b",
 							},
 							num_ctx = {
 								default = 16384,
@@ -63,10 +79,10 @@ return {
 					adapter = "qwen",
 					keymaps = {
 						send = {
-							modes = { n = "<A-;>", i = "<A-;>" },
+							modes = { n = "<A-e>", i = "<A-e>" },
 						},
 						close = {
-							modes = { n = "<A-d>", i = { "<A-d>", "<leader>aa" } },
+							modes = { n = "<A-w>", i = "<A-w>" },
 						},
 					},
 				},
@@ -75,11 +91,11 @@ return {
 					layout = "vertical", -- vertical | horizontal | buffer
 					keymaps = {
 						accept_change = {
-							modes = { n = "gf" },
+							modes = { n = "ga" },
 							description = "Accept the suggested change",
 						},
 						reject_change = {
-							modes = { n = "gc" },
+							modes = { n = "gf" },
 							description = "Reject the suggested change",
 						},
 					},
@@ -91,7 +107,7 @@ return {
 					close_chat_at = 240, -- Close an open chat buffer if the total columns of your display are less than...
 					layout = "vertical", -- vertical|horizontal split for default provider
 					opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
-					provider = "mini_diff", -- default|mini_diff
+					provider = "default", -- default|mini_diff
 				},
 				action_palette = {
 					width = 100,
@@ -105,7 +121,7 @@ return {
 				},
 				chat = {
 					intro_message = "Welcome to CodeCompanion ✨! Press ? for options",
-					show_header_separator = false, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
+					show_header_separator = true, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
 					separator = "─", -- The separator between the different messages in the chat buffer
 					show_references = true, -- Show references (from slash commands and variables) in the chat buffer?
 					show_settings = false, -- Show LLM settings at the top of the chat buffer?
