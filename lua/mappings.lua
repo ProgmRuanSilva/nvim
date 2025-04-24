@@ -12,27 +12,6 @@ map({ "i", "v", "n" }, "<A-s>", "<C-Right>", { desc = "Next word", silent = true
 map({ "i", "v", "n" }, "<A-a>", "<C-Left>", { desc = "Previous word", silent = true, noremap = true })
 map("n", "vj", "viw", { desc = "Delete to end of line" })
 
--- Insetion
-map({ "i", "v" }, "<A-d>k", function()
-	require("hop").hint_words()
-end, { desc = "Hop Word" })
-
-map({ "i", "v" }, "<A-d>j", function()
-	require("hop").hint_lines()
-end, { desc = "Hop Anywhere" })
-
-map({ "i", "v" }, "<A-d>l", function()
-	require("hop").hint_anywhere()
-end, { desc = "Hop Line" })
-
-map({ "i", "v" }, "<A-d>;", function()
-	require("hop").hint_anywhere({ current_line_only = true })
-end, { desc = "Hop Current Line" })
-
-map({ "i", "v" }, "<A-d>n", function()
-	require("hop").hint_vertical()
-end, { desc = "Hop Vertical" })
-
 -- Normal Mode
 map({ "n", "v" }, "fk", function()
 	require("hop").hint_words()
@@ -69,7 +48,7 @@ map("i", "<A-o>", "<C-o>o", { desc = "New line" })
 map("i", "<A-b>", "<C-o><S-v>y<C-o>p", { desc = "Copy line to bottom" })
 map("n", "<A-o>", "<S-o>", { desc = "New Line " })
 map("i", "<A-r>", "<C-o>u", { desc = "Undo" })
-map("i", "<A-g>", "<C-o><C-r>", { desc = "Redo" })
+map("i", "<A-g>", "<C-o>%", { desc = "Jump to toggle pair" })
 
 -- map("i", "<A-;>", ":", { desc = "Colon" })
 map("i", "<A-/>", "?", { desc = "Question" })
@@ -401,11 +380,15 @@ map("n", "<leader>fs", "<cmd>lua require('spectre').open()<CR>", { desc = "Spect
 -- NvimTree
 map("n", "<leader>e", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle NvimTree", noremap = true })
 
+-- CodeCompanion
+-- TODO: Remove the <A-l> from cmp
 map("n", "<leader>aa", "<cmd> CodeCompanionChat Toggle <CR>", { desc = "Focus on CodeCompanionChat", noremap = true })
 map({ "n", "v" }, "<leader>af", "<cmd>CodeCompanionActions<CR>", { desc = "CodeCompanion Actions", noremap = true }) -- This can't be used on the insertion mode because of the <leader> key delay
 
-map("n", "<leader>as", "<cmd>CodeCompanionChat deepseek<CR>", { desc = "Chat with deepseek ", noremap = true })
-map("n", "<leader>ad", "<cmd>CodeCompanionChat qwen<CR>", { desc = "Chat with deepseek ", noremap = true })
+map("i", "<A-c>", "<cmd> CodeCompanionActions<CR>", { desc = "Focus on CodeCompanionChat", noremap = true })
+
+map("n", "<leader>ad", "<cmd>CodeCompanionChat deepseek<CR>", { desc = "Chat with deepseek ", noremap = true })
+-- map("n", "<leader>as", "<cmd>CodeCompanionChat qwen<CR>", { desc = "Chat with deepseek ", noremap = true })
 
 -- Telescope
 map("n", "<leader>j", "<cmd>Telescope file_browser<CR>", { desc = "File Browser" })
@@ -417,7 +400,7 @@ map("n", "<leader>k", "<cmd>Telescope find_buffer<CR>", { desc = "Find Buffer" }
 map("n", "<leader>ff", "<cmd>Telescope live_grep<CR>", { desc = "Live Grep" })
 
 map("n", "<leader>de", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" })
-map("i", "<A-c>", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" })
+map("i", "<A-t>", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" })
 map("n", "<leader>[", "<cmd> Telescope notify <CR>", { desc = "Telescope Notify" })
 map("n", "<leader>f]", "<cmd> TodoTelescope <CR>", { desc = "Todo" })
 -- map("n", "<leader>fp", "<cmd> MarkdownPreviewToggle <CR>", { desc = "Markdown Preview" })
