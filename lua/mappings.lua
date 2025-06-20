@@ -1,6 +1,5 @@
 require("nvchad.mappings")
 
-local lint = require("lint")
 local gitsigns = require("gitsigns")
 local fb_actions = require("telescope._extensions.file_browser.actions")
 local utils = require("utils")
@@ -59,9 +58,7 @@ map("i", "<A-k>", "<Up>", { desc = "Up" })
 map("i", "<A-j>", "<Down>", { desc = "Down" })
 map("i", "<A-h>", "<Left>", { desc = "Left" })
 map("i", "<A-l>", "<Right>", { desc = "Right" })
--- map("i", "<A-c>", "<C-o>$", { desc = "End of line", silent = true })
-map({ "i", "n", "v" }, "<A-g>", "<C-o>%", { desc = "Jump toggle pair", noremap = true, silent = true }) -- 🛑 We should use this later
--- map({ "n", "v" }, "<A-a>", "%", { desc = "Move between pairs", noremap = true, silent = true })
+map({ "n", "v" }, "<A-e>", "%", { desc = "Jump toggle pair", noremap = true, silent = true })
 
 -- Insert Utils
 map("i", "<A-q>", "<Esc>", { desc = "Escape from insert mode" })
@@ -69,7 +66,7 @@ map("i", "<A-o>", "<C-o>o", { desc = "New line" })
 map("i", "<A-b>", "<C-o><S-v>y<C-o>p", { desc = "Copy line to bottom" })
 map("n", "<A-o>", "<S-o>", { desc = "New Line " })
 map("i", "<A-r>", "<C-o>u", { desc = "Undo" })
-map("i", "<A-g>", "<C-o><C-r>", { desc = "Redo" })
+map("i", "<A-v>", "<C-o>%", { desc = "Jump to toggle pair" })
 
 -- map("i", "<A-;>", ":", { desc = "Colon" })
 map("i", "<A-/>", "?", { desc = "Question" })
@@ -141,7 +138,6 @@ map("c", "<A-f>", "<C-f>", { desc = "Previous word" })
 
 -- Visual
 map("n", "vv", "<S-v>", { desc = "Select all line" })
--- map("v", "<A-e>", "<C-q>", { desc = "Block mode", noremap = true })
 map("v", "<A-v>", "<Esc>", { desc = "Exit from visual mode", noremap = true })
 
 -- Configurations
@@ -171,12 +167,12 @@ map("n", "<A-m>", "<cmd>bnext<CR>", { desc = "Next Tab" })
 map("n", "<A-n>", "<cmd>bprev<CR>", { desc = "Next Tab" })
 
 -- Tabs
-map("n", "<C-m>", "<cmd>tabnext<cr>", { desc = "Next tab" })
-map("n", "<C-n>", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
+map("n", "<C-a>", "<cmd>tabnext<cr>", { desc = "Next tab" })
+-- map("n", "<leader>n", "<cmd>tabnew<cr>", { desc = "Create a new tab" })
+map("n", "<leader>t", "<cmd>Telescope projects projects<cr>", { desc = "Close tab" })
 
 -- Splits
 map("n", "<leader>i", "<cmd>vsplit<CR>", { desc = "Split vertical" })
--- map("n", "<leader>o", "<cmd>split<CR>", { desc = "Split horizontal" })
 
 map("n", ">>", function()
 	require("nvchad.tabufline").move_buf(1)
@@ -236,10 +232,6 @@ map({ "n", "x" }, "<A-d>", function()
 	require("cinnamon").scroll("<C-u>zz")
 end, { desc = "Scroll up", noremap = true })
 
-map({ "n", "x" }, "<A-e>", function()
-	require("cinnamon").scroll("<C-d>")
-end, { desc = "Scroll down", noremap = true })
-
 map({ "n", "x" }, "<A-f>", function()
 	require("cinnamon").scroll("<C-d>zz")
 end, { desc = "Scroll down", noremap = true })
@@ -290,26 +282,14 @@ map("n", "<leader>gc", "<cmd> Neogit commit <CR>", { desc = "Commit" })
 map("n", "<leader>gm", "<cmd> Neogit merge <CR>", { desc = "Merge" })
 
 -- Octo
-map("n", "<leader>opl", "<cmd>Octo pr list<CR>", { desc = "List Pull Requests" })
-map("n", "<leader>opa", "<cmd>Octo pr create<CR>", { desc = "Open A New Pull Request" })
-map("n", "<leader>ope", "<cmd>Octo pr edit<CR>", { desc = "Edit Pull Request" })
-map("n", "<leader>opc", "<cmd>Octo pr changes<CR>", { desc = "Pull Request Diff" })
-map("n", "<leader>opd", "<cmd>Octo pr close<CR>", { desc = "Close Pull Request" })
-
-map("n", "<leader>opr", "<cmd>Octo pr review<CR>", { desc = "Mark Pull Request as review" })
-map("n", "<leader>opR", "<cmd>Octo pr reopen<CR>", { desc = "Reopen Pull Request" })
-
-map("n", "<leader>oph", "<cmd>Octo pr checks<CR>", { desc = "View Pull Request Actions" })
-map("n", "<leader>opu", "<cmd>Octo pr url<CR>", { desc = "Copy Pull Request url" })
-map("n", "<leader>opbc", "<cmd>Octo pr checkout<CR>", { desc = "Checkout Pull Request Branch" })
-map("n", "<leader>opo", "<cmd>Octo pr browser<CR>", { desc = "Open Pull Request" })
-
-map("n", "<leader>oil", "<cmd>Octo issue list<CR>", { desc = "List Issues Request" })
-map("n", "<leader>oia", "<cmd>Octo issue create<CR>", { desc = "Create A New Issue Request" })
-map("n", "<leader>oie", "<cmd>Octo issue edit<CR>", { desc = "Edit Issue Request" })
-map("n", "<leader>oie", "<cmd>Octo issue edit<CR>", { desc = "Edit Issue Request" })
-
-map("n", "<leader>orl", "<cmd>Octo repo list<CR>", { desc = "List Repositories" })
+map("n", "<leader>gpl", "<cmd>Octo pr list<CR>", { desc = "List Pull Requests" })
+map("n", "<leader>gpa", "<cmd>Octo pr create<CR>", { desc = "Open A New Pull Request" })
+map("n", "<leader>;", "<cmd>Octo notification<CR>", { desc = "Show github notifications" })
+map("n", "<leader>gpc", "<cmd>Octo pr checks<CR>", { desc = "View Pull Request Actions" })
+map("n", "<leader>v", "")
+-- map("n", "<leader>opu", "<cmd>Octo pr url<CR>", { desc = "Copy Pull Request url" })
+-- map("n", "<leader>opbc", "<cmd>Octo pr checkout<CR>", { desc = "Checkout Pull Request Branch" })
+-- map("n", "<leader>opo", "<cmd>Octo pr browser<CR>", { desc = "Open Pull Request" })
 
 -- GitSigns
 map("n", "ghs", gitsigns.stage_hunk, { desc = "Stage hunk" })
@@ -379,10 +359,6 @@ map({ "v", "x" }, "/", function()
 	require("Comment.api").toggle.linewise.current(vim.fn.visualmode())
 end, { desc = "Comment selection" })
 
-map("n", "<leader>gll", function()
-	lint.try_lint()
-end, { desc = "Trigger linting for current file" })
-
 -- Lazydocker
 map("n", "<leader>dl", "<cmd>LazyDocker<CR>", { desc = "LazyDocker" })
 
@@ -401,11 +377,14 @@ map("n", "<leader>fs", "<cmd>lua require('spectre').open()<CR>", { desc = "Spect
 -- NvimTree
 map("n", "<leader>e", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle NvimTree", noremap = true })
 
+-- CodeCompanion
 map("n", "<leader>aa", "<cmd> CodeCompanionChat Toggle <CR>", { desc = "Focus on CodeCompanionChat", noremap = true })
 map({ "n", "v" }, "<leader>af", "<cmd>CodeCompanionActions<CR>", { desc = "CodeCompanion Actions", noremap = true }) -- This can't be used on the insertion mode because of the <leader> key delay
 
-map("n", "<leader>as", "<cmd>CodeCompanionChat deepseek<CR>", { desc = "Chat with deepseek ", noremap = true })
-map("n", "<leader>ad", "<cmd>CodeCompanionChat qwen<CR>", { desc = "Chat with deepseek ", noremap = true })
+map("i", "<A-c>", "<cmd> CodeCompanionActions<CR>", { desc = "Focus on CodeCompanionChat", noremap = true })
+
+map("n", "<leader>ad", "<cmd>CodeCompanionChat deepseek<CR>", { desc = "Chat with deepseek ", noremap = true })
+map("n", "<leader>as", "<cmd>CodeCompanionChat openai<CR>", { desc = "Chat with ollama ", noremap = true })
 
 -- Telescope
 map("n", "<leader>j", "<cmd>Telescope file_browser<CR>", { desc = "File Browser" })

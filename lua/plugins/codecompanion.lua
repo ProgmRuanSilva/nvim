@@ -3,9 +3,10 @@ return {
 		"olimorris/codecompanion.nvim",
 		event = "VeryLazy",
 		dependencies = {
-			"nvim-lua/plenary.nvim",
+			{ "nvim-lua/plenary.nvim", branch = "main" },
 			"nvim-treesitter/nvim-treesitter",
-			"echasnovski/mini.diff",
+			"ravitemer/mcphub.nvim",
+			"HakonHarnes/img-clip.nvim",
 		},
 		opts = {
 			adapters = {
@@ -30,7 +31,7 @@ return {
 						name = "deepseek",
 						schema = {
 							model = {
-								default = "deepseek-r1:14b",
+								default = "deepseek-r1:14b-qwen-distill-q8_0",
 							},
 							num_ctx = {
 								default = 16384,
@@ -57,6 +58,48 @@ return {
 						},
 					})
 				end,
+				openai = function()
+					return require("codecompanion.adapters").extend("openai", {
+						env = {
+							-- api_key = "cmd: gpg --batch --quiet --decrypt /home/dev/.gnupg/public-keys.d/api_key.gpg",
+						},
+						schema = {
+							model = {
+								default = "gpt-3.5-turbo",
+								-- default = "gpt-4.1-nano",
+							},
+							num_ctx = {
+								default = 4096,
+							},
+							num_predict = {
+								default = -1,
+							},
+						},
+					})
+				end,
+			},
+			send_code = true,
+			extensions = {
+				vectorcode = {
+					opts = {
+						add_tool = true,
+					},
+				},
+				mcphub = {
+					callback = "mcphub.extensions.codecompanion",
+					opts = {
+						make_vars = true, -- Convert resources to #variables
+						show_result_in_chat = true, -- Show mcp tool results in chat
+						make_slash_commands = true, -- Add prompts as /slash commands
+					},
+				},
+			},
+			filetypes = {
+				codecompanion = {
+					prompt_for_file_name = false,
+					template = "[Image]($FILE_PATH)",
+					use_absolute_path = true,
+				},
 			},
 			strategies = {
 				chat = {

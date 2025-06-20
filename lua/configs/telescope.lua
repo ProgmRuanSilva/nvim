@@ -48,7 +48,7 @@ conf.defaults = {
 	buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
 	mappings = mappings.telescope,
 }
-conf.extensions_list = { "themes", "file_browser", "emoji" }
+conf.extensions_list = { "themes", "file_browser", "emoji", "projects" }
 
 conf.extensions = {
 
@@ -62,7 +62,7 @@ conf.extensions = {
 		depth = false,
 		auto_depth = true,
 		select_buffer = true,
-		hidden = { file_browser = false, folder_browser = false },
+		hidden = { file_browser = false, folder_browser = true },
 		respect_gitignore = vim.fn.executable("fd") == 1,
 		follow_symlinks = true,
 		browse_files = require("telescope._extensions.file_browser.finders").browse_files,

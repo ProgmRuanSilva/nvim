@@ -1,0 +1,14 @@
+return {}
+-- return {
+-- 	"ravitemer/mcphub.nvim",
+-- 	event = "VeryLazy",
+-- 	dependencies = {
+-- 		"nvim-lua/plenary.nvim",
+-- 	},
+-- 	build = "bundled_build.lua",
+-- 	config = function()
+-- 		require("mcphub").setup({
+-- 			use_bundled_binary = true,
+-- 		})
+-- 	end,
+-- }

@@ -100,6 +100,12 @@ return {
 					-- tabpage is a Diffview.
 					{
 						"n",
+						"q",
+						actions.close,
+						{ desc = "Close the diff view" },
+					},
+					{
+						"n",
 						"<tab>",
 						actions.select_next_entry,
 						{ desc = "Open the diff for the next file" },
