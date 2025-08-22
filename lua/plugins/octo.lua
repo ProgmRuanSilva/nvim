@@ -7,9 +7,6 @@ return {
 		"kyazdani42/nvim-web-devicons",
 	},
 	config = {
-		suppress_missing_scope = {
-			projects_v2 = true,
-		},
 		use_local_fs = false, -- use local files on right side of reviews
 		enable_builtin = false, -- shows a list of builtin actions when no action is provided
 		default_remote = { "upstream", "origin" }, -- order to try remotes
@@ -29,9 +26,12 @@ return {
 		outdated_icon = "󰅒 ", -- outdated indicator
 		resolved_icon = " ", -- resolved indicator
 		reaction_viewer_hint_icon = " ", -- marker for user reactions
+		commands = {}, -- additional subcommands made available to `Octo` command
+		users = "search", -- Users for assignees or reviewers. Values: "search" | "mentionable" | "assignable"
 		user_icon = " ", -- user icon
+		ghost_icon = "󰊠 ", -- ghost icon
 		timeline_marker = " ", -- timeline marker
-		timeline_indent = "2", -- timeline indentation
+		timeline_indent = 2, -- timeline indentation
 		use_timeline_icons = true, -- toggle timeline icons
 		timeline_icons = { -- the default icons based on timelineItems
 			commit = "  ",
@@ -56,7 +56,7 @@ return {
 			review_requested = "  ",
 		},
 		right_bubble_delimiter = "", -- bubble delimiter
-		left_bubble_delimiter = "", -- bubble delimiter
+		left_bubble_delimiter = "",
 		github_hostname = "", -- GitHub Enterprise host
 		snippet_context_lines = 4, -- number or lines around commented lines
 		gh_cmd = "gh", -- Command to use when calling Github CLI
@@ -256,6 +256,8 @@ return {
 			},
 			notification = {
 				read = { lhs = ";", desc = "mark notification as read" },
+				done = { lhs = "d", desc = "mark notification as done" },
+				unsubscribe = { lhs = "u", desc = "unsubscribe from thread" },
 			},
 		},
 	},

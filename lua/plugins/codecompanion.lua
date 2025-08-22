@@ -3,7 +3,6 @@ return {
 		"olimorris/codecompanion.nvim",
 		event = "VeryLazy",
 		dependencies = {
-			{ "nvim-lua/plenary.nvim", branch = "main" },
 			"nvim-treesitter/nvim-treesitter",
 			"ravitemer/mcphub.nvim",
 			"HakonHarnes/img-clip.nvim",
@@ -15,7 +14,7 @@ return {
 						name = "qwen",
 						schema = {
 							model = {
-								default = "qwen2.5-coder:7b",
+								default = "qwen3:14b",
 							},
 							num_ctx = {
 								default = 16384,
@@ -60,9 +59,9 @@ return {
 				end,
 				openai = function()
 					return require("codecompanion.adapters").extend("openai", {
-						env = {
-							-- api_key = "cmd: gpg --batch --quiet --decrypt /home/dev/.gnupg/public-keys.d/api_key.gpg",
-						},
+						-- env = {
+						-- 	api_key = "cmd: gpg --batch --quiet --decrypt /home/dev/.gnupg/public-keys.d/api_key.gpg",
+						-- },
 						schema = {
 							model = {
 								default = "gpt-3.5-turbo",
@@ -80,11 +79,10 @@ return {
 			},
 			send_code = true,
 			extensions = {
-				vectorcode = {
-					opts = {
-						add_tool = true,
-					},
-				},
+				-- vectorcode = {
+				-- 	opts = {
+				-- 		add_tool = true,
+				-- 	},
 				mcphub = {
 					callback = "mcphub.extensions.codecompanion",
 					opts = {
@@ -106,10 +104,10 @@ return {
 					adapter = "qwen",
 					keymaps = {
 						send = {
-							modes = { n = "<A-;>", i = "<A-;>" },
+							modes = { n = "<C-e>", i = "<C-e>" },
 						},
 						close = {
-							modes = { n = "<A-d>", i = { "<A-d>", "<leader>aa" } },
+							modes = { n = "<C-w>", i = { "<C-w>", "<leader>aa" } },
 						},
 					},
 				},
@@ -163,7 +161,7 @@ return {
 						position = "left", -- left|right|top|bottom (nil will default depending on vim.opt.plitright|vim.opt.splitbelow)
 						border = "single",
 						height = 0.8,
-						width = 0.30,
+						width = 0.35,
 						relative = "editor",
 						spell = true,
 						opts = {

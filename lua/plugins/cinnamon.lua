@@ -4,8 +4,8 @@ return {
 	config = function()
 		require("cinnamon").setup({
 			keymaps = {
-				basic = true,
-				extra = true,
+				basic = false,
+				extra = false,
 			},
 			options = { mode = "window" },
 		})

@@ -12,6 +12,7 @@ local servers = {
 	"bashls",
 	"bashls",
 	"pyright",
+	"kotlin-language-server",
 	-- "solargraph",
 	-- "gopls",
 	-- "crystalline",
@@ -80,4 +81,11 @@ lspconfig.pyright.setup({
 	on_attach = on_attach,
 	on_init = on_init,
 	capabilities = capabilities,
+})
+
+lspconfig.kotlin_language_server.setup({
+	on_attach = on_attach,
+	on_init = on_init,
+	capabilities = capabilities,
+	filetypes = { "kotlin", "kt", "kts" },
 })
