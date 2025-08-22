@@ -2,19 +2,19 @@ local conf = require("nvchad.configs.cmp")
 local cmp = require("cmp")
 
 conf.mapping = {
-	["<A-v>"] = cmp.mapping.complete(),
-	["<A-k>"] = cmp.mapping.select_next_item(),
+	["<C-v>"] = cmp.mapping.complete(),
+	["<C-k>"] = cmp.mapping.select_next_item(),
 	["<C-d>"] = cmp.mapping.scroll_docs(-4),
 	["<C-f>"] = cmp.mapping.scroll_docs(4),
-	["<A-l>"] = cmp.mapping.close(),
-	["<A-j>"] = cmp.mapping.confirm({
+	["<C-l>"] = cmp.mapping.close(),
+	["<C-j>"] = cmp.mapping.confirm({
 		behavior = cmp.ConfirmBehavior.Insert,
 		select = true,
 	}),
-	["<Tab>"] = cmp.mapping.confirm({
-		behavior = cmp.ConfirmBehavior.Insert,
-		select = true,
-	}),
+	-- ["<Tab>"] = cmp.mapping.confirm({
+	-- 	behavior = cmp.ConfirmBehavior.Insert,
+	-- 	select = true,
+	-- }),
 	["<S-Tab>"] = cmp.mapping(function(fallback)
 		if cmp.visible() then
 			cmp.select_prev_item()

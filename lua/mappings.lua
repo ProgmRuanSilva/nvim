@@ -7,30 +7,9 @@ local utils = require("utils")
 local map = vim.keymap.set
 
 -- 🚧 Test Area 🚧
-map({ "i", "v", "n" }, "<A-s>", "<C-Right>", { desc = "Next word", silent = true, noremap = true }) -- Change it to not be used with Contrl
-map({ "i", "v", "n" }, "<A-a>", "<C-Left>", { desc = "Previous word", silent = true, noremap = true })
-map("n", "vj", "viw", { desc = "Delete to end of line" })
-
--- Insetion
-map({ "i", "v" }, "<A-d>k", function()
-	require("hop").hint_words()
-end, { desc = "Hop Word" })
-
-map({ "i", "v" }, "<A-d>j", function()
-	require("hop").hint_lines()
-end, { desc = "Hop Anywhere" })
-
-map({ "i", "v" }, "<A-d>l", function()
-	require("hop").hint_anywhere()
-end, { desc = "Hop Line" })
-
-map({ "i", "v" }, "<A-d>;", function()
-	require("hop").hint_anywhere({ current_line_only = true })
-end, { desc = "Hop Current Line" })
-
-map({ "i", "v" }, "<A-d>n", function()
-	require("hop").hint_vertical()
-end, { desc = "Hop Vertical" })
+map({ "n", "v" }, "<C-q>", "<cmd> noh <cr>", { desc = "Clear highlight" })
+map({ "n", "v", "i" }, "<C-q>", "<Esc>", { desc = "Exit from visual mode", noremap = true })
+map("n", "vj", "viw", { desc = "Select word" })
 
 -- Normal Mode
 map({ "n", "v" }, "fk", function()
@@ -54,56 +33,54 @@ map({ "n", "v" }, "fn", function()
 end, { desc = "Hop Vertical" })
 
 -- Navigation
-map("i", "<A-k>", "<Up>", { desc = "Up" })
-map("i", "<A-j>", "<Down>", { desc = "Down" })
-map("i", "<A-h>", "<Left>", { desc = "Left" })
-map("i", "<A-l>", "<Right>", { desc = "Right" })
-map({ "n", "v" }, "<A-e>", "%", { desc = "Jump toggle pair", noremap = true, silent = true })
+map("i", "<C-k>", "<Up>", { desc = "Up" })
+map("i", "<C-j>", "<Down>", { desc = "Down" })
+map("i", "<C-h>", "<Left>", { desc = "Left" })
+map("i", "<C-l>", "<Right>", { desc = "Right" })
+map({ "n", "v" }, "<C-e>", "%", { desc = "Jump toggle pair", noremap = true, silent = true })
+map("i", "<C-e>", "<C-o>%", { desc = "Jump to toggle pair" })
 
 -- Insert Utils
-map("i", "<A-q>", "<Esc>", { desc = "Escape from insert mode" })
-map("i", "<A-o>", "<C-o>o", { desc = "New line" })
-map("i", "<A-b>", "<C-o><S-v>y<C-o>p", { desc = "Copy line to bottom" })
-map("n", "<A-o>", "<S-o>", { desc = "New Line " })
-map("i", "<A-r>", "<C-o>u", { desc = "Undo" })
-map("i", "<A-v>", "<C-o>%", { desc = "Jump to toggle pair" })
+map("i", "<C-r>", "<C-o>u", { desc = "Undo" })
+map("i", "<C-o>", "<C-o>o", { desc = "New line" })
+map("n", "<C-o>", "<S-o>", { desc = "New Line " })
+map("i", "<C-b>", "<C-o><S-v>y<C-o>p", { desc = "Copy line to bottom" })
+map("n", "<C-w>", "db", { noremap = true })
+map({ "i", "v", "n" }, "<C-s>", "<C-Right>", { desc = "Next word", silent = true, noremap = true })
+map({ "i", "v", "n" }, "<C-a>", "<C-Left>", { desc = "Previous word", silent = true, noremap = true })
+
+--WARN: We remaped The control + backspace to be ctrol + w in kitty.conf
+map("i", "<C-w>", "<C-o>db", { noremap = true })
 
 -- map("i", "<A-;>", ":", { desc = "Colon" })
-map("i", "<A-/>", "?", { desc = "Question" })
-map("i", "<A-->", "_", { desc = "Underscore" })
-map("i", "<A-=>", "=", { desc = "Equal" })
-map("i", "<A-4>", "$", { desc = "Dolar" })
-map("i", "<A-5>", "%", { desc = "Percent" })
-map("i", "<A-3>", "#", { desc = "Hash" })
-map("i", "<A-2>", "@", { desc = "At" })
-map("i", "<A-1>", "!", { desc = "Exclamation" })
-map("i", "<A-[>", "v:lua.MiniPairs.open('{}')", { expr = true, noremap = true, replace_keycodes = false })
-map("i", "<A-]>", "v:lua.MiniPairs.close('{}')", { expr = true, noremap = true, replace_keycodes = false })
-map("i", "<A-,>", "v:lua.MiniPairs.open('<>')", { expr = true, noremap = true, replace_keycodes = false })
-map("i", "<A-.>", "v:lua.MiniPairs.close('<>')", { expr = true, noremap = true, replace_keycodes = false })
-map("i", "<A-'>", "v:lua.MiniPairs.open('\"\"')", { expr = true, noremap = true, replace_keycodes = false })
+map("i", "<C-/>", "?", { desc = "Question", noremap = true })
+map("i", "<C-->", "_", { desc = "Underscore", noremap = true })
+map("i", "<C-=>", "=", { desc = "Equal", noremap = true })
+map("i", "<C-4>", "$", { desc = "Dolar", noremap = true })
+map("i", "<C-5>", "%", { desc = "Percent", noremap = true })
+map("i", "<C-3>", "#", { desc = "Hash", noremap = true })
+map("i", "<C-2>", "@", { desc = "At", noremap = true })
+map("i", "<C-1>", "!", { desc = "Exclamation", noremap = true })
+map("i", "<C-[>", "v:lua.MiniPairs.open('{}')", { expr = true, noremap = true, replace_keycodes = false })
+map("i", "<C-]>", "v:lua.MiniPairs.close('{}')", { expr = true, noremap = true, replace_keycodes = false })
+map("i", "<C-,>", "v:lua.MiniPairs.open('<>')", { expr = true, noremap = true, replace_keycodes = false })
+map("i", "<C-.>", "v:lua.MiniPairs.close('<>')", { expr = true, noremap = true, replace_keycodes = false })
+map("i", "<C-'>", "v:lua.MiniPairs.open('\"\"')", { expr = true, noremap = true, replace_keycodes = false })
 
 -- Deletes
-map({ "i", "n", "c", "v" }, "<M-BS>", "<C-W>", { desc = "Delete previews word", noremap = true })
-map({ "n", "v" }, "<A-q>", "<cmd> noh <cr>", { desc = "Clear highlight" }) --Change this to be BS
-map({ "n", "v" }, "<A-q>j", "<cmd> noh <cr>", { desc = "Clear highlight" })
-map("i", "<A-f>", "<C-o>$", { desc = "End of line" }) --WARN: Test unset the <A-c> key
-map("i", "<A-w>", "<C-o>dw", { desc = "Delete next word" })
--- map("i", "<A-f>ds", "<C-o>dw", { desc = "Delete next word" })
--- map("i", "<A-f>da", "<C-o>db", { desc = "Delete previous word" })
--- map("i", "<A-f>df", "<C-o>d$", { desc = "Delete to end of line" })
--- map("i", "<A-p>", "<Backspace>", { desc = "Backspace" })
+map({ "n", "v" }, "<C-q>j", "<cmd> noh <cr>", { desc = "Clear highlight" })
+map("i", "<C-f>", "<C-o>$", { desc = "End of line" })
+-- map("i", "<C-w>", "<C-o>dw", { desc = "Delete next word" })
 map("n", "ds", "dw", { desc = "Delete next word" })
 map("n", "da", "db", { desc = "Delete previews word" })
 map("n", "dj", "diw", { desc = "Delete current word" })
 map("n", "df", "d$", { desc = "Delete to end of line" })
 
 -- Normal Mode Utils
-map("n", "<A-c>", "A", { desc = "Insert in the end of line" })
 map("n", ",", "o<C-c>", { desc = "Create new line" })
 map("n", ".", "<S-o><C-c>", { desc = "Create new line" })
-map("n", "<A-b>", "<S-v>yp", { desc = "Copy line below" })
-map("n", "<A-r>", "<C-r>", { desc = "Redo" })
+map("n", "<C-c>", "A", { desc = "Insert in the end of line" })
+map("n", "<C-b>", "<S-v>yp", { desc = "Copy line below" })
 map({ "n", "v" }, "ff", function()
 	utils.move_cursor()
 end, { desc = "Move cursor on the line" })
@@ -114,31 +91,30 @@ map({ "n", "v" }, ";", function()
 	require("which-key").show("'", { mode = "n", auto = true })
 end, { desc = "show marks" })
 map("n", ";;", "<C-o>", { desc = "Toggle between jumps", silent = true })
-map("n", "<A-;>", "<C-i>", { desc = "Toggle between jumps", silent = true })
+-- map("n", "<A-;>", "<C-i>", { desc = "Toggle between jumps", silent = true })
 
 -- Folds
 map("n", "fs", "za", { desc = "Toggle fold" })
-map("n", "<A-j>", "za", { desc = "Toggle fold" })
+map("n", "<C-j>", "za", { desc = "Toggle fold" })
 map("n", "fo", "zA", { desc = "Toggle all folds" })
 map("n", "fO", "<cmd>lua require('ufo').openAllFolds()<CR>", { desc = "Open all folds" })
 map("n", "fc", "<cmd>lua require('ufo').closeAllFolds()<CR>", { desc = "Close all folds" })
 
 -- Command
-map("c", "<A-l>", "<Up>", { desc = "Up" })
-map("c", "<A-k>", "<Down>", { desc = "Down" })
-map("c", "<A-h>", "<Left>", { desc = "Left" })
-map("c", "<A-f>", "<Right>", { desc = "Right" })
-map("c", "<A-b>", "<Home>", { desc = "Start of line" })
-map("c", "<A-c>", "<End>", { desc = "End of line" })
-map("c", "<A-s>", "<Del>", { desc = "Delete" })
-map("c", "<A-BS>", "<C-BS>", { desc = "Delete" })
-map("c", "<A-j>", "<Enter>", { desc = "Enter" })
-map("c", "<A-a>", "<C-b>", { desc = "Next word" })
-map("c", "<A-f>", "<C-f>", { desc = "Previous word" })
+map("c", "<C-l>", "<Up>", { desc = "Up" })
+map("c", "<C-k>", "<Down>", { desc = "Down" })
+map("c", "<C-h>", "<Left>", { desc = "Left" })
+map("c", "<C-f>", "<Right>", { desc = "Right" })
+map("c", "<C-b>", "<Home>", { desc = "Start of line" })
+map("c", "<C-c>", "<End>", { desc = "End of line" })
+map("c", "<C-s>", "<Del>", { desc = "Delete" })
+-- map("c", "<C-BS>", "<C-BS>", { desc = "Delete" })
+map("c", "<C-j>", "<Enter>", { desc = "Enter" })
+map("c", "<C-a>", "<C-b>", { desc = "Next word" })
+map("c", "<C-f>", "<C-f>", { desc = "Previous word" })
 
 -- Visual
 map("n", "vv", "<S-v>", { desc = "Select all line" })
-map("v", "<A-v>", "<Esc>", { desc = "Exit from visual mode", noremap = true })
 
 -- Configurations
 map("n", "<leader>cm", "<cmd> Mason <CR>", { desc = "Mason" })
@@ -151,8 +127,8 @@ map("n", "<leader>cs", "<cmd> help lspconfig-all <CR>", { desc = "LSP Info" })
 map("n", "<leader>s", "<cmd>up<CR>", { desc = "Save", silent = true })
 
 -- Pastes
-map({ "n", "v" }, "<A-p>", '"0p', { desc = "Paste the current clipboard" })
-map({ "n", "v" }, "p", "p", { desc = "Paste the last deleted text" })
+map({ "n", "v" }, "<C-v>", '"0p', { desc = "Paste the current clipboard" })
+-- map({ "n", "v" }, "p", "p", { desc = "Paste the last deleted text" })
 
 -- Quit's
 map("n", "qq", "<cmd>q!<CR>", { desc = "Force quit" })
@@ -163,11 +139,11 @@ map("n", "<leader>u", "<cmd>q!<CR>", { desc = "Force quit" })
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 
 -- Buffer
-map("n", "<A-m>", "<cmd>bnext<CR>", { desc = "Next Tab" })
-map("n", "<A-n>", "<cmd>bprev<CR>", { desc = "Next Tab" })
+-- map("n", "<A-m>", "<cmd>bnext<CR>", { desc = "Next Tab" })
+-- map("n", "<A-n>", "<cmd>bprev<CR>", { desc = "Next Tab" })
 
 -- Tabs
-map("n", "<C-a>", "<cmd>tabnext<cr>", { desc = "Next tab" })
+-- map("n", "<C-a>", "<cmd>tabnext<cr>", { desc = "Next tab" })
 -- map("n", "<leader>n", "<cmd>tabnew<cr>", { desc = "Create a new tab" })
 map("n", "<leader>t", "<cmd>Telescope projects projects<cr>", { desc = "Close tab" })
 
@@ -224,23 +200,15 @@ map("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, desc 
 ---------------------- Plugins -----------------------------
 
 -- Cinnamon
-map({ "n", "x" }, "<A-w>", function()
-	require("cinnamon").scroll("<C-u>")
-end, { desc = "Scroll up", noremap = true })
-
-map({ "n", "x" }, "<A-d>", function()
+map({ "n", "x" }, "<C-d>", function()
 	require("cinnamon").scroll("<C-u>zz")
 end, { desc = "Scroll up", noremap = true })
 
-map({ "n", "x" }, "<A-f>", function()
+map({ "n", "x" }, "<C-f>", function()
 	require("cinnamon").scroll("<C-d>zz")
 end, { desc = "Scroll down", noremap = true })
 
 -- Page movements:
-map({ "n", "x" }, "w", function()
-	require("cinnamon").scroll("<C-b>zz")
-end, { desc = "Scroll up", noremap = true })
-
 map({ "n", "x" }, "e", function()
 	require("cinnamon").scroll("<C-f>zz")
 end, { desc = "Scroll down", noremap = true })
@@ -255,14 +223,6 @@ end, { desc = "Move Cursor to Top" })
 map("n", "fe", function()
 	require("cinnamon").scroll("zb")
 end, { desc = "Move Cursor to Bottom" })
-
--- ⚠️ This is needed for the N key mapping that isno't working, a new mappins is under test.
-map({ "n", "v", "x", "o" }, "n", function()
-	require("cinnamon").scroll("N")
-end, { desc = "Move back word", silent = true, noremap = true, nowait = true, expr = true })
-map({ "n", "v", "x", "o" }, "nn", function()
-	require("cinnamon").scroll("b")
-end, { desc = "Move back word", silent = true, noremap = true })
 
 -- Git
 map("n", "gF", "<cmd>GitBlameToggle<CR>", { desc = "Git Blame" })
@@ -313,17 +273,6 @@ map("n", "ghD", function()
 	gitsigns.diffthis("~")
 end, { desc = "Diff this ~" })
 map("n", "td", gitsigns.toggle_deleted, { desc = "Toggle deleted" })
-
--- Codeium
-map("i", "<A-;>", function()
-	return vim.fn["codeium#Accept"]()
-end, { noremap = true, expr = true, silent = true, desc = "Accept codeium suggestion" })
-map("i", "<A-z>", function()
-	return vim.fn["codeium#CycleCompletions"](1)
-end, { noremap = true, expr = true, silent = true, desc = "Cycle codeium suggestion" })
-map("i", "<A-t>", function()
-	return vim.fn["codeium#Clear"]()
-end, { noremap = true, expr = true, silent = true, desc = "Clear codeium suggestion" })
 
 -- Package Info
 map("n", "<leader>ps", function()
@@ -404,38 +353,38 @@ map("n", "<leader>f]", "<cmd> TodoTelescope <CR>", { desc = "Todo" })
 local Plugins = {}
 Plugins.telescope = {
 	i = {
-		["<A-k>"] = require("telescope.actions").move_selection_next,
-		["<A-l>"] = require("telescope.actions").move_selection_previous,
-		["<A-j>"] = require("telescope.actions").select_default,
+		["<C-k>"] = require("telescope.actions").move_selection_next,
+		["<C-l>"] = require("telescope.actions").move_selection_previous,
+		["<C-j>"] = require("telescope.actions").select_default,
 
-		["<A-i>"] = require("telescope.actions").file_vsplit,
-		["<A-o>"] = require("telescope.actions").file_split,
+		["<C-i>"] = require("telescope.actions").file_vsplit,
+		["<C-o>"] = require("telescope.actions").file_split,
 
-		["<A-m>"] = require("telescope.actions").preview_scrolling_down,
-		["<A-n>"] = require("telescope.actions").preview_scrolling_down,
+		["<C-m>"] = require("telescope.actions").preview_scrolling_down,
+		["<C-n>"] = require("telescope.actions").preview_scrolling_down,
 
-		["<A-q>"] = require("telescope.actions").close,
+		["<C-q>"] = require("telescope.actions").close,
 
 		-- ["<A-a>"] = require("telescope.actions").toggle_all,
 	},
 
 	n = {
 		["j"] = require("telescope.actions").select_default,
-		["<A-j>"] = require("telescope.actions").select_default,
+		["<C-j>"] = require("telescope.actions").select_default,
 
 		["k"] = require("telescope.actions").move_selection_next,
 		["l"] = require("telescope.actions").move_selection_previous,
-		["<A-k>"] = require("telescope.actions").move_selection_next,
-		["<A-l>"] = require("telescope.actions").move_selection_previous,
+		["<C-k>"] = require("telescope.actions").move_selection_next,
+		["<C-l>"] = require("telescope.actions").move_selection_previous,
 
-		["<A-i>"] = require("telescope.actions").file_vsplit,
-		["<A-o>"] = require("telescope.actions").file_split,
+		["<C-i>"] = require("telescope.actions").file_vsplit,
+		["<C-o>"] = require("telescope.actions").file_split,
 
-		["<A-n>"] = require("telescope.actions").preview_scrolling_up,
-		["<A-m>"] = require("telescope.actions").preview_scrolling_down,
+		["<C-n>"] = require("telescope.actions").preview_scrolling_up,
+		["<C-m>"] = require("telescope.actions").preview_scrolling_down,
 
 		["q"] = require("telescope.actions").close,
-		["<A-q>"] = require("telescope.actions").close,
+		["<C-q>"] = require("telescope.actions").close,
 	},
 }
 
@@ -446,22 +395,22 @@ Plugins.file_browser = {
 		["<C-w>"] = fb_actions.goto_cwd,
 		["<C-t>"] = fb_actions.change_cwd,
 		["<C-h>"] = fb_actions.toggle_hidden,
-		["<C-s>"] = fb_actions.toggle_all,
+		["<A-s>"] = fb_actions.toggle_all,
 		["<bs>"] = fb_actions.backspace,
 
 		["<A-h>"] = fb_actions.goto_cwd,
-		["<A-s>"] = fb_actions.remove,
-		["<A-f>"] = fb_actions.toggle_browser,
-		["<A-c>"] = fb_actions.create,
+		["<C-s>"] = fb_actions.remove,
+		["<C-f>"] = fb_actions.toggle_browser,
+		["<C-c>"] = fb_actions.create,
 		["<S-CR>"] = fb_actions.create_from_prompt,
-		["<A-r>"] = fb_actions.rename,
-		["<A-m>"] = fb_actions.move,
-		["<A-y>"] = fb_actions.copy,
+		["<C-r>"] = fb_actions.rename,
+		["<C-m>"] = fb_actions.move,
+		["<C-y>"] = fb_actions.copy,
 	},
 	["n"] = {
-		["<A-d>"] = fb_actions.remove,
-		["<A-c>"] = fb_actions.create,
-		["<A-j>"] = fb_actions.open,
+		["<C-d>"] = fb_actions.remove,
+		["<C-c>"] = fb_actions.create,
+		["<C-j>"] = fb_actions.open,
 
 		["c"] = fb_actions.create,
 		["a"] = fb_actions.create,
@@ -568,19 +517,19 @@ Plugins.file_browser = {
 -- Tmux Navigation
 vim.api.nvim_set_keymap(
 	"n",
-	"<A-k>",
+	"<C-k>",
 	[[winnr('#') < 0 ? 'k' : ':TmuxNavigateUp<CR>']],
 	{ expr = true, noremap = true, silent = true, desc = "Navigate up" }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"<A-l>",
+	"<C-l>",
 	[[winnr('#') < 0 ? 'l' : ':TmuxNavigateRight<CR>']],
 	{ expr = true, noremap = true, silent = true, desc = "Navigate right" }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"<A-h>",
+	"<C-h>",
 	[[winnr('#') < 0 ? 'h' : ':TmuxNavigateLeft<CR>']],
 	{ expr = true, noremap = true, silent = true, desc = "Navigate left" }
 )
