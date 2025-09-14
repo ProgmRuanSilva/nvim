@@ -9,80 +9,106 @@ return {
 		},
 		opts = {
 			adapters = {
-				qwen = function()
-					return require("codecompanion.adapters").extend("ollama", {
-						name = "qwen",
-						schema = {
-							model = {
-								default = "qwen3:14b",
+				acp = {
+					gemini_cli = function()
+						return require("codecompanion.adapters").extend("gemini_cli", {
+							defaults = {
+								auth_method = "gemini-api-key",
+								mcpServers = {},
+								timeout = 20000, -- 20 seconds
 							},
-							num_ctx = {
-								default = 16384,
+							env = {
+								GEMINI_API_KEY = "AIzaSyA8ncnYdTn60ACoXyjKoLfaPoJoudnoGHE",
 							},
-							num_predict = {
-								default = -1,
+						})
+					end,
+				},
+				http = {
+					qwen = function()
+						return require("codecompanion.adapters").extend("ollama", {
+							name = "qwen",
+							opts = {
+								vision = true,
+								stream = true,
 							},
-						},
-					})
-				end,
-				deepseek = function()
-					return require("codecompanion.adapters").extend("ollama", {
-						name = "deepseek",
-						schema = {
-							model = {
-								default = "deepseek-r1:14b-qwen-distill-q8_0",
+							schema = {
+								model = {
+									default = "qwen3:14b",
+								},
+								num_ctx = {
+									default = 16384,
+								},
+								think = {
+									default = false,
+								},
+								keep_alive = {
+									default = "5m",
+								},
 							},
-							num_ctx = {
-								default = 16384,
+						})
+					end,
+					deepseek = function()
+						return require("codecompanion.adapters").extend("ollama", {
+							name = "deepseek",
+							opts = {
+								vision = true,
+								stream = true,
 							},
-							num_predict = {
-								default = -1,
+							schema = {
+								model = {
+									default = "deepseek-r1:14b-qwen-distill-q8_0",
+								},
+								num_ctx = {
+									default = 16384,
+								},
+								keep_alive = {
+									default = "5m",
+								},
+								think = {
+									default = true,
+								},
 							},
-						},
-					})
-				end,
-				llama = function()
-					return require("codecompanion.adapters").extend("ollama", {
-						name = "llama",
-						schema = {
-							model = {
-								default = "llama3:latest",
+						})
+					end,
+					llama = function()
+						return require("codecompanion.adapters").extend("ollama", {
+							name = "llama",
+							schema = {
+								model = {
+									default = "llama3:latest",
+								},
+								num_ctx = {
+									default = 16384,
+								},
+								num_predict = {
+									default = -1,
+								},
 							},
-							num_ctx = {
-								default = 16384,
+						})
+					end,
+					openai = function()
+						return require("codecompanion.adapters").extend("openai", {
+							-- env = {
+							-- 	api_key = "cmd: gpg --batch --quiet --decrypt /home/dev/.gnupg/public-keys.d/api_key.gpg",
+							-- },
+							schema = {
+								model = {
+									default = "gpt-3.5-turbo",
+									-- default = "gpt-4.1-nano",
+								},
+								num_ctx = {
+									default = 4096,
+								},
+								num_predict = {
+									default = -1,
+								},
 							},
-							num_predict = {
-								default = -1,
-							},
-						},
-					})
-				end,
-				openai = function()
-					return require("codecompanion.adapters").extend("openai", {
-						-- env = {
-						-- 	api_key = "cmd: gpg --batch --quiet --decrypt /home/dev/.gnupg/public-keys.d/api_key.gpg",
-						-- },
-						schema = {
-							model = {
-								default = "gpt-3.5-turbo",
-								-- default = "gpt-4.1-nano",
-							},
-							num_ctx = {
-								default = 4096,
-							},
-							num_predict = {
-								default = -1,
-							},
-						},
-					})
-				end,
+						})
+					end,
+				},
 			},
 			send_code = true,
 			extensions = {
-				-- vectorcode = {
-				-- 	opts = {
-				-- 		add_tool = true,
-				-- 	},
 				mcphub = {
 					callback = "mcphub.extensions.codecompanion",
 					opts = {
@@ -101,29 +127,29 @@ return {
 			},
 			strategies = {
 				chat = {
-					adapter = "qwen",
+					adapter = "gemini_cli",
 					keymaps = {
 						send = {
 							modes = { n = "<C-e>", i = "<C-e>" },
 						},
 						close = {
-							modes = { n = "<C-w>", i = { "<C-w>", "<leader>aa" } },
+							modes = { n = "<C-r>", i = { "<C-r>", "<leader>aa" } },
 						},
 					},
 				},
 				inline = {
-					adapter = "qwen",
+					adapter = "gemini_cli",
 					layout = "vertical", -- vertical | horizontal | buffer
-					keymaps = {
-						accept_change = {
-							modes = { n = "gf" },
-							description = "Accept the suggested change",
-						},
-						reject_change = {
-							modes = { n = "gc" },
-							description = "Reject the suggested change",
-						},
-					},
+					-- keymaps = {
+					-- 	accept_change = {
+					-- 		modes = { n = "ee" },
+					-- 		description = "Accept the suggested change",
+					-- 	},
+					-- 	reject_change = {
+					-- 		modes = { n = "ef" },
+					-- 		description = "Reject the suggested change",
+					-- 	},
+					-- },
 				},
 			},
 			display = {
@@ -146,11 +172,11 @@ return {
 				},
 				chat = {
 					intro_message = "Welcome to CodeCompanion ✨! Press ? for options",
-					show_header_separator = false, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
+					show_header_separator = true, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
 					separator = "─", -- The separator between the different messages in the chat buffer
 					show_references = true, -- Show references (from slash commands and variables) in the chat buffer?
 					show_settings = false, -- Show LLM settings at the top of the chat buffer?
-					show_token_count = true, -- Show the token count for each response?
+					show_token_count = false, -- Show the token count for each response?
 					start_in_insert_mode = true, -- Open the chat buffer in insert mode?
 					icons = {
 						pinned_buffer = " ",
