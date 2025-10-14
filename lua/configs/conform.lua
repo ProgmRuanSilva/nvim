@@ -20,8 +20,14 @@ local options = {
 		erb = { "erb_formatter" },
 		eruby = { "erb_formatter" },
 		crystal = { "crystal " },
+		kotlin = { "ktlint" },
 	},
 	formatters = {
+		ktlint = {
+			command = "ktlint",
+			args = { "--format", "gradle", "$FILENAME" },
+			stdin = false,
+		},
 		crystal = {
 			command = "crystal",
 			args = { "tool", "format", "$FILENAME" },
