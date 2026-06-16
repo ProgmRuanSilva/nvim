@@ -1,7 +1,3 @@
-require("nvchad.mappings")
-
-local gitsigns = require("gitsigns")
-local fb_actions = require("telescope._extensions.file_browser.actions")
 local utils = require("utils")
 
 local map = vim.keymap.set
@@ -150,13 +146,9 @@ map("n", "<leader>t", "<cmd>Telescope projects projects<cr>", { desc = "Close ta
 -- Splits
 map("n", "<leader>i", "<cmd>vsplit<CR>", { desc = "Split vertical" })
 
-map("n", ">>", function()
-	require("nvchad.tabufline").move_buf(1)
-end, { desc = "Move Buffer Right" })
+map("n", ">>", "<cmd>BufferLineMoveNext<CR>", { desc = "Move Buffer Right" })
 
-map("n", "<<", function()
-	require("nvchad.tabufline").move_buf(-1)
-end, { desc = "Move Buffer Left" })
+map("n", "<<", "<cmd>BufferLineMovePrev<CR>", { desc = "Move Buffer Left" })
 
 -- Lsp
 map(
@@ -230,49 +222,46 @@ map("n", "gF", "<cmd>GitBlameToggle<CR>", { desc = "Git Blame" })
 -- Lazygit
 map("n", "<leader>gd", "<cmd> LazyGit <CR>", { desc = "Lazygit" })
 
--- Neogit
-map("n", "<leader>gg", "<cmd> Neogit <CR>", { desc = "Neogit" })
-map("n", "<leader>gw", "<cmd> Neogit worktree <CR>", { desc = " Worktree " })
-map("n", "<leader>dd", "<cmd> Neogit diff <CR>", { desc = " Neogit Diff" })
-map("n", "<leader>gf", "<cmd> Neogit fetch <CR>", { desc = "Fetch" })
-map("n", "<leader>gb", "<cmd> Neogit branch <CR>", { desc = "Branch" })
-map("n", "<leader>gh", "<cmd> Neogit pull <CR>", { desc = "Pull" })
-map("n", "<leader>gp", "<cmd> Neogit push <CR>", { desc = "Push" })
-map("n", "<leader>gc", "<cmd> Neogit commit <CR>", { desc = "Commit" })
-map("n", "<leader>gm", "<cmd> Neogit merge <CR>", { desc = "Merge" })
-
--- Octo
-map("n", "<leader>gpl", "<cmd>Octo pr list<CR>", { desc = "List Pull Requests" })
-map("n", "<leader>gpa", "<cmd>Octo pr create<CR>", { desc = "Open A New Pull Request" })
-map("n", "<leader>;", "<cmd>Octo notification<CR>", { desc = "Show github notifications" })
-map("n", "<leader>gpc", "<cmd>Octo pr checks<CR>", { desc = "View Pull Request Actions" })
-map("n", "<leader>v", "")
--- map("n", "<leader>opu", "<cmd>Octo pr url<CR>", { desc = "Copy Pull Request url" })
--- map("n", "<leader>opbc", "<cmd>Octo pr checkout<CR>", { desc = "Checkout Pull Request Branch" })
--- map("n", "<leader>opo", "<cmd>Octo pr browser<CR>", { desc = "Open Pull Request" })
-
 -- GitSigns
-map("n", "ghs", gitsigns.stage_hunk, { desc = "Stage hunk" })
-map("n", "ghr", gitsigns.reset_hunk, { desc = "Reset hunk" })
+map("n", "ghs", function()
+	require("gitsigns").stage_hunk()
+end, { desc = "Stage hunk" })
+map("n", "ghr", function()
+	require("gitsigns").reset_hunk()
+end, { desc = "Reset hunk" })
 map("v", "ghs", function()
-	gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }, { desc = "Stage hunk" })
+	require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }, { desc = "Stage hunk" })
 end)
 map("v", "ghr", function()
-	gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }, { desc = "Reset hunk" })
+	require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") }, { desc = "Reset hunk" })
 end)
-map("n", "ghS", gitsigns.stage_buffer, { desc = "Stage buffer" })
-map("n", "ghu", gitsigns.undo_stage_hunk, { desc = "Undo stage hunk" })
-map("n", "ghR", gitsigns.reset_buffer, { desc = "Reset buffer" })
-map("n", "ghp", gitsigns.preview_hunk, { desc = "Preview hunk" })
+map("n", "ghS", function()
+	require("gitsigns").stage_buffer()
+end, { desc = "Stage buffer" })
+map("n", "ghu", function()
+	require("gitsigns").undo_stage_hunk()
+end, { desc = "Undo stage hunk" })
+map("n", "ghR", function()
+	require("gitsigns").reset_buffer()
+end, { desc = "Reset buffer" })
+map("n", "ghp", function()
+	require("gitsigns").preview_hunk()
+end, { desc = "Preview hunk" })
 map("n", "ghb", function()
-	gitsigns.blame_line({ full = true }, { desc = "Blame line" })
+	require("gitsigns").blame_line({ full = true }, { desc = "Blame line" })
 end)
-map("n", "gtb", gitsigns.toggle_current_line_blame, { desc = "Toggle current line blame" })
-map("n", "ghd", gitsigns.diffthis, { desc = "Diff this" })
+map("n", "gtb", function()
+	require("gitsigns").toggle_current_line_blame()
+end, { desc = "Toggle current line blame" })
+map("n", "ghd", function()
+	require("gitsigns").diffthis()
+end, { desc = "Diff this" })
 map("n", "ghD", function()
-	gitsigns.diffthis("~")
+	require("gitsigns").diffthis("~")
 end, { desc = "Diff this ~" })
-map("n", "td", gitsigns.toggle_deleted, { desc = "Toggle deleted" })
+map("n", "td", function()
+	require("gitsigns").toggle_deleted()
+end, { desc = "Toggle deleted" })
 
 -- Package Info
 map("n", "<leader>ps", function()
@@ -305,11 +294,8 @@ end, { noremap = true, desc = "Change version package info" })
 
 -- Comment
 map({ "v", "x" }, "/", function()
-	require("Comment.api").toggle.linewise.current(vim.fn.visualmode())
+	require("comment.api").toggle.linewise.current(vim.fn.visualmode())
 end, { desc = "Comment selection" })
-
--- Lazydocker
-map("n", "<leader>dl", "<cmd>LazyDocker<CR>", { desc = "LazyDocker" })
 
 -- Trouble
 map("n", "<leader>fq", "<cmd>TroubleToggle<CR>", { desc = "Trouble" })
@@ -324,7 +310,7 @@ map("n", "<leader>q", "<cmd>DBUIToggle<CR>", { desc = "Dadbod" })
 map("n", "<leader>fs", "<cmd>lua require('spectre').open()<CR>", { desc = "Spectre" })
 
 -- NvimTree
-map("n", "<leader>e", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle NvimTree", noremap = true })
+-- map("n", "<leader>e", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle NvimTree", noremap = true })
 
 -- CodeCompanion
 map("n", "<leader>aa", "<cmd> CodeCompanionChat Toggle <CR>", { desc = "Focus on CodeCompanionChat", noremap = true })
@@ -336,100 +322,15 @@ map("n", "<leader>ad", "<cmd>CodeCompanionChat deepseek<CR>", { desc = "Chat wit
 map("n", "<leader>as", "<cmd>CodeCompanionChat openai<CR>", { desc = "Chat with ollama ", noremap = true })
 
 -- Telescope
-map("n", "<leader>j", "<cmd>Telescope file_browser<CR>", { desc = "File Browser" })
-map("n", "<leader><leader>", "<cmd>Telescope file_browser<CR>", { desc = "File Brower" })
+map("n", "<leader>j", "<cmd>Yazi<CR>", { desc = "File Explorer" })
+map("n", "<leader><leader>", "<cmd>FzfLua files<CR>", { desc = "Find Files" })
 
-map("n", "<leader>fd", "<cmd>Telescope oldfiles<CR>", { desc = "Oldfiles" })
+map("n", "<leader>fd", "<cmd>FzfLua oldfiles<CR>", { desc = "Oldfiles" })
 
-map("n", "<leader>k", "<cmd>Telescope find_buffer<CR>", { desc = "Find Buffer" })
-map("n", "<leader>ff", "<cmd>Telescope live_grep<CR>", { desc = "Live Grep" })
-
-map("n", "<leader>de", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" })
-map("i", "<A-c>", "<cmd> Telescope emoji <CR>", { desc = "Telescope Emoji" })
-map("n", "<leader>[", "<cmd> Telescope notify <CR>", { desc = "Telescope Notify" })
+map("n", "<leader>k", "<cmd>FzfLua buffers<CR>", { desc = "Find Buffer" })
+map("n", "<leader>ff", "<cmd>FzfLua live_grep<CR>", { desc = "Live Grep" })
 map("n", "<leader>f]", "<cmd> TodoTelescope <CR>", { desc = "Todo" })
 -- map("n", "<leader>fp", "<cmd> MarkdownPreviewToggle <CR>", { desc = "Markdown Preview" })
-
-local Plugins = {}
-Plugins.telescope = {
-	i = {
-		["<C-k>"] = require("telescope.actions").move_selection_next,
-		["<C-l>"] = require("telescope.actions").move_selection_previous,
-		["<C-j>"] = require("telescope.actions").select_default,
-
-		["<C-i>"] = require("telescope.actions").file_vsplit,
-		["<C-o>"] = require("telescope.actions").file_split,
-
-		["<C-m>"] = require("telescope.actions").preview_scrolling_down,
-		["<C-n>"] = require("telescope.actions").preview_scrolling_down,
-
-		["<C-q>"] = require("telescope.actions").close,
-
-		-- ["<A-a>"] = require("telescope.actions").toggle_all,
-	},
-
-	n = {
-		["j"] = require("telescope.actions").select_default,
-		["<C-j>"] = require("telescope.actions").select_default,
-
-		["k"] = require("telescope.actions").move_selection_next,
-		["l"] = require("telescope.actions").move_selection_previous,
-		["<C-k>"] = require("telescope.actions").move_selection_next,
-		["<C-l>"] = require("telescope.actions").move_selection_previous,
-
-		["<C-i>"] = require("telescope.actions").file_vsplit,
-		["<C-o>"] = require("telescope.actions").file_split,
-
-		["<C-n>"] = require("telescope.actions").preview_scrolling_up,
-		["<C-m>"] = require("telescope.actions").preview_scrolling_down,
-
-		["q"] = require("telescope.actions").close,
-		["<C-q>"] = require("telescope.actions").close,
-	},
-}
-
-Plugins.file_browser = {
-	["i"] = {
-		["<C-o>"] = fb_actions.open,
-		["<C-e>"] = fb_actions.goto_home_dir,
-		["<C-w>"] = fb_actions.goto_cwd,
-		["<C-t>"] = fb_actions.change_cwd,
-		["<C-h>"] = fb_actions.toggle_hidden,
-		["<A-s>"] = fb_actions.toggle_all,
-		["<bs>"] = fb_actions.backspace,
-
-		["<A-h>"] = fb_actions.goto_cwd,
-		["<C-s>"] = fb_actions.remove,
-		["<C-f>"] = fb_actions.toggle_browser,
-		["<C-c>"] = fb_actions.create,
-		["<S-CR>"] = fb_actions.create_from_prompt,
-		["<C-r>"] = fb_actions.rename,
-		["<C-m>"] = fb_actions.move,
-		["<C-y>"] = fb_actions.copy,
-	},
-	["n"] = {
-		["<C-d>"] = fb_actions.remove,
-		["<C-c>"] = fb_actions.create,
-		["<C-j>"] = fb_actions.open,
-
-		["c"] = fb_actions.create,
-		["a"] = fb_actions.create,
-		["f"] = fb_actions.create,
-		["r"] = fb_actions.rename,
-		["m"] = fb_actions.move,
-		["y"] = fb_actions.copy,
-		["d"] = fb_actions.remove,
-		["o"] = fb_actions.open,
-		["g"] = fb_actions.goto_parent_dir,
-		["e"] = fb_actions.goto_home_dir,
-		["w"] = fb_actions.goto_cwd,
-		["t"] = fb_actions.change_cwd,
-		["b"] = fb_actions.toggle_browser,
-		["h"] = fb_actions.toggle_hidden,
-		["s"] = fb_actions.toggle_all,
-	},
-}
--------------------- EOF --------------------------
 
 -- Vim Visual Multi
 -- vim.cmd([[
@@ -540,5 +441,3 @@ for i = 1, 9, 1 do
 		vim.api.nvim_set_current_buf(vim.t.bufs[i])
 	end)
 end
-
-return Plugins

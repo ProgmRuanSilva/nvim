@@ -76,6 +76,11 @@ return {
 
 	{
 		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
+		main = "nvim-treesitter",
+		build = ":TSUpdate",
+		event = { "BufReadPost", "BufNewFile" },
+		cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
 		opts = {
 			ensure_installed = {
 				"vim",
@@ -88,9 +93,6 @@ return {
 				"bash",
 				"c",
 				"diff",
-				"jsdoc",
-				"json",
-				"jsonc",
 				"luadoc",
 				"luap",
 				"python",
@@ -128,27 +130,6 @@ return {
 				},
 			},
 		},
-	},
-
-	{
-		"nvim-telescope/telescope.nvim",
-		opts = function()
-			require("configs.telescope")
-		end,
-	},
-
-	{
-		"hrsh7th/nvim-cmp",
-		opts = function()
-			require("configs.cmp")
-		end,
-	},
-
-	{
-		"nvim-tree/nvim-tree.lua",
-		opts = function()
-			require("configs.nvimtree")
-		end,
 	},
 
 	{

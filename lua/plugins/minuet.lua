@@ -1,3 +1,4 @@
+--TODO: Copilot companion, bom pra autosuggestion multi-linhas
 return {
 	-- {
 	-- 	"milanglacier/minuet-ai.nvim",

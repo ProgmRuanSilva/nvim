@@ -1,6 +1,7 @@
+-- return {}
 return {
 	"declancm/cinnamon.nvim",
-	event = { "VimEnter" },
+	event = { "VeryLazy" },
 	config = function()
 		require("cinnamon").setup({
 			keymaps = {
