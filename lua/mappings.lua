@@ -3,30 +3,6 @@ local utils = require("utils")
 local map = vim.keymap.set
 
 -- 🚧 Test Area 🚧
-map({ "n", "v" }, "<C-q>", "<cmd> noh <cr>", { desc = "Clear highlight" })
-map({ "n", "v", "i" }, "<C-q>", "<Esc>", { desc = "Exit from visual mode", noremap = true })
-map("n", "vj", "viw", { desc = "Select word" })
-
--- Normal Mode
-map({ "n", "v" }, "fk", function()
-	require("hop").hint_words()
-end, { desc = "Hop Word" })
-
-map({ "n", "v" }, "fj", function()
-	require("hop").hint_lines()
-end, { desc = "Hop Anywhere" })
-
-map({ "n", "v" }, "fl", function()
-	require("hop").hint_anywhere()
-end, { desc = "Hop Anywhere" })
-
-map({ "n", "v" }, "f;", function()
-	require("hop").hint_anywhere({ current_line_only = true })
-end, { desc = "Hop Line" })
-
-map({ "n", "v" }, "fn", function()
-	require("hop").hint_vertical()
-end, { desc = "Hop Vertical" })
 
 -- Navigation
 map("i", "<C-k>", "<Up>", { desc = "Up" })
@@ -45,10 +21,6 @@ map("n", "<C-w>", "db", { noremap = true })
 map({ "i", "v", "n" }, "<C-s>", "<C-Right>", { desc = "Next word", silent = true, noremap = true })
 map({ "i", "v", "n" }, "<C-a>", "<C-Left>", { desc = "Previous word", silent = true, noremap = true })
 
---WARN: We remaped The control + backspace to be ctrol + w in kitty.conf
-map("i", "<C-w>", "<C-o>db", { noremap = true })
-
--- map("i", "<A-;>", ":", { desc = "Colon" })
 map("i", "<C-/>", "?", { desc = "Question", noremap = true })
 map("i", "<C-->", "_", { desc = "Underscore", noremap = true })
 map("i", "<C-=>", "=", { desc = "Equal", noremap = true })
@@ -66,7 +38,6 @@ map("i", "<C-'>", "v:lua.MiniPairs.open('\"\"')", { expr = true, noremap = true,
 -- Deletes
 map({ "n", "v" }, "<C-q>j", "<cmd> noh <cr>", { desc = "Clear highlight" })
 map("i", "<C-f>", "<C-o>$", { desc = "End of line" })
--- map("i", "<C-w>", "<C-o>dw", { desc = "Delete next word" })
 map("n", "ds", "dw", { desc = "Delete next word" })
 map("n", "da", "db", { desc = "Delete previews word" })
 map("n", "dj", "diw", { desc = "Delete current word" })
@@ -87,11 +58,9 @@ map({ "n", "v" }, ";", function()
 	require("which-key").show("'", { mode = "n", auto = true })
 end, { desc = "show marks" })
 map("n", ";;", "<C-o>", { desc = "Toggle between jumps", silent = true })
--- map("n", "<A-;>", "<C-i>", { desc = "Toggle between jumps", silent = true })
 
 -- Folds
 map("n", "fs", "za", { desc = "Toggle fold" })
-map("n", "<C-j>", "za", { desc = "Toggle fold" })
 map("n", "fo", "zA", { desc = "Toggle all folds" })
 map("n", "fO", "<cmd>lua require('ufo').openAllFolds()<CR>", { desc = "Open all folds" })
 map("n", "fc", "<cmd>lua require('ufo').closeAllFolds()<CR>", { desc = "Close all folds" })
@@ -104,13 +73,15 @@ map("c", "<C-f>", "<Right>", { desc = "Right" })
 map("c", "<C-b>", "<Home>", { desc = "Start of line" })
 map("c", "<C-c>", "<End>", { desc = "End of line" })
 map("c", "<C-s>", "<Del>", { desc = "Delete" })
--- map("c", "<C-BS>", "<C-BS>", { desc = "Delete" })
 map("c", "<C-j>", "<Enter>", { desc = "Enter" })
 map("c", "<C-a>", "<C-b>", { desc = "Next word" })
 map("c", "<C-f>", "<C-f>", { desc = "Previous word" })
 
 -- Visual
+map("n", "vj", "viw", { desc = "Select word" })
 map("n", "vv", "<S-v>", { desc = "Select all line" })
+map({ "n", "v", "i" }, "<C-q>", "<Esc>", { desc = "Exit from visual mode", noremap = true })
+map({ "n", "v" }, "<C-q>", "<cmd> noh <cr>", { desc = "Clear highlight" })
 
 -- Configurations
 map("n", "<leader>cm", "<cmd> Mason <CR>", { desc = "Mason" })
@@ -124,72 +95,76 @@ map("n", "<leader>s", "<cmd>up<CR>", { desc = "Save", silent = true })
 
 -- Pastes
 map({ "n", "v" }, "<C-v>", '"0p', { desc = "Paste the current clipboard" })
--- map({ "n", "v" }, "p", "p", { desc = "Paste the last deleted text" })
 
 -- Quit's
 map("n", "qq", "<cmd>q!<CR>", { desc = "Force quit" })
 map("n", "qj", "<cmd>close<CR>", { desc = "Close a split" })
 map("n", "qk", "<cmd>bd %<CR>", { desc = "Close buffer" })
-map("n", "qx", "<cmd>tabclose %<cr>", { desc = "Close buffer" })
-map("n", "<leader>u", "<cmd>q!<CR>", { desc = "Force quit" })
-map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
-
--- Buffer
--- map("n", "<A-m>", "<cmd>bnext<CR>", { desc = "Next Tab" })
--- map("n", "<A-n>", "<cmd>bprev<CR>", { desc = "Next Tab" })
-
--- Tabs
--- map("n", "<C-a>", "<cmd>tabnext<cr>", { desc = "Next tab" })
--- map("n", "<leader>n", "<cmd>tabnew<cr>", { desc = "Create a new tab" })
-map("n", "<leader>t", "<cmd>Telescope projects projects<cr>", { desc = "Close tab" })
 
 -- Splits
 map("n", "<leader>i", "<cmd>vsplit<CR>", { desc = "Split vertical" })
 
-map("n", ">>", "<cmd>BufferLineMoveNext<CR>", { desc = "Move Buffer Right" })
-
-map("n", "<<", "<cmd>BufferLineMovePrev<CR>", { desc = "Move Buffer Left" })
-
 -- Lsp
-map(
-	"n",
-	"gpd",
-	"<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
-	{ noremap = true, desc = "Goto Definition" }
-)
-map(
-	"n",
-	"gpD",
-	"<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
-	{ noremap = true, desc = "Goto Type Definition" }
-)
-map(
-	"n",
-	"gpi",
-	"<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
-	{ noremap = true, desc = "Goto Implementation" }
-)
-map(
-	"n",
-	"gpk",
-	"<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
-	{ noremap = true, desc = "Goto Declaration" }
-)
-map(
-	"n",
-	"gpg",
-	"<cmd>lua require('goto-preview').close_all_win()<CR>",
-	{ noremap = true, desc = "Close all preview windows" }
-)
-map(
-	"n",
-	"gr",
-	"<cmd>lua require('goto-preview').goto_preview_references()<CR>",
-	{ noremap = true, desc = "Goto References" }
-)
+--map(
+--	"n",
+--	"gpd",
+--	"<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
+--	{ noremap = true, desc = "Goto Definition" }
+--)
+--map(
+--	"n",
+--"gpD",
+--"<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
+--{ noremap = true, desc = "Goto Type Definition" }
+--)
+--map(
+--	"n",
+--	"gpi",
+--	"<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+--	{ noremap = true, desc = "Goto Implementation" }
+--)
+--map(
+--	"n",
+--	"gpk",
+--	"<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
+--	{ noremap = true, desc = "Goto Declaration" }
+--)
+--map(
+--	"n",
+--	"gpg",
+--	"<cmd>lua require('goto-preview').close_all_win()<CR>",
+--	{ noremap = true, desc = "Close all preview windows" }
+--)
+--map(
+--	"n",
+--	"gr",
+--	"<cmd>lua require('goto-preview').goto_preview_references()<CR>",
+--	{ noremap = true, desc = "Goto References" }
+--)
 map("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, desc = "Lsp code actions" })
 
 ---------------------- Plugins -----------------------------
+
+-- Neohop
+map({ "n", "v" }, "fk", function()
+	require("hop").hint_words()
+end, { desc = "Hop Word" })
+
+map({ "n", "v" }, "fj", function()
+	require("hop").hint_lines()
+end, { desc = "Hop Anywhere" })
+
+map({ "n", "v" }, "fl", function()
+	require("hop").hint_anywhere()
+end, { desc = "Hop Anywhere" })
+
+map({ "n", "v" }, "fn", function()
+	require("hop").hint_vertical()
+end, { desc = "Hop Vertical" })
+
+map({ "n", "v" }, "f;", function()
+	require("hop").hint_anywhere({ current_line_only = true })
+end, { desc = "Hop Line" })
 
 -- Cinnamon
 map({ "n", "x" }, "<C-d>", function()
@@ -216,12 +191,6 @@ map("n", "fe", function()
 	require("cinnamon").scroll("zb")
 end, { desc = "Move Cursor to Bottom" })
 
--- Git
-map("n", "gF", "<cmd>GitBlameToggle<CR>", { desc = "Git Blame" })
-
--- Lazygit
-map("n", "<leader>gd", "<cmd> LazyGit <CR>", { desc = "Lazygit" })
-
 -- GitSigns
 map("n", "ghs", function()
 	require("gitsigns").stage_hunk()
@@ -229,39 +198,24 @@ end, { desc = "Stage hunk" })
 map("n", "ghr", function()
 	require("gitsigns").reset_hunk()
 end, { desc = "Reset hunk" })
+map("n", "ghS", function()
+	require("gitsigns").stage_buffer()
+end, { desc = "Stage buffer" })
+map("n", "ghp", function()
+	require("gitsigns").preview_hunk()
+end, { desc = "Preview hunk" })
+map("n", "ghu", function()
+	require("gitsigns").undo_stage_hunk()
+end, { desc = "Undo stage hunk" })
+map("n", "ghb", function()
+	require("gitsigns").blame_line({ full = true }, { desc = "Blame line" })
+end)
 map("v", "ghs", function()
 	require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }, { desc = "Stage hunk" })
 end)
 map("v", "ghr", function()
 	require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") }, { desc = "Reset hunk" })
 end)
-map("n", "ghS", function()
-	require("gitsigns").stage_buffer()
-end, { desc = "Stage buffer" })
-map("n", "ghu", function()
-	require("gitsigns").undo_stage_hunk()
-end, { desc = "Undo stage hunk" })
-map("n", "ghR", function()
-	require("gitsigns").reset_buffer()
-end, { desc = "Reset buffer" })
-map("n", "ghp", function()
-	require("gitsigns").preview_hunk()
-end, { desc = "Preview hunk" })
-map("n", "ghb", function()
-	require("gitsigns").blame_line({ full = true }, { desc = "Blame line" })
-end)
-map("n", "gtb", function()
-	require("gitsigns").toggle_current_line_blame()
-end, { desc = "Toggle current line blame" })
-map("n", "ghd", function()
-	require("gitsigns").diffthis()
-end, { desc = "Diff this" })
-map("n", "ghD", function()
-	require("gitsigns").diffthis("~")
-end, { desc = "Diff this ~" })
-map("n", "td", function()
-	require("gitsigns").toggle_deleted()
-end, { desc = "Toggle deleted" })
 
 -- Package Info
 map("n", "<leader>ps", function()
@@ -293,35 +247,27 @@ map("n", "<leader>pv", function()
 end, { noremap = true, desc = "Change version package info" })
 
 -- Comment
-map({ "v", "x" }, "/", function()
-	require("comment.api").toggle.linewise.current(vim.fn.visualmode())
-end, { desc = "Comment selection" })
+map("v", "/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", { desc = "Comment selection" })
+
+-- Git
+map("n", "gF", "<cmd>GitBlameToggle<CR>", { desc = "Git Blame" })
+
+-- Lazygit
+map("n", "<leader>gd", "<cmd> LazyGit <CR>", { desc = "Lazygit" })
 
 -- Trouble
 map("n", "<leader>fq", "<cmd>TroubleToggle<CR>", { desc = "Trouble" })
 
--- UndoTree
-map("n", "<A-U>", "<cmd> UndotreeToggle <CR>", { desc = "UndoTree" })
+-- Noice
+map("n", "<leader>[", "<cmd>Noice<CR>", { desc = "Noice Notification" })
 
--- Dadbod
-map("n", "<leader>q", "<cmd>DBUIToggle<CR>", { desc = "Dadbod" })
+-- UndoTree
+map("n", "<leader>u", "<cmd> UndotreeToggle <CR>", { desc = "UndoTree" })
 
 -- Spectre
 map("n", "<leader>fs", "<cmd>lua require('spectre').open()<CR>", { desc = "Spectre" })
 
--- NvimTree
--- map("n", "<leader>e", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle NvimTree", noremap = true })
-
--- CodeCompanion
-map("n", "<leader>aa", "<cmd> CodeCompanionChat Toggle <CR>", { desc = "Focus on CodeCompanionChat", noremap = true })
-map({ "n", "v" }, "<leader>af", "<cmd>CodeCompanionActions<CR>", { desc = "CodeCompanion Actions", noremap = true }) -- This can't be used on the insertion mode because of the <leader> key delay
-
-map("i", "<A-c>", "<cmd> CodeCompanionActions<CR>", { desc = "Focus on CodeCompanionChat", noremap = true })
-
-map("n", "<leader>ad", "<cmd>CodeCompanionChat deepseek<CR>", { desc = "Chat with deepseek ", noremap = true })
-map("n", "<leader>as", "<cmd>CodeCompanionChat openai<CR>", { desc = "Chat with ollama ", noremap = true })
-
--- Telescope
+-- FzF
 map("n", "<leader>j", "<cmd>Yazi<CR>", { desc = "File Explorer" })
 map("n", "<leader><leader>", "<cmd>FzfLua files<CR>", { desc = "Find Files" })
 
@@ -330,7 +276,6 @@ map("n", "<leader>fd", "<cmd>FzfLua oldfiles<CR>", { desc = "Oldfiles" })
 map("n", "<leader>k", "<cmd>FzfLua buffers<CR>", { desc = "Find Buffer" })
 map("n", "<leader>ff", "<cmd>FzfLua live_grep<CR>", { desc = "Live Grep" })
 map("n", "<leader>f]", "<cmd> TodoTelescope <CR>", { desc = "Todo" })
--- map("n", "<leader>fp", "<cmd> MarkdownPreviewToggle <CR>", { desc = "Markdown Preview" })
 
 -- Vim Visual Multi
 -- vim.cmd([[
@@ -415,6 +360,9 @@ map("n", "<leader>f]", "<cmd> TodoTelescope <CR>", { desc = "Todo" })
 --
 -- ]])
 
+--WARN: We remaped The control + backspace to be ctrol + w in kitty.conf
+map("i", "<C-w>", "<C-o>db", { noremap = true })
+
 -- Tmux Navigation
 vim.api.nvim_set_keymap(
 	"n",
@@ -438,6 +386,16 @@ vim.api.nvim_set_keymap(
 -- Change between buffers with numbers
 for i = 1, 9, 1 do
 	map("n", string.format("%s", i), function()
-		vim.api.nvim_set_current_buf(vim.t.bufs[i])
-	end)
+		local status, bufferline = pcall(require, "bufferline")
+		if status then
+			pcall(function()
+				bufferline.go_to(i, true)
+			end)
+		else
+			local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+			if bufs[i] then
+				pcall(vim.api.nvim_set_current_buf, bufs[i].bufnr)
+			end
+		end
+	end, { desc = "Go to buffer " .. i })
 end

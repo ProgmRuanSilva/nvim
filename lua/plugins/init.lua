@@ -2,17 +2,98 @@ return {
 	{
 		"stevearc/conform.nvim",
 		event = "BufWritePre", -- uncomment for format on save
+		opts = {
+			formatters_by_ft = {
+				javascript = { "prettier" },
+				typescript = { "prettier" },
+				javascriptreact = { "prettier" },
+				typescriptreact = { "prettier" },
+				svelte = { "prettier" },
+				css = { "prettier" },
+				html = { "prettier" },
+				json = { "prettier" },
+				yaml = { "prettier" },
+				markdown = { "prettier" },
+				graphql = { "prettier" },
+				lua = { "stylua" },
+				python = { "isort", "black" },
+				sh = { "bashls" },
+				zsh = { "bashls" },
+				bash = { "bashls" },
+				ruby = { "solargraph" },
+				erb = { "erb_formatter" },
+				eruby = { "erb_formatter" },
+				crystal = { "crystal " },
+				kotlin = { "ktlint" },
+			},
+			formatters = {
+				ktlint = {
+					command = "ktlint",
+					args = { "--format", "gradle", "$FILENAME" },
+					stdin = false,
+				},
+				crystal = {
+					command = "crystal",
+					args = { "tool", "format", "$FILENAME" },
+					stdin = false,
+				},
+			},
+			format_on_save = {
+				lsp_fallback = true,
+				async = false,
+				timeout_ms = 500,
+			},
+		},
+	},
+
+	{
+		"neovim/nvim-lspconfig",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = { "saghen/blink.cmp" },
 		config = function()
-			require("configs.conform")
+			local servers = {
+				"html",
+				"cssls",
+				"ts_ls",
+				"bashls",
+				"jsonls",
+				"eslint",
+				"pyright",
+				"kotlin_language_server",
+			}
+
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
+
+			for _, server in ipairs(servers) do
+				vim.lsp.config(server, {
+					capabilities = capabilities,
+				})
+				vim.lsp.enable(server)
+			end
 		end,
 	},
 
-	-- These are some examples, uncomment them if you want to see them work!
 	{
-		"neovim/nvim-lspconfig",
+		"mfussenegger/nvim-lint",
+		event = {
+			"BufReadPre",
+			"BufNewFile",
+		},
+		dependencies = {
+			"mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+		},
 		config = function()
-			require("nvchad.configs.lspconfig").defaults()
-			require("configs.lspconfig")
+			local lint = require("lint")
+			lint.linters_by_ft = {
+				javascript = { "eslint_d" },
+				typescript = { "eslint_d" },
+				javascriptreact = { "eslint_d" },
+				typescriptreact = { "eslint_d" },
+				svelte = { "eslint_d" },
+				python = { "pylint" },
+				ruby = { "erb_lint" },
+			}
 		end,
 	},
 
@@ -76,8 +157,9 @@ return {
 
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
 		lazy = false,
-		main = "nvim-treesitter",
+		main = "nvim-treesitter.configs",
 		build = ":TSUpdate",
 		event = { "BufReadPost", "BufNewFile" },
 		cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
@@ -104,6 +186,7 @@ return {
 				"javascript",
 				"typescript",
 				"tsx",
+				"kotlin",
 			},
 
 			auto_install = true,
@@ -114,7 +197,7 @@ return {
 
 			highlight = {
 				enable = true,
-				use_languagetree = true,
+				disable = { "markdown", "markdown_inline", "vimdoc" },
 			},
 
 			indent = { enable = true },
@@ -135,13 +218,10 @@ return {
 	{
 		"numToStr/Comment.nvim",
 		opts = function(_, opts)
-			local ft = vim.bo.filetype
-			if ft == "typescript" or ft == "typescriptreact" or ft == "javascript" or ft == "javascriptreact" then
-				require("Comment").setup({
-					pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-				})
+			local status_ok, ts_context_commentstring = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
+			if status_ok then
+				opts.pre_hook = ts_context_commentstring.create_pre_hook()
 			end
-			require("Comment").setup(opts)
 		end,
 	},
 }
