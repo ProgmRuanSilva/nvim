@@ -48,6 +48,7 @@ map("n", ",", "o<C-c>", { desc = "Create new line" })
 map("n", ".", "<S-o><C-c>", { desc = "Create new line" })
 map("n", "<C-c>", "A", { desc = "Insert in the end of line" })
 map("n", "<C-b>", "<S-v>yp", { desc = "Copy line below" })
+map("n", "Q", "<C-v>", { noremap = true, desc = "Enter in Visual Block mode" })
 map({ "n", "v" }, "ff", function()
 	utils.move_cursor()
 end, { desc = "Move cursor on the line" })
@@ -105,42 +106,46 @@ map("n", "qk", "<cmd>bd %<CR>", { desc = "Close buffer" })
 map("n", "<leader>i", "<cmd>vsplit<CR>", { desc = "Split vertical" })
 
 -- Lsp
---map(
---	"n",
---	"gpd",
---	"<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
---	{ noremap = true, desc = "Goto Definition" }
---)
---map(
---	"n",
---"gpD",
---"<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
---{ noremap = true, desc = "Goto Type Definition" }
---)
---map(
---	"n",
---	"gpi",
---	"<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
---	{ noremap = true, desc = "Goto Implementation" }
---)
---map(
---	"n",
---	"gpk",
---	"<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
---	{ noremap = true, desc = "Goto Declaration" }
---)
---map(
---	"n",
---	"gpg",
---	"<cmd>lua require('goto-preview').close_all_win()<CR>",
---	{ noremap = true, desc = "Close all preview windows" }
---)
---map(
---	"n",
---	"gr",
---	"<cmd>lua require('goto-preview').goto_preview_references()<CR>",
---	{ noremap = true, desc = "Goto References" }
---)
+map("n", "<C-t>", function()
+	require("menu").open("default")
+end, {})
+
+map(
+	"n",
+	"ghd",
+	"<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
+	{ noremap = true, desc = "Goto Definition" }
+)
+map(
+	"n",
+	"ghD",
+	"<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
+	{ noremap = true, desc = "Goto Type Definition" }
+)
+map(
+	"n",
+	"ghi",
+	"<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+	{ noremap = true, desc = "Goto Implementation" }
+)
+map(
+	"n",
+	"ghk",
+	"<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
+	{ noremap = true, desc = "Goto Declaration" }
+)
+map(
+	"n",
+	"ghg",
+	"<cmd>lua require('goto-preview').close_all_win()<CR>",
+	{ noremap = true, desc = "Close all preview windows" }
+)
+map(
+	"n",
+	"ghr",
+	"<cmd>lua require('goto-preview').goto_preview_references()<CR>",
+	{ noremap = true, desc = "Goto References" }
+)
 map("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, desc = "Lsp code actions" })
 
 ---------------------- Plugins -----------------------------
@@ -191,32 +196,6 @@ map("n", "fe", function()
 	require("cinnamon").scroll("zb")
 end, { desc = "Move Cursor to Bottom" })
 
--- GitSigns
-map("n", "ghs", function()
-	require("gitsigns").stage_hunk()
-end, { desc = "Stage hunk" })
-map("n", "ghr", function()
-	require("gitsigns").reset_hunk()
-end, { desc = "Reset hunk" })
-map("n", "ghS", function()
-	require("gitsigns").stage_buffer()
-end, { desc = "Stage buffer" })
-map("n", "ghp", function()
-	require("gitsigns").preview_hunk()
-end, { desc = "Preview hunk" })
-map("n", "ghu", function()
-	require("gitsigns").undo_stage_hunk()
-end, { desc = "Undo stage hunk" })
-map("n", "ghb", function()
-	require("gitsigns").blame_line({ full = true }, { desc = "Blame line" })
-end)
-map("v", "ghs", function()
-	require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }, { desc = "Stage hunk" })
-end)
-map("v", "ghr", function()
-	require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") }, { desc = "Reset hunk" })
-end)
-
 -- Package Info
 map("n", "<leader>ps", function()
 	return require("package-info").show()
@@ -247,7 +226,13 @@ map("n", "<leader>pv", function()
 end, { noremap = true, desc = "Change version package info" })
 
 -- Comment
-map("v", "/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", { desc = "Comment selection" })
+map(
+	"v",
+	"/",
+	"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+	{ desc = "Comment selection" }
+)
+map("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", { desc = "Comment line" })
 
 -- Git
 map("n", "gF", "<cmd>GitBlameToggle<CR>", { desc = "Git Blame" })
@@ -271,7 +256,7 @@ map("n", "<leader>fs", "<cmd>lua require('spectre').open()<CR>", { desc = "Spect
 map("n", "<leader>j", "<cmd>Yazi<CR>", { desc = "File Explorer" })
 map("n", "<leader><leader>", "<cmd>FzfLua files<CR>", { desc = "Find Files" })
 
-map("n", "<leader>fd", "<cmd>FzfLua oldfiles<CR>", { desc = "Oldfiles" })
+map("n", "<leader>fo", "<cmd>FzfLua oldfiles<CR>", { desc = "Oldfiles" })
 
 map("n", "<leader>k", "<cmd>FzfLua buffers<CR>", { desc = "Find Buffer" })
 map("n", "<leader>ff", "<cmd>FzfLua live_grep<CR>", { desc = "Live Grep" })

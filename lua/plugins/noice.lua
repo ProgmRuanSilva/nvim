@@ -148,6 +148,12 @@ return {
 				},
 				opts = { skip = true },
 			},
+			{
+				filter = {
+					find = "position_encoding param is required",
+				},
+				opts = { skip = true },
+			},
 		},
 
 		cmdline = {
@@ -216,10 +222,10 @@ return {
 			},
 		},
 		markdown = {
-			-- hover = {
-			-- 	["|(%S-)|"] = vim.cmd.help, -- vim help links
-			-- 	["%[.-%]%((%S-)%)"] = require("noice.util").open, -- markdown links
-			-- },
+			hover = {
+				["|(%S-)|"] = vim.cmd.help, -- vim help links
+				["%[.-%]%((%S-)%)"] = require("noice.util").open, -- markdown links
+			},
 			highlights = {
 				["|%S-|"] = "@text.reference",
 				["@%S+"] = "@parameter",

@@ -1,11 +1,12 @@
 return {
 	{
 		"stevearc/conform.nvim",
-		event = "BufWritePre", -- uncomment for format on save
+		event = "BufWritePre",
 		opts = {
 			formatters_by_ft = {
 				javascript = { "prettier" },
-				typescript = { "prettier" },
+				-- typescript = { "prettier" },
+				typescript = { "biome" },
 				javascriptreact = { "prettier" },
 				typescriptreact = { "prettier" },
 				svelte = { "prettier" },
@@ -159,12 +160,16 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",
 		lazy = false,
-		main = "nvim-treesitter.configs",
 		build = ":TSUpdate",
 		event = { "BufReadPost", "BufNewFile" },
 		cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
-		opts = {
-			ensure_installed = {
+		config = function()
+			require("nvim-treesitter").setup({
+				-- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
+				install_dir = vim.fn.stdpath("data") .. "/site",
+			})
+
+			local ensure_installed = {
 				"vim",
 				"lua",
 				"html",
@@ -173,7 +178,6 @@ return {
 				"markdown",
 				"markdown_inline",
 				"bash",
-				"c",
 				"diff",
 				"luadoc",
 				"luap",
@@ -187,38 +191,41 @@ return {
 				"typescript",
 				"tsx",
 				"kotlin",
-			},
+				"tmux",
+			}
+			local task = require("nvim-treesitter").install(ensure_installed)
+			if task then
+				task:wait(120000)
+			end
 
-			auto_install = true,
-
-			sync_install = false,
-
-			additional_vim_regex_highlighting = false,
-
-			highlight = {
-				enable = true,
-				disable = { "markdown", "markdown_inline", "vimdoc" },
-			},
-
-			indent = { enable = true },
-
-			incremental_selection = {
-				enable = false,
-				keymaps = {
-					init_selection = "gnn",
-					node_incremental = "grn",
-					-- node_incremental = "<C-space>",
-					scope_incremental = false,
-					node_decremental = "<bs>",
-				},
-			},
-		},
+			-- Enable syntax highlighting, folding and indentation
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "*",
+				callback = function(args)
+					local disabled_fts = { "markdown", "markdown_inline", "vimdoc" }
+					local ft = vim.bo[args.buf].filetype
+					if not vim.tbl_contains(disabled_fts, ft) then
+						pcall(vim.treesitter.start, args.buf)
+					end
+					-- Indent
+					vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					-- Folds
+					vim.api.nvim_set_option_value(
+						"foldexpr",
+						"v:lua.vim.treesitter.foldexpr()",
+						{ scope = "local", win = 0 }
+					)
+					vim.api.nvim_set_option_value("foldmethod", "expr", { scope = "local", win = 0 })
+				end,
+			})
+		end,
 	},
 
 	{
 		"numToStr/Comment.nvim",
 		opts = function(_, opts)
-			local status_ok, ts_context_commentstring = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
+			local status_ok, ts_context_commentstring =
+				pcall(require, "ts_context_commentstring.integrations.comment_nvim")
 			if status_ok then
 				opts.pre_hook = ts_context_commentstring.create_pre_hook()
 			end

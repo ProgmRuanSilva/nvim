@@ -60,9 +60,9 @@ return {
 			-- Whether to disable showing non-error feedback
 			silent = false,
 
-			custom_textobjects = {
-				f = ts_input({ outer = "@call.outer", inner = "@call.inner" }),
-			},
+			-- custom_textobjects = {
+			-- 	f = ts_input({ outer = "@call.outer", inner = "@call.inner" }),
+			-- },
 		})
 	end,
 }

@@ -10,6 +10,8 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+vim.g.base46_cache = vim.fn.stdpath("data") .. "/base46_cache/"
+
 require("options")
 -- load plugins
 require("lazy").setup({

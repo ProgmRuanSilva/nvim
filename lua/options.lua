@@ -11,11 +11,9 @@ vim.o.timeoutlen = 300
 vim.o.clipboard = "unnamedplus"
 vim.o.splitbelow = true
 vim.o.splitright = true
-
-local o = vim.o
-o.cursorlineopt = "both" -- to enable cursorline!
-o.number = false
-o.foldlevel = 99
-o.foldlevelstart = 99
-o.foldenable = true
-o.guicursor = "n-v-c-sm:block,ci-ve:ver25,r-cr-o:hor20,i:block-blinkwait700-blinkoff400-blinkon10-Cursor/lCursor"
+vim.o.cursorlineopt = "both" -- to enable cursorline!
+vim.o.number = false
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.guicursor = "n-v-c-sm:block,ci-ve:ver25,r-cr-o:hor20,i:block-blinkwait700-blinkoff400-blinkon10-Cursor/lCursor"
