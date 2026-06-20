@@ -77,6 +77,7 @@ map("c", "<C-s>", "<Del>", { desc = "Delete" })
 map("c", "<C-j>", "<Enter>", { desc = "Enter" })
 map("c", "<C-a>", "<C-b>", { desc = "Next word" })
 map("c", "<C-f>", "<C-f>", { desc = "Previous word" })
+map("c", "<C-q>", "<Esc>", { desc = "Exit" })
 
 -- Visual
 map("n", "vj", "viw", { desc = "Select word" })
